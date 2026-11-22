@@ -34,6 +34,7 @@ const statuses = Object.keys(V.contentStatuses) as (keyof typeof V.contentStatus
         <li><a href="#metodo">Critérios e verificação</a></li>
         <li><a href="#estados">Estados de verificação</a></li>
         <li><a href="#imagens">Imagens</a></li>
+        <li><a href="#descricao">Descrição e preservação</a></li>
         <li><a href="#linguagem">Linguagem e cuidado</a></li>
         <li><a href="#pendentes">Pendentes e fora do catálogo</a></li>
         <li><a href="#limitacoes">Limitações</a></li>
@@ -135,6 +136,16 @@ const statuses = Object.keys(V.contentStatuses) as (keyof typeof V.contentStatus
         <li>As imagens aparecem inteiras, na proporção original, sem recorte e sem ampliação além do tamanho publicado pela fonte.</li>
         <li>O texto alternativo vem da fonte quando existe. Quando é escrito pela curadoria, descreve só o que é visível e é marcado assim.</li>
         <li>Sem imagem autorizada, o registro mostra uma prancha tipográfica com o título da amostra e o motivo da ausência. Não há capa inventada, miniatura sintética nem imagem gerada por IA.</li>
+      </ul>
+    </section>
+
+    <section id="descricao" aria-labelledby="h-descricao">
+      <h2 id="h-descricao">Descrição e preservação</h2>
+      <ul>
+        <li>Cada amostra diz em que nível de descrição está, nos termos da norma arquivística ISAD(G): item, dossiê, série ou fundo, ou uma página que reúne vários itens. O registro indica se o nível foi declarado pela fonte ou atribuído pela curadoria.</li>
+        <li>Preservamos o catálogo, não os acervos descritos: fichas em texto aberto, histórico de mudanças, identificadores que nunca são reutilizados e exportação em Dublin Core. As imagens guardadas têm checksum conferido a cada mudança.</li>
+        <li>Quando uma ficha cita pessoas, usamos só o que a própria iniciativa tornou público e só o necessário para descrever o acervo. Correções e pedidos de remoção podem ser feitos pelo canal público indicado em cada registro.</li>
+        <li>O registro das referências usadas (NDSA Levels, DPC RAM, ISAD(G), Dublin Core) e da autoavaliação está no repositório, em <code>docs/PRESERVACAO.md</code>.</li>
       </ul>
     </section>
 

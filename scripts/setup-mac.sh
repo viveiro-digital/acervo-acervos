@@ -76,7 +76,14 @@ for m in "${MEDIA[@]}"; do
       -o "src/assets/acervos/$file" "$url" && echo "baixado: $file  ($page)" || echo "FALHOU: $url"
   fi
 done
-(cd src/assets/acervos && shasum -a 256 *.jpg > SHA256SUMS 2>/dev/null; cat SHA256SUMS)
+# Fixidez: se já há checksums registrados, CONFERE (não regenera, para não
+# aceitar em silêncio um arquivo alterado). Arquivo novo: rode `pnpm register`
+# e revise o MANIFESTO.csv antes de commitar (docs/PRESERVACAO.md).
+if [ -f src/assets/acervos/SHA256SUMS ]; then
+  (cd src/assets/acervos && shasum -a 256 -c SHA256SUMS) || echo "ATENÇÃO: checksum não confere; não substitua o SHA256SUMS sem investigar."
+else
+  pnpm register
+fi
 
 {
   echo

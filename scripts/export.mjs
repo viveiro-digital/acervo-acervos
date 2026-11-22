@@ -6,6 +6,13 @@ import { join } from 'node:path';
 import { createHash } from 'node:crypto';
 import { YAML } from './_yaml.mjs';
 
+// rótulos legíveis para dcterms:accessRights (espelha src/data/vocabulario.ts)
+const ACCESS = {
+  'abre-direto': 'Abre direto', 'exige-cadastro': 'Exige cadastro', 'acesso-parcial': 'Acesso parcial',
+  'so-metadados': 'Só metadados', 'player-externo': 'Requer player externo', restrito: 'Restrito',
+  'midia-quebrada': 'Mídia quebrada', 'nao-validado': 'Ainda não validado',
+};
+
 const DIR = 'src/content/acervos';
 const records = readdirSync(DIR)
   .filter((f) => f.endsWith('.yaml'))
@@ -70,7 +77,7 @@ const dc = records
     'dcterms:language': r.languages,
     'dcterms:subject': uniq([...(r.themes ?? []), ...(r.themes_original ?? [])]),
     'dcterms:rights': r.rights_and_reuse?.statement,
-    'dcterms:accessRights': r.access_level,
+    'dcterms:accessRights': [ACCESS[r.access_level] ?? r.access_level, r.access_requirements].filter(Boolean).join('. ') || undefined,
     'dcterms:provenance': r.provenance_note,
     // Metadados sobre a nossa ficha (não sobre o acervo).
     ficha: {

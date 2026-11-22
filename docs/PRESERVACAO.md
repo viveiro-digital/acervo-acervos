@@ -109,7 +109,10 @@ Nosso fluxo para cada imagem:
 1. Conferir a licença na página da fonte e registrar `license_or_permission`,
    `license_url` e `rights_checked_at` na ficha.
 2. Baixar pela URL direta (`scripts/setup-mac.sh`) para `src/assets/acervos/`,
-   com nome na convenção abaixo. Registrar `retrieved_at`.
+   com nome na convenção abaixo. Registrar `retrieved_at` (data local de
+   quem baixou; as duas imagens atuais foram obtidas em 21/11/2026, horário
+   de Belém). O script não baixa de novo um arquivo que já existe e, quando
+   há `SHA256SUMS`, confere os checksums em vez de regerá-los.
 3. Se a fonte publicar checksum, anotá-lo em `source_checksum` e conferir.
 4. `pnpm register` gera `MANIFESTO.csv` e `SHA256SUMS`, identificando formato e
    versão pela assinatura (JFIF 1.01 → PRONOM `fmt/43`). Para formatos que o
