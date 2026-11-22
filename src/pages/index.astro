@@ -1,11 +1,8 @@
 ---
 import { sitePath } from '../lib/site-path';
 import Base from '../layouts/Base.astro';
-import { Image } from 'astro:assets';
-import cascaPoster from '../assets/acervos/casca-7647.jpg';
 import { siteConfig } from '../site.config';
-import * as V from '../data/vocabulario';
-import { collectionViews } from '../data/collection-views';
+import collectionPreviews from '../data/collection-previews.json';
 import {
   getPublished,
   recordPath,
@@ -22,19 +19,8 @@ const shortNames: Record<string, string> = {
   irohin: 'Ìrohìn',
 };
 
-const compositions: Record<string, string> = {
-  'biblioteca-de-zines': 'bindings',
-  casca: 'bindings',
-  irohin: 'documents',
-  'archivo-memoria-trans': 'documents',
-  'museu-kuahi': 'objects',
-  'cartel-mexico': 'bindings',
-  'xingu-entangled': 'network',
-  'tipomap-latam': 'type',
-  'mexico-disena': 'bindings',
-  'grafica-latina': 'bindings',
-  'acervo-da-laje': 'objects',
-};
+const previews: Partial<Record<string, { file: string; page: string; width: number; height: number }>> =
+  collectionPreviews;
 
 const site = new URL(sitePath('/'), Astro.site).href;
 const jsonLd = {
@@ -73,38 +59,26 @@ const jsonLd = {
     </header>
 
     <ul class="grid" aria-label="Coleções digitais">
-      {sorted.map((record) => {
+      {sorted.map((record, i) => {
         const title = shortNames[record.id] ?? record.name;
-        const links = collectionViews[record.id];
-        const labels = links?.map(([label]) => label)
-          ?? record.collection_types.slice(0, 3).map((type) => V.label(V.collectionTypes, type));
-        // Captura da grade original em 22/11/2026, com créditos das fichas preservados.
-        const source = record.id === 'diseno-nacional'
-          ? 'https://www.disenonacional.cl/carteles/carteles-culturales/'
-          : record.digital_collection_url;
+        const preview = previews[record.id];
         return (
-          <li class="tile">
-            <a href={source} class="collection" rel="noopener noreferrer external">
-              <span class="visually-hidden">Abrir coleção {title}: </span>
-              <div class:list={['preview', compositions[record.id]]}>
-                {record.id === 'diseno-nacional' ? (
-                  <img src={sitePath('/colecoes/diseno-nacional.jpg')} width="840" height="550" fetchpriority="high" alt="Grade de cartazes culturais do catálogo Diseño Nacional" />
+          <li class="tile" data-collection={record.id}>
+            <a href={preview?.page ?? record.digital_collection_url} class="collection" rel="noopener noreferrer external">
+              <span class="visually-hidden">Abrir coleção {title}</span>
+              <div class="preview">
+                {preview ? (
+                  <img
+                    src={sitePath(`/colecoes/${preview.file}`)}
+                    alt=""
+                    width={preview.width}
+                    height={preview.height}
+                    loading={i < 3 ? 'eager' : 'lazy'}
+                    fetchpriority={i === 0 ? 'high' : 'auto'}
+                    decoding="async"
+                  />
                 ) : (
-                  <>
-                    <span class="visually-hidden">{labels.join(', ')}</span>
-                    <div class="specimens" aria-hidden="true">
-                      {labels.map((label, i) => (
-                        <span>
-                          {record.id === 'casca' && i === 0 ? (
-                            <Image src={cascaPoster} alt="" width={184} />
-                          ) : (
-                            <span class="shape"></span>
-                          )}
-                          {record.id !== 'biblioteca-de-zines' && i !== 0 && <small>{label}</small>}
-                        </span>
-                      ))}
-                    </div>
-                  </>
+                  <span class="preview-title" aria-hidden="true">{title}</span>
                 )}
               </div>
             </a>
@@ -112,7 +86,6 @@ const jsonLd = {
             {record.id === 'diseno-nacional' && (
               <p class="credit">Captura: Diseño Nacional (CC BY-NC)</p>
             )}
-            {record.id === 'casca' && <p class="credit">Cartaz: Arquivo CASCA (CC0)</p>}
           </li>
         );
       })}
@@ -168,57 +141,22 @@ const jsonLd = {
     aspect-ratio: 4 / 3;
     display: grid;
     place-items: center;
-    background: #f2f1ec;
+    background: #f4f4f2;
     overflow: hidden;
   }
-  .tile:nth-child(4n + 2) .preview { background: #efebf3; }
-  .tile:nth-child(4n + 3) .preview { background: #e8eee5; }
-  .tile:nth-child(4n + 4) .preview { background: #f3ebe5; }
   .preview img {
     display: block;
     width: 100%;
     height: 100%;
     object-fit: contain;
   }
-  .specimens {
-    display: grid;
-    grid-auto-columns: minmax(0, 1fr);
-    grid-auto-flow: column;
-    align-items: end;
-    gap: 0.65rem;
-    width: 85%;
+  .preview-title {
+    padding: 1rem;
+    text-align: center;
+    color: var(--muted);
+    font-family: var(--f-display);
+    font-size: var(--step-2);
   }
-  .specimens > span { min-width: 0; }
-  .specimens small { display: block; font-size: 0.75rem; margin-top: 0.4rem; }
-  .specimens img { aspect-ratio: 619 / 800; height: auto; align-self: end; }
-  .shape {
-    display: block;
-    aspect-ratio: 3 / 4;
-    background-color: #c8c9bf;
-    background-image: repeating-linear-gradient(0deg, transparent 0 12%, rgb(34 37 34 / 18%) 12% 13%);
-  }
-  .specimens > span:nth-child(2) .shape { background-color: #b0b6a7; }
-  .specimens > span:nth-child(3) .shape { background-color: #d8c1ae; }
-  .bindings .specimens > span:first-child .shape {
-    background: repeating-linear-gradient(90deg, #543750 0 9%, #d7a594 9% 15%, #ece0d4 15% 21%);
-  }
-  .bindings .specimens > span:nth-child(2) .shape {
-    background: linear-gradient(135deg, #d4af80 49%, #4b5442 50%);
-  }
-  .bindings .specimens > span:nth-child(3) .shape {
-    background: radial-gradient(circle at 65% 34%, #efe2b8 0 24%, transparent 25%), #534560;
-  }
-  .documents .specimens { align-items: center; }
-  .documents .shape {
-    background: repeating-linear-gradient(#faf7ee 0 10%, #b7806e 10% 11%, #faf7ee 11% 15%);
-    border: 1px solid #b9aa96;
-  }
-  .objects .shape { border-radius: 49% 49% 23% 23%; background: #997459; }
-  .objects .specimens > span:nth-child(2) .shape { border-radius: 50%; background: #656047; }
-  .network .shape { border-radius: 50%; background: #6e8773; aspect-ratio: 1; }
-  .network .specimens { align-items: center; }
-  .type .shape { background: transparent; font-family: Didot, Georgia, serif; }
-  .type .shape::before { content: "Aa"; font-size: clamp(3rem, 7vw, 7rem); line-height: 1; }
   h2 {
     font-size: clamp(1.14rem, 0.9rem + 0.65vw, 1.55rem);
     letter-spacing: -0.025em;

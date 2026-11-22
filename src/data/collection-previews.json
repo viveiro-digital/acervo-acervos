@@ -1,0 +1,92 @@
+{
+  "acervo-da-laje": {
+    "file": "acervo-da-laje.png",
+    "page": "https://www.acervodalaje.com.br/",
+    "image": "https://static.wixstatic.com/media/d78ebf_6c9f90c0100246a1be6a47390a5e0cbc~mv2.png/v1/fill/w_545,h_267,al_c/d78ebf_6c9f90c0100246a1be6a47390a5e0cbc~mv2.png",
+    "kind": "og-image",
+    "width": 1080,
+    "height": 529
+  },
+  "archivo-memoria-trans": {
+    "file": "archivo-memoria-trans.jpg",
+    "page": "https://atom.archivotrans.ar/index.php/informationobject/browse?onlyMedia=1&topLod=0&view=card",
+    "kind": "catalog-screenshot",
+    "width": 667,
+    "height": 360
+  },
+  "biblioteca-de-zines": {
+    "file": "biblioteca-de-zines.jpg",
+    "page": "https://www.biblioteca-de-zines.com.br/zines",
+    "image": "https://biblioteca-de-zines.com.br/manifest/og.jpg",
+    "kind": "og-image",
+    "width": 1080,
+    "height": 567
+  },
+  "cartel-mexico": {
+    "file": "cartel-mexico.jpg",
+    "page": "https://cartelmexico.org/disenadores/",
+    "image": "https://cartelmexico.org/wp-content/uploads/2021/01/cover_cm.jpg",
+    "kind": "og-image",
+    "width": 1080,
+    "height": 411
+  },
+  "casca": {
+    "file": "casca.png",
+    "page": "https://casca-archive.org/items/browse?collection=32",
+    "image": "https://casca-archive.org/themes/maobjects/images/casca.png",
+    "kind": "og-image",
+    "width": 1080,
+    "height": 767
+  },
+  "diseno-nacional": {
+    "file": "diseno-nacional.jpg",
+    "page": "https://www.disenonacional.cl/carteles/carteles-culturales/",
+    "kind": "catalog-screenshot",
+    "width": 840,
+    "height": 550
+  },
+  "grafica-latina": {
+    "file": "grafica-latina.jpg",
+    "page": "https://graficalatina.com/",
+    "image": "https://c-p.rmcdn.net/5e7a1ef5ada5a900549e62f0/2498820/Screenshot-d89853a8-7700-4fd9-b406-c48db615b14e_readyscr_1024.jpg",
+    "kind": "og-image",
+    "width": 1080,
+    "height": 708
+  },
+  "irohin": {
+    "file": "irohin.jpg",
+    "page": "https://irohin.org.br/acervo/colecoes/",
+    "kind": "catalog-screenshot",
+    "width": 1000,
+    "height": 405
+  },
+  "mexico-disena": {
+    "file": "mexico-disena.jpg",
+    "page": "https://mexicodisena.com.mx/archivo/",
+    "kind": "catalog-screenshot",
+    "width": 950,
+    "height": 546
+  },
+  "museu-kuahi": {
+    "file": "museu-kuahi.jpg",
+    "page": "https://museukuahi.com.br/acervo-etnografico/",
+    "image": "https://museukuahi.com.br/wp-content/uploads/2025/02/014-1024x574.jpg",
+    "kind": "collection-image",
+    "width": 1080,
+    "height": 605
+  },
+  "tipomap-latam": {
+    "file": "tipomap-latam.jpg",
+    "page": "https://tipomap.lat/br/db_list",
+    "kind": "catalog-screenshot",
+    "width": 975,
+    "height": 575
+  },
+  "xingu-entangled": {
+    "file": "xingu-entangled.jpg",
+    "page": "https://uclab-potsdam.github.io/xingu-entangled/",
+    "kind": "catalog-screenshot",
+    "width": 1000,
+    "height": 335
+  }
+}

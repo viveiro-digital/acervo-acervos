@@ -23,6 +23,14 @@ massa.
 - A imagem de compartilhamento (OG) é sempre a do próprio projeto, para não
   recortar obras em 1200×630.
 
+## Prévias da página inicial
+
+A grade inicial usa a imagem social indicada pela própria fonte, uma imagem
+publicada na página da coleção ou uma captura da interface pública. O manifesto
+`src/data/collection-previews.json` registra a origem de cada prévia. A prévia
+abre a página correspondente. As fichas continuam a usar as regras do campo
+`media` para reproduções de obras.
+
 ## Alternativas consideradas
 - **Hotlink das imagens das fontes**: depende da política de cada site, expõe
   quem visita a terceiros e não garante o direito de exibição.
