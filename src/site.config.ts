@@ -1,11 +1,11 @@
 /** Configuração editorial do site. Edite aqui, não nos componentes. */
 export const siteConfig = {
   name: 'Coleção de Acervos Digitais',
-  subtitle: 'Explore coleções digitais de arquivos comunitários do Brasil e da América Latina.',
+  subtitle: 'Acervos do Brasil e da América Latina, com foco na memória comunitária.',
   description:
-    'Um catálogo voltado a arquivos comunitários do Brasil e da América Latina que compartilham acervos digitais, de zines e cartazes a fotografias e documentos.',
+    'Um catálogo de acervos digitais do Brasil e da América Latina, de arquivos comunitários a coleções de pesquisa.',
   shareTitle: 'Acervos digitais',
-  shareDescription: 'Explore acervos digitais de iniciativas comunitárias que preservam e compartilham suas histórias.',
+  shareDescription: 'Encontre coleções do Brasil e da América Latina e consulte o material na fonte.',
   locale: 'pt-BR',
   contactUrl: 'https://github.com/viveiro-digital/colecao-de-acervos-digitais/issues' as string | null,
   repoUrl: 'https://github.com/viveiro-digital/colecao-de-acervos-digitais' as string | null,

@@ -56,7 +56,7 @@ const facets: Facet[] = [
     legend: 'Relação comunitária',
     vocab: V.communityEvidenceKinds,
     pick: (r) => [r.community_evidence.kind],
-    note: 'Segundo a evidência publicada — não é avaliação de governança.',
+    note: 'O que as fontes dizem sobre a relação com a comunidade.',
   },
   { param: 'host', legend: 'Quem mantém', vocab: V.stewardshipTypes, pick: (r) => [r.stewardship_or_host.type] },
 ];
@@ -113,7 +113,7 @@ const jsonLd = {
               <option value="inclusao">Inclusão mais recente</option>
               <option value="relevancia">Correspondência com a busca</option>
             </select>
-            <p class="meta muted hint">Com busca, mostramos primeiro os resultados mais próximos.</p>
+            <p class="meta muted hint">Ao buscar, os resultados mais relevantes aparecem primeiro.</p>
           </div>
           {facetOptions.map((f) => (
             <div class="field">

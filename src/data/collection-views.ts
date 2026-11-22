@@ -59,7 +59,7 @@ export const collectionViews: Partial<Record<string, CollectionLink[]>> = {
 
 export const collectionSubtitles: Partial<Record<string, string>> = {
   'acervo-bajuba': 'Um memorial da epidemia de aids e publicações de memória LGBT+ brasileira.',
-  'museu-maguta': 'Fotografias, cantos e publicações reunidos pelo museu Ticuna.',
+  'museu-maguta': 'Memória Ticuna no Alto Solimões, em um museu administrado pelo próprio povo.',
   'museu-da-mare': 'Fotografias, mapas e documentos da Maré, no Arquivo Dona Orosina Vieira.',
   'nova-cartografia-social': 'Mapas e relatos produzidos com comunidades.',
   zumvi: 'Festas, manifestações e cotidiano da Bahia pelas lentes de fotógrafos negros.',

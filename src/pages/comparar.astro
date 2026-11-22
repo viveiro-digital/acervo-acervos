@@ -9,7 +9,7 @@ import { getPublished, recordPath } from '../lib/acervos';
 const records = await getPublished();
 
 const rows: { label: string; cell: (r: (typeof records)[number]) => string }[] = [
-  { label: 'O que tem', cell: (r) => r.description.pt },
+  { label: 'Sobre o acervo', cell: (r) => r.description.pt },
   { label: 'Lugar', cell: (r) => [r.city, r.region, ...r.country.map((c) => V.label(V.countries, c))].filter(Boolean).join(', ') },
   { label: 'Período', cell: (r) => r.date_range.label },
   { label: 'Acesso', cell: (r) => V.label(V.accessLevels, r.access_level) },
@@ -17,7 +17,7 @@ const rows: { label: string; cell: (r: (typeof records)[number]) => string }[] =
 ---
 <Base
   title="Comparar"
-  description="Veja o que cada coleção reúne e abra o acervo de origem."
+  description="Compare até quatro acervos lado a lado, com links para consultar cada coleção."
   current="comparar"
 >
   <div class="wrap">
@@ -42,8 +42,7 @@ const rows: { label: string; cell: (r: (typeof records)[number]) => string }[] =
       <p id="aviso" class="meta" role="status" aria-live="polite"></p>
       <noscript>
         <p class="callout meta">
-          A seleção precisa de JavaScript. Sem ele, a tabela abaixo mostra todos os registros;
-          role horizontalmente para ver as colunas.
+          A tabela abaixo mostra todos os acervos. Para escolher quais comparar, ative o JavaScript.
         </p>
       </noscript>
     </form>

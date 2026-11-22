@@ -3,7 +3,10 @@ name: "Museu da Maré"
 alternative_names: ["Arquivo Dona Orosina Vieira"]
 initiative_type: museu
 description:
-  pt: "Fotografias, mapas e documentos sobre a história das comunidades da Maré, no Rio de Janeiro. O catálogo reúne o Arquivo Dona Orosina Vieira e referências de outros acervos."
+  pt: >-
+    O Arquivo Dona Orosina Vieira guarda a memória das comunidades da Maré a partir de
+    documentos doados por moradores e de registros de outros acervos. As fotografias e os
+    mapas ajudam a acompanhar as mudanças no território e a história de quem vive nele.
 initiative_url: https://www.museumare.org/
 digital_collection_url: https://arquivomuseudamare.org/
 sample_content_url: https://arquivomuseudamare.org/acervo-iconografico/ilha-do-bom-jesus/

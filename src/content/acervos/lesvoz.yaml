@@ -3,7 +3,10 @@ name: "Archivo Histórico LeSVOZ"
 alternative_names: ["LeSVOZ"]
 initiative_type: arquivo
 description:
-  pt: "Edições digitalizadas da revista lésbica feminista mexicana LeSVOZ. As edições históricas podem ser lidas no próprio site."
+  pt: >-
+    Fundada por ativistas lésbicas feministas no México, a LeSVOZ publicou relatos, cartas e
+    debates do movimento desde os anos 1990. O arquivo da própria organização disponibiliza
+    edições esgotadas para ler no site.
 initiative_url: https://www.lesvoz.org/
 digital_collection_url: https://www.lesvoz.org/archivo_revistas/archivo-historico-revista-lesvoz/
 sample_content_url: https://www.lesvoz.org/archivo_revistas/lesvoz-01/

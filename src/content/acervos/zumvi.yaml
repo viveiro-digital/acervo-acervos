@@ -2,7 +2,10 @@ id: zumvi
 name: "Zumvi Arquivo Fotográfico"
 initiative_type: arquivo
 description:
-  pt: "Fotografias da vida negra na Bahia, das festas populares às mobilizações do movimento negro. Navegue por fotógrafo, série ou coleção."
+  pt: >-
+    O Zumvi nasceu do trabalho de fotógrafos negros da Bahia que documentaram festas,
+    manifestações e a vida cotidiana de suas comunidades. O acervo preserva essas
+    fotografias e a autoria de quem registrou a história do movimento negro no estado.
 initiative_url: https://zumvi.org.br/
 digital_collection_url: https://acervo.zumvi.org.br/
 sample_content_url: https://zumvi.org.br/wp-content/uploads/2026/01/catalogo-zumvi-versao-final.pdf

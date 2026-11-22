@@ -2,7 +2,12 @@ id: museu-maguta
 name: "Museu Magüta"
 initiative_type: museu
 description:
-  pt: "Fotografias, vídeos, músicas e publicações do Museu Magüta, em Benjamin Constant. Explore o inventário digital do museu Ticuna."
+  pt: >-
+    O Magüta nasceu da organização do povo Ticuna no Alto Solimões, em meio à luta pelo
+    reconhecimento de seus territórios. Os Ticuna administram o museu e participaram da
+    formação do acervo. No site, cantos da Festa da Moça Nova e fotografias de atividades do
+    povo Ticuna registram práticas e saberes escolhidos pelo próprio povo para contar sua
+    história.
 initiative_url: https://museumaguta.com.br/
 digital_collection_url: https://museumaguta.com.br/acervo/
 sample_content_url: https://museumaguta.com.br/obra/obra6-povo-ticuna-fotografia-sala1/
@@ -35,8 +40,13 @@ community_evidence:
   note: "O museu informa que é administrado por indígenas e que o Conselho Geral da Tribo Ticuna indica sua direção."
   source_url: https://museumaguta.com.br/acervo/
 curatorial_reason:
-  pt: "Fotografias, vídeos, músicas e publicações do Museu Magüta, em Benjamin Constant. Explore o inventário digital do museu Ticuna."
+  pt: A direção é indicada pelo Conselho Geral da Tribo Ticuna. O povo Ticuna participou da formação da coleção e da montagem das exposições.
 evidence:
+  - claim: A história do museu se liga à organização política dos Ticuna e à luta pelo reconhecimento de seus territórios.
+    source_url: https://museumaguta.com.br/
+    accessed_at: "2026-11-22"
+    kind: declarado
+    certainty: alta
   - claim: "O museu informa que é administrado por indígenas e que o Conselho Geral da Tribo Ticuna indica sua direção."
     source_url: https://museumaguta.com.br/acervo/
     accessed_at: "2026-11-22"

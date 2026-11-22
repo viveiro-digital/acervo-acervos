@@ -11,44 +11,44 @@ const fora = (await getCollection('foraDoCatalogo')).map((e) => e.data);
 ---
 <Base
   title="Metodologia"
-  description="Como a Coleção de Acervos Digitais escolhe, verifica e descreve iniciativas e arquivos digitais: critérios, estados de verificação, imagens, fontes e limitações."
+  description="Como escolhemos os acervos, conferimos o acesso ao material e registramos as fontes."
   current="metodologia"
 >
   <div class="wrap prose-wrap">
     <header>
       <h1>Metodologia</h1>
-      <p class="lede">Como escolhemos e descrevemos as coleções do catálogo.</p>
+      <p class="lede">O que conferimos antes de publicar uma ficha.</p>
     </header>
 
     <details id="posicao" class="method-section">
       <summary id="h-posicao">O que reunimos</summary>
-      <p>O catálogo reúne coleções digitais do Brasil e da América Latina, com prioridade para arquivos comunitários. O <cite>Guia dos Arquivos que não Existem</cite> inspirou a seleção e os caminhos entre acervos.</p>
+      <p>O catálogo tem acervos comunitários e coleções de design e pesquisa do Brasil e da América Latina. Hoje, buscamos incluir acervos mantidos por comunidades, coletivos ou organizações comunitárias. O <cite>Guia dos Arquivos que não Existem</cite> foi um ponto de partida para a seleção.</p>
     </details>
 
     <details id="metodo" class="method-section">
       <summary id="h-metodo">Como verificamos</summary>
-      <p>Para novas inclusões, verificamos quem mantém a coleção e abrimos uma amostra do material na fonte. Registramos o que estava acessível, a fonte e a data. A primeira rodada usou um agente de IA sob orientação da curadoria e segue em revisão humana.</p>
+      <p>Procuramos na fonte quem cuida da coleção. Depois, abrimos um item e anotamos o que conseguimos consultar, em que página e em que data. A primeira rodada contou com um agente de IA e ainda passa por revisão humana.</p>
     </details>
 
     <details id="estados" class="method-section">
       <summary id="h-estados">O que dá para acessar</summary>
-      <p>Algumas fontes mostram a obra inteira. Outras oferecem uma miniatura, uma descrição ou pedem cadastro. As condições de acesso ficam na ficha do acervo.</p>
+      <p>A ficha indica se a fonte mostra o item inteiro ou apenas uma parte, e se pede cadastro. O acesso pode mudar depois da nossa consulta.</p>
     </details>
 
     <details id="imagens" class="method-section">
       <summary id="h-imagens">De onde vêm as imagens</summary>
-      <p>As prévias mostram a coleção por meio das imagens de compartilhamento ou de capturas do catálogo de origem. As notas descrevem a amostra consultada e levam ao material na fonte.</p>
+      <p>As fichas mostram uma captura do catálogo, índice ou exposição no site de origem. O link abaixo da captura leva à página que aparece na imagem.</p>
     </details>
 
     <details id="descricao" class="method-section">
       <summary id="h-descricao">Dados do catálogo</summary>
-      <p>As fichas registram fontes, datas de consulta e mudanças. O repositório publica os dados e os critérios de catalogação e preservação.</p>
+      <p>O repositório reúne as fichas e seu histórico. Ali é possível conferir as fontes, as datas de consulta e o que mudou.</p>
       {siteConfig.repoUrl && <p><ExtLink href={siteConfig.repoUrl + '/blob/main/docs/CATALOGACAO.md'}>Ver os critérios de catalogação</ExtLink></p>}
     </details>
 
     <details id="linguagem" class="method-section">
       <summary id="h-linguagem">Cuidados na descrição</summary>
-      <p>Usamos os termos e protocolos publicados pelas iniciativas. Quem mantém uma coleção e quem está representado nela são informações distintas.</p>
+      <p>Um acervo sobre uma comunidade pode ser mantido por outra instituição. A ficha registra quem cuida da coleção quando essa informação está disponível. Também respeitamos os termos que as iniciativas usam para se apresentar.</p>
     </details>
 
     <details id="pendentes" class="method-section">
@@ -65,7 +65,7 @@ const fora = (await getCollection('foraDoCatalogo')).map((e) => e.data);
 
     <details id="limitacoes" class="method-section">
       <summary id="h-limitacoes">Limites do catálogo</summary>
-      <p>A busca cobre as fichas publicadas aqui. A página de cada iniciativa é o lugar para consultar toda a coleção e confirmar o que está acessível hoje.</p>
+      <p>A busca procura nas fichas deste site. Para pesquisar os itens de um acervo, use o catálogo da própria iniciativa.</p>
     </details>
 
     <details id="referencias" class="method-section">
