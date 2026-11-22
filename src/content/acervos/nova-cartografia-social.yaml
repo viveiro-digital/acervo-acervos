@@ -52,6 +52,9 @@ last_verified_at: "2026-11-22"
 verification_method: Consulta pública no navegador, com verificação do material na fonte.
 link_status: saudavel
 content_status: conteudo_confirmado
+review_flag: true
+review_reason: Confirmar quem decide sobre a curadoria e a manutenção da coleção digital.
+review_priority: media
 record_status: rascunho
 created_at: "2026-11-22"
 updated_at: "2026-11-22"

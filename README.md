@@ -1,5 +1,7 @@
 # Coleção de Acervos Digitais
 
+[Catálogo público](https://viveiro-digital.github.io/acervos-digitais-colecao/) · [Publicação](https://github.com/viveiro-digital/acervos-digitais-colecao)
+
 **Explore o que iniciativas e arquivos compartilham online.**
 
 Coleção de Acervos Digitais é um catálogo editorial estático, local-first, de iniciativas e
