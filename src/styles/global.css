@@ -1,25 +1,16 @@
-/*
- * Acervo Acervos — identidade visual (ver docs/IDENTIDADE.md)
- * Papel, tinta preta e duas cores de impressão sobreposta (vermelho e azul),
- * como em uma tiragem de risografia com registro levemente deslocado.
- * Sem fontes remotas: pilhas de fontes do sistema.
- */
-
 :root {
-  --paper: #f3ede2;
-  --paper-2: #e9e0cf;
-  --ink: #1c1a17;
-  --muted: #5a544b;
-  --red: #a8361a;   /* contraste 5,6:1 sobre --paper */
-  --blue: #2340a6;  /* contraste 7,6:1 sobre --paper */
-  --rule: #1c1a17;
-  --focus: #2340a6;
+  --paper: #fff;
+  --paper-2: #f6f6f3;
+  --ink: #222522;
+  --muted: #555b54;
+  --red: #375c49;
+  --blue: #375c49;
+  --rule: #dadcd7;
+  --focus: #375c49;
 
-  --f-display: 'Avenir Next Condensed', 'Roboto Condensed', 'Arial Narrow',
-    'Helvetica Neue', Arial, sans-serif-condensed, sans-serif;
-  --f-text: 'Iowan Old Style', 'Palatino Linotype', Palatino, 'Book Antiqua',
-    Georgia, 'Noto Serif', serif;
-  --f-mono: ui-monospace, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace;
+  --f-display: 'Iowan Old Style', Georgia, serif;
+  --f-text: 'Avenir Next', 'Segoe UI', system-ui, sans-serif;
+  --f-mono: var(--f-text);
 
   --step--1: clamp(0.8rem, 0.78rem + 0.1vw, 0.86rem);
   --step-0: clamp(1rem, 0.96rem + 0.2vw, 1.12rem);
@@ -55,11 +46,7 @@ body {
   font-family: var(--f-text);
   font-size: var(--step-0);
   line-height: 1.55;
-  /* textura leve de papel: só gradientes, sem imagem */
-  background-image:
-    radial-gradient(circle at 20% 10%, rgb(255 255 255 / 0.35), transparent 40%),
-    radial-gradient(circle at 80% 90%, rgb(0 0 0 / 0.025), transparent 45%);
-  background-attachment: fixed;
+
 }
 
 img,
@@ -109,8 +96,7 @@ h2,
 h3,
 h4 {
   font-family: var(--f-display);
-  font-stretch: condensed;
-  font-weight: 700;
+  font-weight: 550;
   line-height: 1.05;
   letter-spacing: -0.01em;
   margin: 0 0 0.5em;
@@ -149,7 +135,7 @@ p {
 
 .site-header {
   border-bottom: 1px solid var(--rule);
-  padding-block: 0.7rem;
+  padding-block: 1.1rem;
 }
 .site-header .wrap {
   display: flex;
@@ -167,8 +153,6 @@ p {
   gap: 0.2rem 1.2rem;
   font-family: var(--f-mono);
   font-size: var(--step--1);
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
 }
 .site-nav a {
   text-decoration: none;
@@ -193,34 +177,15 @@ main {
 
 .wordmark {
   font-family: var(--f-display);
-  font-stretch: condensed;
-  font-weight: 800;
-  text-transform: uppercase;
+  font-weight: 600;
   text-decoration: none;
-  line-height: 0.85;
-  letter-spacing: -0.01em;
-  display: inline-grid;
-}
-.wordmark > span {
-  grid-area: 1 / 1;
-}
-.wordmark .w-a {
-  color: var(--ink);
-}
-/* "ACERVOS": a mesma palavra, reimpressa e deslocada */
-.wordmark .w-b {
-  color: var(--red);
-  mix-blend-mode: multiply;
-  transform: translate(0.14em, 0.7em);
+  letter-spacing: -0.035em;
 }
 .wordmark--small {
-  font-size: 1.35rem;
-  padding-bottom: 0.72em;
+  font-size: 1.3rem;
 }
 .wordmark--large {
   font-size: var(--step-4);
-  padding-bottom: 0.75em;
-  padding-right: 0.2em;
 }
 
 /* ── Componentes ─────────────────────────────────────────── */
@@ -228,8 +193,6 @@ main {
 .kicker {
   font-family: var(--f-mono);
   font-size: var(--step--1);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
   color: var(--muted);
   margin: 0 0 0.4rem;
 }
@@ -253,14 +216,13 @@ select {
   display: inline-flex;
   align-items: center;
   gap: 0.4em;
-  border: 2px solid var(--ink);
+  border: 1px solid var(--rule);
+  border-radius: 0.25rem;
   background: var(--paper);
   color: var(--ink);
-  padding: 0.45rem 0.9rem;
-  font-family: var(--f-display);
-  font-stretch: condensed;
-  font-weight: 700;
-  text-transform: uppercase;
+  padding: 0.55rem 0.9rem;
+  font-family: var(--f-text);
+  font-weight: 550;
   letter-spacing: 0.03em;
   text-decoration: none;
   cursor: pointer;
@@ -270,12 +232,13 @@ select {
   color: var(--paper);
 }
 .btn--primary {
-  background: var(--ink);
+  border-color: var(--red);
+  background: var(--red);
   color: var(--paper);
 }
 .btn--primary:hover {
-  background: var(--red);
-  border-color: var(--red);
+  background: var(--ink);
+  border-color: var(--ink);
   color: var(--paper);
 }
 
@@ -403,7 +366,6 @@ dl.fields {
 dl.fields dt {
   font-family: var(--f-mono);
   font-size: var(--step--1);
-  text-transform: uppercase;
   letter-spacing: 0.05em;
   color: var(--muted);
   padding-top: 0.2rem;
@@ -454,7 +416,6 @@ td {
 th[scope='row'] {
   font-family: var(--f-mono);
   font-size: var(--step--1);
-  text-transform: uppercase;
   color: var(--muted);
   font-weight: 400;
   width: 11rem;
@@ -463,8 +424,9 @@ th[scope='row'] {
 input[type='search'],
 input[type='text'],
 select {
-  border: 2px solid var(--ink);
-  background: #fffdf8;
+  border: 1px solid #899188;
+  border-radius: 0.25rem;
+  background: #fff;
   color: var(--ink);
   padding: 0.5rem 0.6rem;
   min-height: 2.75rem;
@@ -479,7 +441,6 @@ fieldset {
 legend {
   font-family: var(--f-mono);
   font-size: var(--step--1);
-  text-transform: uppercase;
   letter-spacing: 0.06em;
   color: var(--muted);
   margin-bottom: 0.3rem;
@@ -499,28 +460,6 @@ legend {
 .chip:hover {
   background: var(--ink);
   color: var(--paper);
-}
-
-/* Marcas de registro como ornamento de canto */
-.reg {
-  position: relative;
-}
-.reg::before,
-.reg::after {
-  content: '+';
-  position: absolute;
-  font-family: var(--f-mono);
-  color: var(--blue);
-  font-size: 1rem;
-  line-height: 1;
-}
-.reg::before {
-  top: -0.6rem;
-  left: -0.6rem;
-}
-.reg::after {
-  bottom: -0.6rem;
-  right: -0.6rem;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -610,7 +549,7 @@ legend {
   .record .sample {
     border: 2px solid var(--ink);
     padding: 1.2rem 1.4rem;
-    background: #fffdf8;
+    background: var(--paper-2);
   }
   .record .open-sample {
     margin-top: 1rem;
@@ -657,7 +596,7 @@ html.panel-open {
   overflow: hidden;
 }
 .record .sample {
-  border: 1px solid var(--ink);
+  border: 1px solid var(--rule);
 }
 
 ul.plain {

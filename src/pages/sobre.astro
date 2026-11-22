@@ -1,4 +1,5 @@
 ---
+import { sitePath } from '../lib/site-path';
 import Base from '../layouts/Base.astro';
 import ExtLink from '../components/ExtLink.astro';
 import { siteConfig } from '../site.config';
@@ -44,7 +45,7 @@ import { siteConfig } from '../site.config';
       ) : (
         'O canal público ainda não foi publicado.'
       )}{' '}
-      ou veja <a href="/contribuir/">como contribuir</a>.
+      ou veja <a href={sitePath('/contribuir/')}>como contribuir</a>.
     </p>
     <h2>Viveiro Digital</h2>
     <p>
@@ -52,7 +53,7 @@ import { siteConfig } from '../site.config';
       <ExtLink href={siteConfig.viveiro.url}>{siteConfig.viveiro.name}</ExtLink>
       {siteConfig.viveiro.provisional && ' (link para a documentação no GitHub, enquanto não há site público)'}.
     </p>
-    <p><a href="/metodologia/">Leia a metodologia completa</a>.</p>
+    <p><a href={sitePath('/metodologia/')}>Leia a metodologia completa</a>.</p>
   </div>
 </Base>
 <style>

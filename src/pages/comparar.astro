@@ -1,4 +1,5 @@
 ---
+import { sitePath } from '../lib/site-path';
 import Base from '../layouts/Base.astro';
 import Status from '../components/Status.astro';
 import * as V from '../data/vocabulario';
@@ -38,7 +39,7 @@ const rows: { label: string; cell: (r: (typeof records)[number]) => string }[] =
       </p>
     </header>
 
-    <form id="escolha" class="pick" action="/comparar/" method="get">
+    <form id="escolha" class="pick" action={sitePath('/comparar/')} method="get">
       <fieldset>
         <legend>Registros (máximo 4)</legend>
         <ul class="pick-list">

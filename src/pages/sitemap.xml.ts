@@ -1,3 +1,4 @@
+import { sitePath } from '../lib/site-path';
 import type { APIRoute } from 'astro';
 import { getPublished, recordPath } from '../lib/acervos';
 
@@ -5,11 +6,11 @@ import { getPublished, recordPath } from '../lib/acervos';
 export const GET: APIRoute = async ({ site }) => {
   const records = await getPublished();
   const pages: { path: string; lastmod?: string }[] = [
-    { path: '/' },
-    { path: '/explorar/' },
-    { path: '/sobre/' },
-    { path: '/metodologia/' },
-    { path: '/contribuir/' },
+    { path: sitePath('/') },
+    { path: sitePath('/explorar/') },
+    { path: sitePath('/sobre/') },
+    { path: sitePath('/metodologia/') },
+    { path: sitePath('/contribuir/') },
     ...records.map((r) => ({ path: recordPath(r.id), lastmod: r.updated_at })),
   ];
   const body = `<?xml version="1.0" encoding="UTF-8"?>

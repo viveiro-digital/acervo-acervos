@@ -1,3 +1,4 @@
+import { sitePath } from './site-path';
 import { getCollection, type CollectionEntry } from 'astro:content';
 import * as V from '../data/vocabulario';
 
@@ -60,37 +61,25 @@ export function periodKeys(r: Acervo): string[] {
     .map((b) => b.key);
 }
 
-/** Texto normalizado para busca (sem acento, minúsculo). */
-export function normalize(s: string): string {
-  return s
-    .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '')
-    .toLowerCase();
-}
-
-export function searchText(r: Acervo): string {
-  return normalize(
-    [
-      r.name,
-      r.preferred_name,
-      ...r.alternative_names,
-      r.description.pt,
-      r.self_description?.text,
-      r.region,
-      r.city,
-      r.territory_note,
+export function searchFields(r: Acervo, collectionLabels: string[]): [number, string][] {
+  return [
+    ...[r.name, r.preferred_name ?? '', ...r.alternative_names].map((name): [number, string] => [24, name]),
+    ...[r.sample.title, ...collectionLabels].map((title): [number, string] => [19, title]),
+    [15, [
+      r.sample.creator, r.sample.date, r.city, r.region, r.territory_note, r.date_range.label,
       ...r.country.map((c) => V.label(V.countries, c)),
-      ...r.themes.map((t) => V.label(V.themes, t)),
-      ...r.themes_original,
-      ...r.collection_types.map((t) => V.label(V.collectionTypes, t)),
-      ...r.collection_types_original,
-      r.sample.title,
-      r.platform?.software,
-      ...r.machine_access.map((m) => m.kind),
-    ]
-      .filter(Boolean)
-      .join(' '),
-  );
+      ...r.themes.map((t) => V.label(V.themes, t)), ...r.themes_original,
+      ...r.collection_types.map((t) => V.label(V.collectionTypes, t)), ...r.collection_types_original,
+      ...new Set([...r.formats, ...r.sample.confirmed_media].map((f) => V.label(V.formats, f))),
+      ...r.languages.map((l) => V.label(V.languages, l)),
+      ...r.design_dimensions.map((d) => V.label(V.designDimensions, d)),
+      V.label(V.initiativeTypes, r.initiative_type),
+    ].filter(Boolean).join(' ')],
+    [5, [
+      ...Object.values(r.description), r.self_description?.text, r.sample.observed,
+      r.platform?.software, ...r.holdings_extent.map((holding) => holding.statement),
+    ].filter(Boolean).join(' ')],
+  ];
 }
 
 export interface Relation {
@@ -144,7 +133,7 @@ export function facetCounts(
 }
 
 export function recordPath(id: string): string {
-  return `/acervos/${id}/`;
+  return sitePath(`/acervos/${id}/`);
 }
 
 /**

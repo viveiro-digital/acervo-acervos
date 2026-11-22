@@ -11,7 +11,10 @@ test('explorar: busca ignora acentos', async ({ page }) => {
   await page.goto('/explorar/');
   await page.fill('#q', 'amapa');
   await expect(page).toHaveURL(/q=amapa/);
-  await expect(page.locator('#lista > li:visible')).toHaveCount(1);
+  const resultados = page.locator('#lista > li:visible');
+  await expect(resultados).toHaveCount(2);
+  await expect(resultados.first()).toHaveAttribute('data-id', 'museu-kuahi');
+  await expect(resultados.last()).toHaveAttribute('data-id', 'biblioteca-de-zines');
 });
 
 test('explorar: remover chip limpa o filtro', async ({ page }) => {
@@ -58,4 +61,16 @@ test.describe('sem JavaScript', () => {
     await page.locator('a[data-open="casca"]').click();
     await expect(page).toHaveURL(/\/acervos\/casca\/$/);
   });
+});
+
+test('explorar: consulta em espanhol encontra seção com relevância', async ({ page }) => {
+  await page.goto('/explorar/?q=carteles+politicos');
+  await expect(page.locator('#lista > li:visible').first()).toHaveAttribute('data-id', 'diseno-nacional');
+});
+
+test('explorar: busca o conteúdo catalogado e tolera erro de digitação', async ({ page }) => {
+  await page.goto('/explorar/?q=Carlos+Moura');
+  await expect(page.locator('#lista > li:visible').first()).toHaveAttribute('data-id', 'irohin');
+  await page.fill('#q', 'bibliotcea de zines');
+  await expect(page.locator('#lista > li:visible').first()).toHaveAttribute('data-id', 'biblioteca-de-zines');
 });

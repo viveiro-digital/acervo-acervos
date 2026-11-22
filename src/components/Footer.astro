@@ -1,4 +1,5 @@
 ---
+import { sitePath } from '../lib/site-path';
 import { siteConfig } from '../site.config';
 import { getAll, lastUpdate, formatDate } from '../lib/acervos';
 const updated = lastUpdate(await getAll());
@@ -10,9 +11,9 @@ const updated = lastUpdate(await getAll());
       Um projeto do <a href={siteConfig.viveiro.url} rel="noopener noreferrer external">{siteConfig.viveiro.name}</a>
     </p>
     <ul class="foot-links">
-      <li><a href="/sobre/">Sobre</a></li>
-      <li><a href="/metodologia/">Metodologia</a></li>
-      <li>{siteConfig.contactUrl ? <a href={siteConfig.contactUrl} rel="noopener noreferrer external">Corrigir ou sugerir</a> : <a href="/sobre/#corrigir">Corrigir ou sugerir</a>}</li>
+      <li><a href={sitePath('/sobre/')}>Sobre</a></li>
+      <li><a href={sitePath('/metodologia/')}>Metodologia</a></li>
+      <li>{siteConfig.contactUrl ? <a href={siteConfig.contactUrl} rel="noopener noreferrer external">Corrigir ou sugerir</a> : <a href={sitePath('/sobre/#corrigir')}>Corrigir ou sugerir</a>}</li>
       {siteConfig.repoUrl && <li><a href={siteConfig.repoUrl} rel="noopener noreferrer external">Código e dados</a></li>}
     </ul>
     <p class="meta muted foot-rights">

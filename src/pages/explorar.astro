@@ -1,16 +1,16 @@
 ---
+import { sitePath } from '../lib/site-path';
 import Base from '../layouts/Base.astro';
-import Status from '../components/Status.astro';
+import ExtLink from '../components/ExtLink.astro';
 import MediaPlate from '../components/MediaPlate.astro';
 import * as V from '../data/vocabulario';
+import { collectionViews } from '../data/collection-views';
 import {
   getPublished,
   facetCounts,
   periodBuckets,
   periodKeys,
-  searchText,
-  normalize,
-  formatDate,
+  searchFields,
   recordPath,
 } from '../lib/acervos';
 
@@ -60,20 +60,14 @@ const facetOptions = facets.map((f) => {
 >
   <div class="wrap">
     <header class="page-head">
-      <p class="kicker">Índice</p>
       <h1>Explorar</h1>
-      <p>
-        Todos os registros publicados estão nesta página. Os filtros podem ser combinados e ficam
-        no endereço, então dá para copiar e compartilhar uma busca. Os filtros descrevem o que foi
-        verificado, não a qualidade das iniciativas.
-      </p>
     </header>
 
     <div class="layout">
-      <form id="filtros" class="filters" action="/explorar/" method="get" role="search" aria-label="Filtros do índice">
+      <form id="filtros" class="filters" action={sitePath('/explorar/')} method="get" role="search" aria-label="Filtros do índice">
         <div class="field">
           <label for="q" class="kicker">Busca textual</label>
-          <input id="q" name="q" type="search" placeholder="nome, tema, lugar…" autocomplete="off" />
+          <input id="q" name="q" type="search" placeholder="Ex.: cartazes políticos" autocomplete="off" />
         </div>
         <details id="mais-filtros" class="more">
           <summary class="btn">Filtros e ordenação <span id="n-filtros" class="meta"></span></summary>
@@ -103,7 +97,7 @@ const facetOptions = facets.map((f) => {
         </details>
         <div class="actions">
           <button class="btn btn--primary" type="submit">Aplicar</button>
-          <a class="btn" href="/explorar/" id="limpar">Limpar</a>
+          <a class="btn" href={sitePath('/explorar/')} id="limpar">Limpar</a>
         </div>
         <noscript>
           <p class="callout meta">
@@ -120,25 +114,25 @@ const facetOptions = facets.map((f) => {
           {records.length} registros publicados.
         </p>
         <p id="vazio" class="callout" hidden>
-          Nenhum registro corresponde a essa combinação. Isso não significa que a iniciativa não
-          exista — talvez ainda não tenha sido verificada. Remova um filtro acima ou{' '}
-          <a href="/contribuir/">sugira uma iniciativa</a>.
+          Nenhum acervo encontrado. Tente buscar com menos palavras ou remova um filtro.
         </p>
 
         <ol class="vindex" id="lista">
           {records.map((r, i) => (
             <li
+              class:list={[{ "has-media": r.media.length > 0 }]}
               data-id={r.id}
               data-name={r.name}
               data-updated={r.updated_at}
               data-created={r.created_at}
-              data-search={searchText(r)}
-              data-name-norm={normalize([r.name, r.preferred_name ?? '', ...r.alternative_names].join(' '))}
+              data-search={JSON.stringify(searchFields(r, collectionViews[r.id]?.map(([label]) => label) ?? []))}
               {...Object.fromEntries(facets.map((f) => [`data-${f.param}`, f.pick(r).join(' ')]))}
             >
-              <div class="entry-media">
-                <MediaPlate record={r} variant="list" eager={i < 2} />
-              </div>
+              {r.media.length > 0 && (
+                <div class="entry-media">
+                  <MediaPlate record={r} variant="list" eager={i < 2} />
+                </div>
+              )}
               <div class="entry-text">
                 <p class="kicker">
                   {r.country.map((c) => V.label(V.countries, c)).join(' · ')}
@@ -146,23 +140,11 @@ const facetOptions = facets.map((f) => {
                 </p>
                 <h3><a href={recordPath(r.id)} data-open={r.id}>{r.name}</a></h3>
                 <p>{r.description.pt}</p>
-                <ul class="tags" aria-label="Temas">
-                  {r.themes.map((t) => <li>{V.label(V.themes, t)}</li>)}
-                </ul>
-                <p class="meta entry-status">
-                  <Status status={r.content_status} />
-                  <span>Acesso: {V.label(V.accessLevels, r.access_level)}</span>
-                  <span>Mantém: {V.label(V.stewardshipTypes, r.stewardship_or_host.type)}</span>
-                  <span>Verificado em <time datetime={r.last_verified_at}>{formatDate(r.last_verified_at)}</time></span>
-                </p>
+                <p class="sample-link"><ExtLink href={r.sample_content_url}>{r.sample.title}</ExtLink></p>
               </div>
             </li>
           ))}
         </ol>
-        <p class="meta muted">
-          Registros em revisão (sem amostra confirmada) não aparecem aqui; estão listados em{' '}
-          <a href="/metodologia/#pendentes">Metodologia › Pendentes</a>.
-        </p>
       </section>
     </div>
   </div>
@@ -172,7 +154,7 @@ const facetOptions = facets.map((f) => {
       <button type="button" class="btn" data-panel="prev" aria-label="Registro anterior nos resultados">←</button>
       <span class="meta" id="painel-pos" aria-live="polite"></span>
       <button type="button" class="btn" data-panel="next" aria-label="Próximo registro nos resultados">→</button>
-      <a class="meta panel-page" id="painel-link" href="/explorar/">Página do registro</a>
+      <a class="meta panel-page" id="painel-link" href={sitePath('/explorar/')}>Página do registro</a>
       <button type="button" class="btn" data-panel="close">Fechar <span class="visually-hidden">painel</span>(Esc)</button>
     </div>
     <div id="painel-corpo" class="panel-body"></div>
@@ -180,6 +162,9 @@ const facetOptions = facets.map((f) => {
 </Base>
 
 <script>
+  import { sitePath } from '../lib/site-path';
+  import { prepareSearch, queryTerms, rankSearch } from '../lib/search';
+
   const PARAMS = ['q', 'ordem', 'pais', 'tema', 'tipo', 'formato', 'lingua', 'periodo', 'acesso', 'status', 'relacao', 'host'];
   const FACETS = PARAMS.filter((p) => p !== 'q' && p !== 'ordem');
 
@@ -190,7 +175,7 @@ const facetOptions = facets.map((f) => {
   const empty = document.getElementById('vazio')!;
   const chips = document.getElementById('chips')!;
 
-  const norm = (s: string) => s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().trim();
+  const searchIndex = new Map(items.map((item) => [item, prepareSearch(JSON.parse(item.dataset.search ?? '[]'))]));
 
   function readUrl() {
     const u = new URLSearchParams(location.search);
@@ -223,39 +208,30 @@ const facetOptions = facets.map((f) => {
     history.replaceState(null, '', qs ? `?${qs}` : location.pathname);
   }
 
-  function score(li: HTMLLIElement, terms: string[]) {
-    const all = li.dataset.search ?? '';
-    const name = li.dataset.nameNorm ?? '';
-    let sc = 0;
-    for (const t of terms) {
-      if (!all.includes(t)) return -1;
-      sc += name.includes(t) ? 3 : 1;
-    }
-    return sc;
-  }
-
   function apply() {
     const s = state();
-    const terms = s.q ? norm(s.q).split(/\s+/).filter(Boolean) : [];
-    const scored: [HTMLLIElement, number][] = [];
-    for (const li of items) {
-      let ok = true;
-      for (const f of FACETS) {
-        if (s[f] && !(li.dataset[f] ?? '').split(' ').includes(s[f])) ok = false;
+    const terms = queryTerms(s.q ?? '');
+    const candidates = items.filter((item) =>
+      FACETS.every((facet) => !s[facet] || (item.dataset[facet] ?? '').split(' ').includes(s[facet])),
+    );
+    const scored = new Map<HTMLLIElement, number>();
+    const rank = (allowTypos: boolean) => {
+      for (const item of candidates) {
+        const score = rankSearch(searchIndex.get(item) ?? [], terms, allowTypos);
+        if (score >= 0) scored.set(item, score);
       }
-      const sc = terms.length ? score(li, terms) : 0;
-      if (sc < 0) ok = false;
-      li.hidden = !ok;
-      if (ok) scored.push([li, sc]);
-    }
+    };
+    rank(false);
+    if (terms.length && !scored.size) rank(true);
+    for (const item of items) item.hidden = !scored.has(item);
     const ordem = s.ordem ?? (s.q ? 'relevancia' : 'nome');
     const byName = (a: HTMLLIElement, b: HTMLLIElement) => (a.dataset.name ?? '').localeCompare(b.dataset.name ?? '', 'pt');
     const sorted = [...items].sort((a, b) => {
       if (ordem === 'atualizacao') return (b.dataset.updated ?? '').localeCompare(a.dataset.updated ?? '') || byName(a, b);
       if (ordem === 'inclusao') return (b.dataset.created ?? '').localeCompare(a.dataset.created ?? '') || byName(a, b);
       if (ordem === 'relevancia') {
-        const sa = scored.find(([li]) => li === a)?.[1] ?? -1;
-        const sb = scored.find(([li]) => li === b)?.[1] ?? -1;
+        const sa = scored.get(a) ?? -1;
+        const sb = scored.get(b) ?? -1;
         return sb - sa || byName(a, b);
       }
       return byName(a, b);
@@ -348,11 +324,11 @@ const facetOptions = facets.map((f) => {
   let currentId: string | null = null;
   let opener: HTMLElement | null = null;
 
-  const visibleIds = () => items.filter((li) => !li.hidden).map((li) => li.dataset.id!);
+  const visibleIds = () => Array.from(list.querySelectorAll<HTMLLIElement>(':scope > li:not([hidden])'), (li) => li.dataset.id!);
 
   async function fetchRecord(id: string): Promise<string> {
     if (cache.has(id)) return cache.get(id)!;
-    const res = await fetch(`/acervos/${id}/`);
+    const res = await fetch(sitePath(`/acervos/${id}/`));
     if (!res.ok) throw new Error(String(res.status));
     const doc = new DOMParser().parseFromString(await res.text(), 'text/html');
     const art = doc.querySelector('article[data-record]');
@@ -373,7 +349,7 @@ const facetOptions = facets.map((f) => {
 
   async function openPanel(id: string, mode: 'push' | 'replace' | 'none') {
     currentId = id;
-    const url = `/acervos/${id}/`;
+    const url = sitePath(`/acervos/${id}/`);
     panelLink.href = url;
     if (!dialog.open) {
       document.documentElement.classList.add('panel-open');
@@ -467,7 +443,7 @@ const facetOptions = facets.map((f) => {
       top: 1rem;
       max-height: calc(100vh - 2rem);
       overflow: auto;
-      padding-right: 0.5rem;
+      padding: 0.25rem 0.35rem;
     }
   }
   .field {
@@ -512,7 +488,6 @@ const facetOptions = facets.map((f) => {
   .chips:empty {
     display: none;
   }
-  /* Índice visual: imagem (ou prancha tipográfica) primeiro, texto depois */
   .vindex {
     list-style: none;
     margin: 0;
@@ -526,7 +501,7 @@ const facetOptions = facets.map((f) => {
     border-bottom: 1px solid var(--rule);
   }
   @media (min-width: 40rem) {
-    .vindex > li {
+    .vindex > li.has-media {
       grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
       align-items: start;
     }
@@ -542,13 +517,9 @@ const facetOptions = facets.map((f) => {
   .entry-text h3 a:focus-visible {
     text-decoration: underline;
   }
-  .entry-status {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.3rem 1rem;
-    align-items: center;
-    margin-top: 0.8rem;
-    color: var(--muted);
+  .sample-link {
+    margin-bottom: 0;
+    color: var(--red);
   }
 
   /* Painel contextual */
@@ -591,14 +562,5 @@ const facetOptions = facets.map((f) => {
   }
   .panel-body :global(.record) {
     width: 100%;
-  }
-  @media (prefers-reduced-motion: no-preference) {
-    .panel[open] {
-      animation: slide-in 0.18s ease-out;
-    }
-    @keyframes slide-in {
-      from { transform: translateX(2rem); opacity: 0; }
-      to { transform: none; opacity: 1; }
-    }
   }
 </style>

@@ -120,18 +120,12 @@ const mediaKinds = r.sample.confirmed_media.length ? r.sample.confirmed_media : 
   }
 
   .plate--type {
-    border: 1.5px solid var(--ink);
+    border: 1px solid var(--rule);
     padding: 1rem 1.1rem 1.1rem;
     display: flex;
     flex-direction: column;
     gap: 0.6rem;
-    min-height: 14rem;
-    background:
-      repeating-linear-gradient(0deg, transparent 0 1.55rem, rgb(28 26 23 / 0.06) 1.55rem calc(1.55rem + 1px)),
-      var(--paper);
-  }
-  .plate--detail.plate--type {
-    min-height: 20rem;
+    background: var(--paper-2);
   }
   .pt-kind {
     font-family: var(--f-mono);

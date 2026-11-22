@@ -1,4 +1,5 @@
 ---
+import { sitePath } from '../lib/site-path';
 import '../styles/global.css';
 import Wordmark from '../components/Wordmark.astro';
 import Footer from '../components/Footer.astro';
@@ -35,7 +36,7 @@ const {
 
 const fullTitle = title ? `${title} — ${siteConfig.name}` : `${siteConfig.name} — ${siteConfig.subtitle}`;
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
-const imageUrl = new URL(ogImage, Astro.site).href;
+const imageUrl = new URL(ogImage.startsWith('/') ? sitePath(ogImage) : ogImage, Astro.site).href;
 const robots = noindex || !isIndexable ? 'noindex, nofollow' : 'index, follow';
 
 const nav = [
@@ -53,9 +54,9 @@ const nav = [
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
     <meta name="robots" content={robots} />
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <link rel="sitemap" href="/sitemap.xml" />
-    <meta name="theme-color" content="#f3ede2" />
+    <link rel="icon" href={sitePath('/favicon.svg')} type="image/svg+xml" />
+    <link rel="sitemap" href={sitePath('/sitemap.xml')} />
+    <meta name="theme-color" content="#ffffff" />
 
     <meta property="og:site_name" content={siteConfig.name} />
     <meta property="og:locale" content="pt_BR" />
@@ -77,20 +78,20 @@ const nav = [
   </head>
   <body>
     <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
-    <header class="site-header">
+    {current !== 'inicio' && <header class="site-header">
       <div class="wrap">
-        <Wordmark size="small" href="/" />
+        <Wordmark size="small" href={sitePath('/')} />
         <nav class="site-nav" aria-label="Principal">
           <ul>
             {nav.map((n) => (
               <li>
-                <a href={n.href} aria-current={current === n.key ? 'page' : undefined}>{n.label}</a>
+                <a href={sitePath(n.href)} aria-current={current === n.key ? 'page' : undefined}>{n.label}</a>
               </li>
             ))}
           </ul>
         </nav>
       </div>
-    </header>
+    </header>}
     <main id="conteudo" tabindex="-1">
       <slot />
     </main>

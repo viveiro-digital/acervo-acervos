@@ -1,34 +1,42 @@
 ---
+import { sitePath } from '../lib/site-path';
 import Base from '../layouts/Base.astro';
-import Status from '../components/Status.astro';
-import ExtLink from '../components/ExtLink.astro';
-import MediaPlate from '../components/MediaPlate.astro';
+import { Image } from 'astro:assets';
+import cascaPoster from '../assets/acervos/casca-7647.jpg';
 import { siteConfig } from '../site.config';
 import * as V from '../data/vocabulario';
+import { collectionViews } from '../data/collection-views';
 import {
-  getAll,
   getPublished,
-  isFeaturable,
-  lastUpdate,
-  formatDate,
-  facetCounts,
   recordPath,
 } from '../lib/acervos';
 
-const all = await getAll();
 const published = await getPublished();
-// Com imagem licenciada primeiro: a obra é a protagonista quando pode ser.
-const featured = published
-  .filter(isFeaturable)
-  .sort((a, b) => Number(b.media.length > 0) - Number(a.media.length > 0) || a.name.localeCompare(b.name, 'pt'));
-const pendingCount = all.filter((r) => r.record_status === 'rascunho').length;
-const updated = lastUpdate(all);
+const order = ['diseno-nacional', 'biblioteca-de-zines', 'casca', 'irohin', 'archivo-memoria-trans', 'museu-kuahi', 'cartel-mexico'];
+const sorted = [
+  ...order.flatMap((id) => published.filter((record) => record.id === id)),
+  ...published.filter((record) => !order.includes(record.id)),
+];
+const shortNames: Record<string, string> = {
+  'diseno-nacional': 'Diseño Nacional',
+  irohin: 'Ìrohìn',
+};
 
-const byCountry = [...facetCounts(published, (r) => r.country)].sort((a, b) => b[1] - a[1]);
-const byTheme = [...facetCounts(published, (r) => r.themes)].sort((a, b) => b[1] - a[1]).slice(0, 8);
-const byType = [...facetCounts(published, (r) => r.collection_types)].sort((a, b) => b[1] - a[1]).slice(0, 8);
+const compositions: Record<string, string> = {
+  'biblioteca-de-zines': 'bindings',
+  casca: 'bindings',
+  irohin: 'documents',
+  'archivo-memoria-trans': 'documents',
+  'museu-kuahi': 'objects',
+  'cartel-mexico': 'bindings',
+  'xingu-entangled': 'network',
+  'tipomap-latam': 'type',
+  'mexico-disena': 'bindings',
+  'grafica-latina': 'bindings',
+  'acervo-da-laje': 'objects',
+};
 
-const site = new URL('/', Astro.site).href;
+const site = new URL(sitePath('/'), Astro.site).href;
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'WebSite',
@@ -44,155 +52,193 @@ const jsonLd = {
 };
 ---
 <Base current="inicio" jsonLd={jsonLd}>
-  <div class="wrap home">
-    <section class="intro" aria-labelledby="titulo">
-      <h1 id="titulo">{siteConfig.name}</h1>
-      <p class="sub">{siteConfig.subtitle}</p>
-      <p class="lede">
-        Um índice de iniciativas e arquivos do Brasil e da América Latina com conteúdo digital que
-        dá para abrir agora. Cada registro aponta para a fonte e diz o que foi visto, quando, e o
-        que ainda não se sabe.
-      </p>
-      <form class="search" action="/explorar/" method="get" role="search">
-        <label for="q-home" class="visually-hidden">Buscar por nome, tema, lugar ou tipo de acervo</label>
-        <input id="q-home" name="q" type="search" placeholder="Buscar: cartaz, Amapá, memória trans…" />
-        <button class="btn btn--primary" type="submit">Buscar</button>
-      </form>
-      <p class="meta muted">
-        {`Curadoria em construção · atualizada em `}<time datetime={updated}>{formatDate(updated)}</time>
-        {` · ${published.length} registros publicados · ${pendingCount} em revisão · `}<a href="/metodologia/">método</a>
-      </p>
-    </section>
-
-    <section aria-labelledby="amostras" class="samples">
-      <h2 id="amostras" class="kicker">Amostras abertas na última verificação</h2>
-      <ol class="feature-list">
-        {featured.map((r, i) => (
-          <li class={r.media.length ? 'with-media' : 'no-media'}>
-            <div class="f-media">
-              <MediaPlate record={r} variant="feature" eager={i === 0} />
-            </div>
-            <div class="f-text">
-              <p class="kicker">{r.country.map((c) => V.label(V.countries, c)).join(' · ')} · {V.label(V.initiativeTypes, r.initiative_type)}</p>
-              <h3><a href={recordPath(r.id)}>{r.name}</a></h3>
-              <p>{r.sample.observed}</p>
-              <p class="meta">
-                <Status status={r.content_status} /> · {formatDate(r.last_verified_at)} ·{' '}
-                <ExtLink href={r.sample_content_url}>abrir na fonte</ExtLink>
-              </p>
-            </div>
-          </li>
-        ))}
-      </ol>
-      <p><a class="btn" href="/explorar/">Explorar todos os registros</a></p>
-    </section>
-
-    <section class="explore" aria-labelledby="percursos">
-      <h2 id="percursos" class="kicker">Percursos</h2>
-      <div class="explore-cols">
-        <div>
-          <h3 class="kicker">Território</h3>
-          <ul class="tags big">
-            {byCountry.map(([k]) => <li><a href={`/explorar/?pais=${k}`}>{V.label(V.countries, k)}</a></li>)}
-          </ul>
-        </div>
-        <div>
-          <h3 class="kicker">Temas</h3>
-          <ul class="tags big">
-            {byTheme.map(([k]) => <li><a href={`/explorar/?tema=${k}`}>{V.label(V.themes, k)}</a></li>)}
-          </ul>
-        </div>
-        <div>
-          <h3 class="kicker">Formas de acervo</h3>
-          <ul class="tags big">
-            {byType.map(([k]) => <li><a href={`/explorar/?tipo=${k}`}>{V.label(V.collectionTypes, k)}</a></li>)}
-          </ul>
-        </div>
+  <div class="wrap">
+    <header class="intro">
+      <div class="masthead">
+        <h1>{siteConfig.name}</h1>
+        <nav aria-label="Principal">
+          <a href={sitePath('/explorar/')}>Explorar</a>
+          <a href={sitePath('/comparar/')}>Comparar</a>
+          <a href={sitePath('/sobre/')}>Sobre</a>
+        </nav>
       </div>
-      <p class="meta muted">
-        Não é ranking nem selo: os registros descrevem o que foi verificado e o que falta saber.{' '}
-        <a href="/sobre/">Sobre o projeto</a>.
-      </p>
-    </section>
+      <div class="intro-row">
+        <p>{siteConfig.subtitle}</p>
+        <form class="search" action={sitePath('/explorar/')} method="get" role="search">
+          <label for="q-home" class="visually-hidden">Buscar no catálogo</label>
+          <input id="q-home" name="q" type="search" placeholder="Nome, tema ou lugar" />
+          <button class="btn" type="submit">Buscar</button>
+        </form>
+      </div>
+    </header>
+
+    <ul class="grid" aria-label="Coleções digitais">
+      {sorted.map((record) => {
+        const title = shortNames[record.id] ?? record.name;
+        const links = collectionViews[record.id];
+        const labels = links?.map(([label]) => label)
+          ?? record.collection_types.slice(0, 3).map((type) => V.label(V.collectionTypes, type));
+        // Captura da grade original em 22/11/2026, com créditos das fichas preservados.
+        const source = record.id === 'diseno-nacional'
+          ? 'https://www.disenonacional.cl/carteles/carteles-culturales/'
+          : record.digital_collection_url;
+        return (
+          <li class="tile">
+            <a href={source} class="collection" rel="noopener noreferrer external">
+              <span class="visually-hidden">Abrir coleção {title}: </span>
+              <div class:list={['preview', compositions[record.id]]}>
+                {record.id === 'diseno-nacional' ? (
+                  <img src={sitePath('/colecoes/diseno-nacional.jpg')} width="840" height="550" fetchpriority="high" alt="Grade de cartazes culturais do catálogo Diseño Nacional" />
+                ) : (
+                  <>
+                    <span class="visually-hidden">{labels.join(', ')}</span>
+                    <div class="specimens" aria-hidden="true">
+                      {labels.map((label, i) => (
+                        <span>
+                          {record.id === 'casca' && i === 0 ? (
+                            <Image src={cascaPoster} alt="" width={184} />
+                          ) : (
+                            <span class="shape"></span>
+                          )}
+                          {record.id !== 'biblioteca-de-zines' && i !== 0 && <small>{label}</small>}
+                        </span>
+                      ))}
+                    </div>
+                  </>
+                )}
+              </div>
+            </a>
+            <h2><a href={recordPath(record.id)}>{title}</a></h2>
+            {record.id === 'diseno-nacional' && (
+              <p class="credit">Captura: Diseño Nacional (CC BY-NC)</p>
+            )}
+            {record.id === 'casca' && <p class="credit">Cartaz: Arquivo CASCA (CC0)</p>}
+          </li>
+        );
+      })}
+    </ul>
   </div>
 </Base>
 
 <style>
   .intro {
-    padding-block: 0.5rem 1.5rem;
-    max-width: 52rem;
+    padding-block: clamp(1.4rem, 4vw, 3.4rem) clamp(1.8rem, 4vw, 3rem);
   }
-  h1 {
-    font-size: var(--step-3);
-    margin-bottom: 0.6rem;
-  }
-  h1 {
-    margin-bottom: 0.2rem;
-  }
-  .sub {
-    font-family: var(--f-display);
-    font-size: var(--step-1);
-    color: var(--red);
-    margin: 0 0 0.8rem;
-  }
-  .lede {
-    font-size: var(--step-1);
-    line-height: 1.4;
-  }
-  .search {
+  .masthead {
     display: flex;
-    gap: 0.5rem;
-    margin: 1rem 0 0.8rem;
-    max-width: 40rem;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 0.25rem 2rem;
   }
-  .search input {
-    flex: 1;
-    min-width: 0;
+  nav { display: flex; gap: 1rem; font-size: 0.9rem; margin-bottom: 0.85rem; }
+  nav a { text-decoration: none; }
+  nav a:hover { text-decoration: underline; }
+  h1 {
+    font-family: Didot, "Bodoni MT", "Bodoni 72", "Times New Roman", serif;
+    font-size: clamp(2.75rem, 1.1rem + 7.2vw, 8rem);
+    font-weight: 400;
+    letter-spacing: -0.065em;
+    margin-bottom: 0.16em;
   }
-  .samples {
-    margin-top: 1.5rem;
+  .intro-row {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0.8rem 1.5rem;
   }
-  .feature-list {
+  .intro p { margin: 0; color: var(--muted); }
+  .search { display: flex; flex: 0 1 21rem; gap: 0.35rem; }
+  .search input { flex: 1; min-width: 0; }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 2.4rem clamp(0.9rem, 2vw, 1.6rem);
     list-style: none;
     padding: 0;
-    margin: 0 0 2rem;
-    border-top: 1px solid var(--rule);
+    margin: 0;
   }
-  .feature-list > li {
+  .tile { min-width: 0; }
+  .collection { display: block; text-decoration: none; }
+  .collection:hover .preview { outline: 1px solid var(--muted); outline-offset: -1px; }
+  .preview {
+    min-height: 9rem;
+    aspect-ratio: 4 / 3;
     display: grid;
-    gap: 1rem 2.5rem;
-    padding: 2rem 0;
-    border-bottom: 1px solid var(--rule);
+    place-items: center;
+    background: #f2f1ec;
+    overflow: hidden;
   }
-  @media (min-width: 52rem) {
-    .feature-list > li.with-media {
-      grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
-      align-items: end;
-    }
-    .feature-list > li.no-media {
-      grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
-      align-items: start;
-    }
+  .tile:nth-child(4n + 2) .preview { background: #efebf3; }
+  .tile:nth-child(4n + 3) .preview { background: #e8eee5; }
+  .tile:nth-child(4n + 4) .preview { background: #f3ebe5; }
+  .preview img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
   }
-  .f-text h3 {
-    font-size: var(--step-2);
-    margin: 0 0 0.5rem;
-  }
-  .f-text h3 a {
-    text-decoration: none;
-  }
-  .explore {
-    margin: 2rem 0;
-  }
-  .explore-cols {
+  .specimens {
     display: grid;
-    gap: 1.5rem;
-    grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+    grid-auto-columns: minmax(0, 1fr);
+    grid-auto-flow: column;
+    align-items: end;
+    gap: 0.65rem;
+    width: 85%;
   }
-  .tags.big li {
-    font-family: var(--f-display);
-    font-stretch: condensed;
-    font-size: var(--step-1);
-    border-bottom: 0;
+  .specimens > span { min-width: 0; }
+  .specimens small { display: block; font-size: 0.75rem; margin-top: 0.4rem; }
+  .specimens img { aspect-ratio: 619 / 800; height: auto; align-self: end; }
+  .shape {
+    display: block;
+    aspect-ratio: 3 / 4;
+    background-color: #c8c9bf;
+    background-image: repeating-linear-gradient(0deg, transparent 0 12%, rgb(34 37 34 / 18%) 12% 13%);
+  }
+  .specimens > span:nth-child(2) .shape { background-color: #b0b6a7; }
+  .specimens > span:nth-child(3) .shape { background-color: #d8c1ae; }
+  .bindings .specimens > span:first-child .shape {
+    background: repeating-linear-gradient(90deg, #543750 0 9%, #d7a594 9% 15%, #ece0d4 15% 21%);
+  }
+  .bindings .specimens > span:nth-child(2) .shape {
+    background: linear-gradient(135deg, #d4af80 49%, #4b5442 50%);
+  }
+  .bindings .specimens > span:nth-child(3) .shape {
+    background: radial-gradient(circle at 65% 34%, #efe2b8 0 24%, transparent 25%), #534560;
+  }
+  .documents .specimens { align-items: center; }
+  .documents .shape {
+    background: repeating-linear-gradient(#faf7ee 0 10%, #b7806e 10% 11%, #faf7ee 11% 15%);
+    border: 1px solid #b9aa96;
+  }
+  .objects .shape { border-radius: 49% 49% 23% 23%; background: #997459; }
+  .objects .specimens > span:nth-child(2) .shape { border-radius: 50%; background: #656047; }
+  .network .shape { border-radius: 50%; background: #6e8773; aspect-ratio: 1; }
+  .network .specimens { align-items: center; }
+  .type .shape { background: transparent; font-family: Didot, Georgia, serif; }
+  .type .shape::before { content: "Aa"; font-size: clamp(3rem, 7vw, 7rem); line-height: 1; }
+  h2 {
+    font-size: clamp(1.14rem, 0.9rem + 0.65vw, 1.55rem);
+    letter-spacing: -0.025em;
+    margin: 0.55rem 0 0;
+  }
+  h2 a { display: inline-block; min-height: 24px; text-decoration: none; }
+  h2 a:hover { text-decoration: underline; }
+  .credit {
+    display: block;
+    color: var(--muted);
+    font-size: 0.8rem;
+    width: fit-content;
+    margin: 0.22rem 0 0;
+  }
+  @media (max-width: 57rem) {
+    .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (max-width: 34rem) {
+    .grid { grid-template-columns: 1fr; gap: 1.55rem; }
+    .preview { aspect-ratio: 3 / 2; }
+    .masthead nav { order: 1; margin-block: 0.1rem 0.6rem; }
   }
 </style>

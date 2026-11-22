@@ -1,4 +1,5 @@
 ---
+import { sitePath } from '../../lib/site-path';
 import Base from '../../layouts/Base.astro';
 import Status from '../../components/Status.astro';
 import ExtLink from '../../components/ExtLink.astro';
@@ -48,7 +49,7 @@ const jsonLd = [
     inLanguage: 'pt-BR',
     dateModified: r.updated_at,
     datePublished: r.created_at,
-    isPartOf: { '@type': 'WebSite', name: siteConfig.name, url: new URL('/', Astro.site).href },
+    isPartOf: { '@type': 'WebSite', name: siteConfig.name, url: new URL(sitePath('/'), Astro.site).href },
     // A página descreve uma coleção digital mantida por terceiros.
     about: {
       '@type': 'Collection',
@@ -77,8 +78,8 @@ const jsonLd = [
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
     itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'Início', item: new URL('/', Astro.site).href },
-      { '@type': 'ListItem', position: 2, name: 'Explorar', item: new URL('/explorar/', Astro.site).href },
+      { '@type': 'ListItem', position: 1, name: 'Início', item: new URL(sitePath('/'), Astro.site).href },
+      { '@type': 'ListItem', position: 2, name: 'Explorar', item: new URL(sitePath('/explorar/'), Astro.site).href },
       { '@type': 'ListItem', position: 3, name: r.name, item: canonical },
     ],
   },
@@ -104,7 +105,7 @@ const levelLabel: Record<string, string> = {
 ) : (
 <Base title={r.name} description={description} ogType="article" jsonLd={jsonLd}>
   <div class="wrap">
-    <Breadcrumbs items={[{ label: 'Início', href: '/' }, { label: 'Explorar', href: '/explorar/' }, { label: r.name }]} />
+    <Breadcrumbs items={[{ label: 'Início', href: sitePath('/') }, { label: 'Explorar', href: sitePath('/explorar/') }, { label: r.name }]} />
   </div>
   <article class="wrap record" data-record={r.id}>
     <header class={`record-head ${lead ? 'has-media' : 'no-media'}${wide ? ' wide' : ''}`}>
@@ -344,7 +345,7 @@ const levelLabel: Record<string, string> = {
             {r.design_dimensions.length > 0 && (<><dt>Design</dt><dd>{r.design_dimensions.map((d) => V.label(V.designDimensions, d)).join(', ')}</dd></>)}
           </dl>
         </div>
-        <p><a class="btn" href={`/comparar/?ids=${r.id}`}>Comparar com outros</a></p>
+        <p><a class="btn" href={sitePath(`/comparar/?ids=${r.id}`)}>Comparar com outros</a></p>
       </aside>
     </div>
 
@@ -383,7 +384,7 @@ const levelLabel: Record<string, string> = {
       </dl>
       <p class="meta muted">
         Incluído em {formatDate(r.created_at)} · atualizado em {formatDate(r.updated_at)} ·{' '}
-        <a href="/contribuir/">corrigir ou contestar esta descrição</a>
+        <a href={sitePath('/contribuir/')}>corrigir ou contestar esta descrição</a>
       </p>
     </section>
   </article>

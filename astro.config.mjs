@@ -12,6 +12,7 @@ const site = process.env.SITE_URL || 'http://localhost:4321';
 
 export default defineConfig({
   site,
+  base: process.env.SITE_BASE || '/',
   trailingSlash: 'always',
   build: { format: 'directory' },
   // Sem integrações externas: sitemap e robots são endpoints em src/pages.
