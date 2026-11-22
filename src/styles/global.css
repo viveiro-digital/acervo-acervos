@@ -578,6 +578,20 @@ legend {
   max-width: 47ch;
 }
 .record-intro .meta { margin-top: 0.5rem; }
+.record-collection-view {
+  margin: 0 0 clamp(1.8rem, 4vw, 3.5rem);
+}
+.record-collection-screen {
+  display: block;
+  background: #f3f2ef;
+  border: 1px solid var(--rule);
+}
+.record-collection-screen img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.record-collection-view figcaption { margin-top: 0.55rem; }
 .record-discovery {
   display: grid;
   gap: 1.35rem var(--gap);

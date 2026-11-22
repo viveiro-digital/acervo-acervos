@@ -3,6 +3,7 @@ import { sitePath } from '../../lib/site-path';
 import Base from '../../layouts/Base.astro';
 import ExtLink from '../../components/ExtLink.astro';
 import CollectionCover from '../../components/CollectionCover.astro';
+import collectionScreens from '../../data/collection-screens.json';
 import { collectionViews } from '../../data/collection-views';
 import { siteConfig } from '../../site.config';
 import * as V from '../../data/vocabulario';
@@ -28,6 +29,9 @@ const { record: r, redirectTo } = Astro.props;
 const place = [r.city, r.region, ...r.country.map((c) => V.label(V.countries, c))].filter(Boolean).join(', ');
 const description = r.description.pt;
 const sections = (collectionViews[r.id] ?? []).filter(([, url]) => url !== r.digital_collection_url);
+const screens: Partial<Record<string, { file: string; page: string; width: number; height: number }>> = collectionScreens;
+const screen = screens[r.id];
+const screenPath = screen && sitePath(`/colecoes/${screen.file}`);
 const accessNote = r.access_requirements;
 const canonical = new URL(recordPath(r.id), Astro.site).href;
 const jsonLd = [
@@ -97,6 +101,17 @@ const jsonLd = [
         <ExtLink href={r.digital_collection_url} class="btn btn--primary">Explorar a coleção</ExtLink>
       </div>
     </header>
+
+    {screen && screenPath && (
+      <figure class="record-collection-view" aria-label="Vista da coleção">
+        <a class="record-collection-screen" href={screenPath} aria-label={`Ampliar captura de ${r.name}`}>
+          <img src={screenPath} alt={`Captura da coleção ${r.name}`} width={screen.width} height={screen.height} loading="lazy" decoding="async" />
+        </a>
+        <figcaption class="meta muted">
+          <ExtLink href={screen.page}>Ver esta página no acervo</ExtLink>
+        </figcaption>
+      </figure>
+    )}
 
     {(sections.length > 0 || r.sample_content_url !== r.digital_collection_url) && (
       <section class="record-discovery" aria-labelledby="colecao-partes">

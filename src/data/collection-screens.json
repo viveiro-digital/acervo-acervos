@@ -1,0 +1,110 @@
+{
+  "acervo-bajuba": {
+    "file": "acervo-bajuba-detalhe.jpg",
+    "page": "https://acervobajuba.com.br/category/projetos/",
+    "width": 1280,
+    "height": 1506
+  },
+  "acervo-da-laje": {
+    "file": "acervo-da-laje-detalhe.jpg",
+    "page": "https://www.acervodalaje.com.br/hemeroteca-acervo-da-laje",
+    "width": 1280,
+    "height": 875
+  },
+  "archivo-memoria-trans": {
+    "file": "archivo-memoria-trans-detalhe.jpg",
+    "page": "https://atom.archivotrans.ar/index.php/informationobject/browse?onlyMedia=1&topLod=0&view=card",
+    "width": 1280,
+    "height": 875
+  },
+  "biblioteca-de-zines": {
+    "file": "biblioteca-de-zines-detalhe.jpg",
+    "page": "https://www.biblioteca-de-zines.com.br/zines",
+    "width": 1280,
+    "height": 875
+  },
+  "cartel-mexico": {
+    "file": "cartel-mexico-detalhe.jpg",
+    "page": "https://cartelmexico.org/#disenadores",
+    "width": 1280,
+    "height": 875
+  },
+  "casca": {
+    "file": "casca-detalhe.jpg",
+    "page": "https://casca-archive.org/items/browse?collection=32",
+    "width": 1280,
+    "height": 875
+  },
+  "diseno-nacional": {
+    "file": "diseno-nacional-detalhe.jpg",
+    "page": "https://www.disenonacional.cl/carteles/carteles-culturales/",
+    "width": 1280,
+    "height": 875
+  },
+  "grafica-latina": {
+    "file": "grafica-latina-detalhe.jpg",
+    "page": "https://cartelanticolonial.graficalatina.com/",
+    "width": 1280,
+    "height": 875
+  },
+  "irohin": {
+    "file": "irohin-detalhe.jpg",
+    "page": "https://irohin.org.br/acervo/colecoes/",
+    "width": 1280,
+    "height": 875
+  },
+  "lesvoz": {
+    "file": "lesvoz-detalhe.jpg",
+    "page": "https://www.lesvoz.org/archivo_revistas/archivo-historico-revista-lesvoz/",
+    "width": 1280,
+    "height": 875
+  },
+  "mexico-disena": {
+    "file": "mexico-disena-detalhe.jpg",
+    "page": "https://mexicodisena.com.mx/publicaciones/",
+    "width": 1280,
+    "height": 875
+  },
+  "museu-da-mare": {
+    "file": "museu-da-mare-detalhe.jpg",
+    "page": "https://arquivomuseudamare.org/acervo-iconografico/",
+    "width": 1280,
+    "height": 875
+  },
+  "museu-kuahi": {
+    "file": "museu-kuahi-detalhe.jpg",
+    "page": "https://museukuahi.com.br/acervo-etnografico/",
+    "width": 1280,
+    "height": 875
+  },
+  "museu-maguta": {
+    "file": "museu-maguta-detalhe.jpg",
+    "page": "https://museumaguta.com.br/formato_obra/fotografia/",
+    "width": 1280,
+    "height": 875
+  },
+  "potencia-tortillera": {
+    "file": "potencia-tortillera-detalhe.jpg",
+    "page": "https://potenciatortillera.blogspot.com/1996/08/",
+    "width": 1280,
+    "height": 875
+  },
+  "tipomap-latam": {
+    "file": "tipomap-latam-detalhe.jpg",
+    "page": "https://tipomap.lat/br/db_list",
+    "width": 1280,
+    "height": 875
+  },
+  "xingu-entangled": {
+    "file": "xingu-entangled-detalhe.jpg",
+    "page": "https://uclab-potsdam.github.io/xingu-entangled/",
+    "width": 1280,
+    "height": 440
+  },
+  "zumvi": {
+    "file": "zumvi-detalhe.jpg",
+    "page": "https://acervo.zumvi.org.br/",
+    "width": 1280,
+    "height": 875
+  }
+}

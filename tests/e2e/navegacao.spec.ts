@@ -83,7 +83,7 @@ test('início: encontra a biblioteca pelo clube e pelo material do Amapá', asyn
   await page.goto('/?q=clube+de+zines');
   const first = page.locator('#lista > li:visible').first();
   await expect(first).toHaveAttribute('data-id', 'biblioteca-de-zines');
-  await expect(first).toContainText('enviados por quem os faz');
+  await expect(first).toContainText('Acervo digital, comunitário e open source de zines brasileiras.');
   await page.goto('/?q=fanzines+do+Amap%C3%A1');
   await expect(first).toHaveAttribute('data-id', 'biblioteca-de-zines');
 });

@@ -67,7 +67,7 @@ export const collectionSubtitles: Partial<Record<string, string>> = {
   lesvoz: 'Revistas lésbicas feministas mexicanas para ler online.',
   'acervo-da-laje': 'Obras de artistas do Subúrbio Ferroviário de Salvador, nas duas casas do acervo.',
   'archivo-memoria-trans': 'Álbuns de família, cartas e recortes preservados pela comunidade trans argentina.',
-  'biblioteca-de-zines': 'Fanzines enviados por quem os faz, com leitura gratuita e um clube de criação.',
+  'biblioteca-de-zines': 'Acervo digital, comunitário e open source de zines brasileiras.',
   'cartel-mexico': 'Cartazes do México, organizados por designer e época.',
   casca: 'Cordéis, capas e cartazes do Nordeste brasileiro.',
   'diseno-nacional': 'Cartazes, anúncios e impressos que contam a história do design chileno, de 1840 a 2000.',

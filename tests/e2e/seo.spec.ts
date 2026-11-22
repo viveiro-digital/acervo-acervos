@@ -3,9 +3,9 @@ import { test, expect } from '@playwright/test';
 test('início: título e descrição de compartilhamento são breves e distintos', async ({ request }) => {
   const html = await (await request.get('/')).text();
   expect(html).toContain('<title>Coleção de Acervos Digitais</title>');
-  expect(html).toContain('property="og:title" content="Arquivos comunitários"');
-  expect(html).toContain('property="og:description" content="Fanzines, fotografias e jornais do Brasil e da América Latina."');
-  expect(html).toContain('name="twitter:title" content="Arquivos comunitários"');
+  expect(html).toContain('property="og:title" content="Acervos digitais"');
+  expect(html).toContain('property="og:description" content="Encontre coleções abertas e conheça as histórias que elas ajudam a preservar."');
+  expect(html).toContain('name="twitter:title" content="Acervos digitais"');
 });
 
 test('registro: canonical, Open Graph e JSON-LD no HTML inicial', async ({ request }) => {
