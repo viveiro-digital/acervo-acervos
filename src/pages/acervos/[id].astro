@@ -4,7 +4,8 @@ import Base from '../../layouts/Base.astro';
 import Status from '../../components/Status.astro';
 import ExtLink from '../../components/ExtLink.astro';
 import MediaPlate from '../../components/MediaPlate.astro';
-import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import CollectionCover from '../../components/CollectionCover.astro';
+import { collectionViews } from '../../data/collection-views';
 import { siteConfig } from '../../site.config';
 import * as V from '../../data/vocabulario';
 import {
@@ -31,13 +32,15 @@ const { record: r, redirectTo } = Astro.props;
 const all = await getPublished();
 const rel = related(r, all);
 const place = [r.city, r.region, ...r.country.map((c) => V.label(V.countries, c))].filter(Boolean).join(', ');
-const description = `${r.description.pt} Amostra verificada: ${r.sample.title}.`;
+const description = r.description.pt;
+const sections = collectionViews[r.id] ?? [];
+const accessNote = r.access_channel
+  ? r.access_channel.limitations
+  : r.access_requirements;
 const canonical = new URL(recordPath(r.id), Astro.site).href;
 const detail = levelOfDetail(r);
 const missing = missingForFull(r);
 const lead = [...r.media].sort((x, y) => x.order - y.order)[0];
-// Imagens largas (panorâmicas) ocupam a largura toda em vez de uma coluna.
-const wide = lead ? lead.local_asset.width / lead.local_asset.height > 1.4 : false;
 const jsonLd = [
   {
     '@context': 'https://schema.org',
@@ -104,44 +107,58 @@ const levelLabel: Record<string, string> = {
   </html>
 ) : (
 <Base title={r.name} description={description} ogType="article" jsonLd={jsonLd}>
-  <div class="wrap">
-    <Breadcrumbs items={[{ label: 'Início', href: sitePath('/') }, { label: 'Explorar', href: sitePath('/explorar/') }, { label: r.name }]} />
-  </div>
   <article class="wrap record" data-record={r.id}>
-    <header class={`record-head ${lead ? 'has-media' : 'no-media'}${wide ? ' wide' : ''}`}>
-      <div class="head-media">
-        <MediaPlate record={r} variant="detail" eager />
-      </div>
+    <a class="record-back" href={sitePath('/explorar/')}>Todos os acervos</a>
+    <header class="record-head">
       <div class="head-text">
-        <p class="kicker">
-          {V.label(V.initiativeTypes, r.initiative_type)} · {place}
-        </p>
+        <p class="meta muted">{place}</p>
         <h1 data-record-title>{r.name}</h1>
-        {r.alternative_names.length > 0 && (
-          <p class="meta muted">Também: {r.alternative_names.join(' · ')}</p>
-        )}
         <p class="lede">{r.description.pt}</p>
         <div class="cta">
-          <ExtLink href={r.sample_content_url} class="btn btn--primary">Abrir a amostra na fonte</ExtLink>
-          <ExtLink href={r.digital_collection_url} class="btn">Explorar a coleção</ExtLink>
-          <ExtLink href={r.initiative_url} class="btn">Site da iniciativa</ExtLink>
+          <ExtLink href={r.digital_collection_url} class="btn btn--primary">Explorar a coleção</ExtLink>
+          {r.initiative_url !== r.digital_collection_url && (
+            <ExtLink href={r.initiative_url} class="btn">Site da iniciativa</ExtLink>
+          )}
         </div>
-        <p class="meta">
-          <Status status={r.content_status} /> · verificado em <time datetime={r.last_verified_at}>{formatDate(r.last_verified_at)}</time>
-        </p>
-        {r.access_channel && (
-          <p class="margin-note">
-            Canal de acesso: <strong>{r.access_channel.platform}</strong>. {r.access_channel.limitations}
-          </p>
-        )}
+        {accessNote && <p class="meta muted">{accessNote}</p>}
       </div>
+      <CollectionCover id={r.id} name={r.name} eager />
     </header>
 
+    <div class="record-discovery">
+      {sections.length > 0 && (
+        <section aria-labelledby="colecao-partes">
+          <h2 id="colecao-partes">Por onde começar</h2>
+          <ul class="record-links">
+            {sections.map(([label, url]) => <li><ExtLink href={url}>{label}</ExtLink></li>)}
+          </ul>
+        </section>
+      )}
+      {!sections.some(([, url]) => url === r.sample_content_url) && r.sample_content_url !== r.digital_collection_url && (
+        <section aria-labelledby="ver-amostra">
+          <h2 id="ver-amostra">Uma amostra do acervo</h2>
+          <ul class="record-links"><li><ExtLink href={r.sample_content_url}>{r.sample.title}</ExtLink></li></ul>
+        </section>
+      )}
+    </div>
+
+    {rel.length > 0 && (
+      <section aria-labelledby="relacoes" class="record-related">
+        <h2 id="relacoes">Outros acervos para explorar</h2>
+        <ul class="record-links">
+          {rel.map(({ record }) => <li><a href={recordPath(record.id)}>{record.name}</a></li>)}
+        </ul>
+      </section>
+    )}
+
+    <details class="record-notes">
+      <summary>Notas e fontes</summary>
     <div class="cols">
       <div class="main">
-        <section class="sample reg" aria-labelledby="amostra">
-          <p class="kicker" id="amostra">Amostra específica</p>
-          <h2>{r.sample.title}</h2>
+        <section class="sample" aria-labelledby="amostra">
+          <h2 id="amostra">Sobre a amostra</h2>
+          <h3>{r.sample.title}</h3>
+          {lead && <MediaPlate record={r} variant="detail" />}
           <p>{r.sample.observed}</p>
           <dl class="fields">
             <dt>Nível de descrição</dt>
@@ -163,9 +180,6 @@ const levelLabel: Record<string, string> = {
             {r.sample.rights_text && (<><dt>Direitos (amostra)</dt><dd>{r.sample.rights_text}</dd></>)}
           </dl>
           <p class="open-sample"><ExtLink href={r.sample_content_url}>Abrir a amostra na fonte</ExtLink></p>
-          <p class="meta muted">
-            Acervo Acervos não reproduz a obra; ela continua na página da iniciativa.
-          </p>
         </section>
 
         <section aria-labelledby="porque">
@@ -183,7 +197,7 @@ const levelLabel: Record<string, string> = {
         </section>
 
         <section aria-labelledby="quem">
-          <h2 id="quem">Quem mantém e com quem</h2>
+          <h2 id="quem">Organização do acervo</h2>
           <dl class="fields">
             <dt>Mantém / hospeda</dt>
             <dd>
@@ -291,7 +305,7 @@ const levelLabel: Record<string, string> = {
         )}
 
         <section aria-labelledby="evidencias">
-          <h2 id="evidencias">Evidências e fontes</h2>
+          <h2 id="evidencias">Fontes consultadas</h2>
           <ol class="evidence">
             {r.evidence.map((e, i) => (
               <li>
@@ -349,21 +363,6 @@ const levelLabel: Record<string, string> = {
       </aside>
     </div>
 
-    {rel.length > 0 && (
-      <section aria-labelledby="relacoes" class="relations">
-        <h2 id="relacoes">Relações</h2>
-        <p class="muted">Vínculos por atributos em comum. Não indicam influência nem relação institucional.</p>
-        <ul class="rel-list">
-          {rel.map(({ record: o, reasons }) => (
-            <li>
-              <a href={recordPath(o.id)}><strong>{o.name}</strong></a>
-              <span class="meta muted"> — {reasons.join('; ')}</span>
-            </li>
-          ))}
-        </ul>
-      </section>
-    )}
-
     <section aria-labelledby="historico" class="history">
       <h2 id="historico">Histórico do registro</h2>
       <ol class="meta">
@@ -387,6 +386,7 @@ const levelLabel: Record<string, string> = {
         <a href={sitePath('/contribuir/')}>corrigir ou contestar esta descrição</a>
       </p>
     </section>
+    </details>
   </article>
 </Base>
 )}

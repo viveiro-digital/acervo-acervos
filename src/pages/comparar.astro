@@ -1,6 +1,7 @@
 ---
 import { sitePath } from '../lib/site-path';
 import Base from '../layouts/Base.astro';
+import CollectionCover from '../components/CollectionCover.astro';
 import Status from '../components/Status.astro';
 import * as V from '../data/vocabulario';
 import { getPublished, formatDate, recordPath } from '../lib/acervos';
@@ -31,17 +32,13 @@ const rows: { label: string; cell: (r: (typeof records)[number]) => string }[] =
 >
   <div class="wrap">
     <header>
-      <p class="kicker">Lado a lado</p>
       <h1>Comparar</h1>
-      <p>
-        Escolha de 2 a 4 registros para ver evidências e lacunas lado a lado. Não há nota nem
-        ranking: diferenças de escala, financiamento ou estrutura não medem valor cultural.
-      </p>
+      <p>Escolha até quatro acervos para explorar lado a lado.</p>
     </header>
 
     <form id="escolha" class="pick" action={sitePath('/comparar/')} method="get">
       <fieldset>
-        <legend>Registros (máximo 4)</legend>
+        <legend>Acervos</legend>
         <ul class="pick-list">
           {records.map((r) => (
             <li>
@@ -67,6 +64,7 @@ const rows: { label: string; cell: (r: (typeof records)[number]) => string }[] =
             <td></td>
             {records.map((r) => (
               <th scope="col" data-col={r.id}>
+                <CollectionCover id={r.id} name={r.name} />
                 <a href={recordPath(r.id)}>{r.name}</a>
               </th>
             ))}
@@ -91,7 +89,7 @@ const rows: { label: string; cell: (r: (typeof records)[number]) => string }[] =
         </tbody>
       </table>
     </div>
-    <p id="vazio" class="callout" hidden>Selecione pelo menos dois registros para comparar.</p>
+    <p id="vazio" class="callout" hidden>Selecione pelo menos dois acervos para comparar.</p>
   </div>
 </Base>
 
@@ -145,6 +143,7 @@ const rows: { label: string; cell: (r: (typeof records)[number]) => string }[] =
 </script>
 
 <style>
+  thead :global(.collection-cover) { aspect-ratio: 3 / 2; margin-bottom: 0.6rem; }
   .pick-list {
     list-style: none;
     padding: 0;

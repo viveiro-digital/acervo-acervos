@@ -2,7 +2,7 @@
 import { sitePath } from '../lib/site-path';
 import Base from '../layouts/Base.astro';
 import ExtLink from '../components/ExtLink.astro';
-import MediaPlate from '../components/MediaPlate.astro';
+import CollectionCover from '../components/CollectionCover.astro';
 import * as V from '../data/vocabulario';
 import { collectionViews } from '../data/collection-views';
 import {
@@ -118,9 +118,8 @@ const facetOptions = facets.map((f) => {
         </p>
 
         <ol class="vindex" id="lista">
-          {records.map((r, i) => (
+          {records.map((r) => (
             <li
-              class:list={[{ "has-media": r.media.length > 0 }]}
               data-id={r.id}
               data-name={r.name}
               data-updated={r.updated_at}
@@ -128,11 +127,7 @@ const facetOptions = facets.map((f) => {
               data-search={JSON.stringify(searchFields(r, collectionViews[r.id]?.map(([label]) => label) ?? []))}
               {...Object.fromEntries(facets.map((f) => [`data-${f.param}`, f.pick(r).join(' ')]))}
             >
-              {r.media.length > 0 && (
-                <div class="entry-media">
-                  <MediaPlate record={r} variant="list" eager={i < 2} />
-                </div>
-              )}
+              <CollectionCover id={r.id} name={r.name} />
               <div class="entry-text">
                 <p class="kicker">
                   {r.country.map((c) => V.label(V.countries, c)).join(' · ')}
@@ -154,7 +149,7 @@ const facetOptions = facets.map((f) => {
       <button type="button" class="btn" data-panel="prev" aria-label="Registro anterior nos resultados">←</button>
       <span class="meta" id="painel-pos" aria-live="polite"></span>
       <button type="button" class="btn" data-panel="next" aria-label="Próximo registro nos resultados">→</button>
-      <a class="meta panel-page" id="painel-link" href={sitePath('/explorar/')}>Página do registro</a>
+      <a class="meta panel-page" id="painel-link" href={sitePath('/explorar/')}>Página do acervo</a>
       <button type="button" class="btn" data-panel="close">Fechar <span class="visually-hidden">painel</span>(Esc)</button>
     </div>
     <div id="painel-corpo" class="panel-body"></div>
@@ -278,7 +273,7 @@ const facetOptions = facets.map((f) => {
   }
 
   const more = document.getElementById('mais-filtros') as HTMLDetailsElement;
-  if (window.matchMedia('(min-width: 60rem)').matches) more.open = true;
+  if (FACETS.some((facet) => new URLSearchParams(location.search).has(facet))) more.open = true;
 
   readUrl();
   apply();
@@ -356,7 +351,7 @@ const facetOptions = facets.map((f) => {
       dialog.showModal();
     }
     panelBody.setAttribute('aria-busy', 'true');
-    panelBody.innerHTML = '<p class="meta panel-loading">Carregando registro…</p>';
+    panelBody.innerHTML = '<p class="meta panel-loading">Carregando acervo…</p>';
     if (mode === 'push') history.pushState({ panel: id }, '', url);
     if (mode === 'replace') history.replaceState({ panel: id }, '', url);
     const ids = visibleIds();
@@ -370,7 +365,7 @@ const facetOptions = facets.map((f) => {
       document.title = `${title?.textContent ?? id} — Acervo Acervos`;
       title?.focus();
     } catch {
-      panelBody.innerHTML = `<p class="callout">Não foi possível carregar o registro aqui. <a href="${url}">Abrir a página do registro</a>.</p>`;
+      panelBody.innerHTML = `<p class="callout">A prévia está indisponível. <a href="${url}">Abrir a página do acervo</a>.</p>`;
     } finally {
       panelBody.removeAttribute('aria-busy');
       panelBody.scrollTop = 0;
@@ -492,19 +487,18 @@ const facetOptions = facets.map((f) => {
     list-style: none;
     margin: 0;
     padding: 0;
-    border-top: 1px solid var(--rule);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+    gap: 2rem var(--gap);
   }
   .vindex > li {
     display: grid;
-    gap: 1rem 1.8rem;
-    padding: 1.8rem 0;
-    border-bottom: 1px solid var(--rule);
+    align-content: start;
+    gap: 0.7rem;
+    min-width: 0;
   }
-  @media (min-width: 40rem) {
-    .vindex > li.has-media {
-      grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
-      align-items: start;
-    }
+  .vindex :global(.collection-cover) {
+    aspect-ratio: 3 / 2;
   }
   .entry-text h3 {
     font-size: var(--step-2);
@@ -536,7 +530,7 @@ const facetOptions = facets.map((f) => {
     box-shadow: -1px 0 0 var(--rule);
   }
   .panel::backdrop {
-    background: rgb(28 26 23 / 0.45);
+    background: rgb(28 26 23 / 0.25);
   }
   .panel-bar {
     position: sticky;

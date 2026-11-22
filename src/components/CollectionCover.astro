@@ -1,0 +1,31 @@
+---
+import { sitePath } from '../lib/site-path';
+import collectionPreviews from '../data/collection-previews.json';
+
+interface Props {
+  id: string;
+  name: string;
+  eager?: boolean;
+  priority?: boolean;
+}
+
+const { id, name, eager = false, priority = false } = Astro.props;
+const previews: Partial<Record<string, { file: string; page: string; width: number; height: number }>> =
+  collectionPreviews;
+const preview = previews[id];
+---
+<div class="collection-cover">
+  {preview ? (
+    <img
+      src={sitePath(`/colecoes/${preview.file}`)}
+      width={preview.width}
+      height={preview.height}
+      alt=""
+      loading={eager ? 'eager' : 'lazy'}
+      fetchpriority={priority ? 'high' : 'auto'}
+      decoding="async"
+    />
+  ) : (
+    <span class="cover-title" aria-hidden="true">{name}</span>
+  )}
+</div>

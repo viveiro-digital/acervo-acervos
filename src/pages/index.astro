@@ -1,6 +1,7 @@
 ---
 import { sitePath } from '../lib/site-path';
 import Base from '../layouts/Base.astro';
+import CollectionCover from '../components/CollectionCover.astro';
 import { siteConfig } from '../site.config';
 import collectionPreviews from '../data/collection-previews.json';
 import {
@@ -19,8 +20,7 @@ const shortNames: Record<string, string> = {
   irohin: 'Ìrohìn',
 };
 
-const previews: Partial<Record<string, { file: string; page: string; width: number; height: number }>> =
-  collectionPreviews;
+const previews: Partial<Record<string, { page: string }>> = collectionPreviews;
 
 const site = new URL(sitePath('/'), Astro.site).href;
 const jsonLd = {
@@ -66,21 +66,7 @@ const jsonLd = {
           <li class="tile" data-collection={record.id}>
             <a href={preview?.page ?? record.digital_collection_url} class="collection" rel="noopener noreferrer external">
               <span class="visually-hidden">Abrir coleção {title}</span>
-              <div class="preview">
-                {preview ? (
-                  <img
-                    src={sitePath(`/colecoes/${preview.file}`)}
-                    alt=""
-                    width={preview.width}
-                    height={preview.height}
-                    loading={i < 3 ? 'eager' : 'lazy'}
-                    fetchpriority={i === 0 ? 'high' : 'auto'}
-                    decoding="async"
-                  />
-                ) : (
-                  <span class="preview-title" aria-hidden="true">{title}</span>
-                )}
-              </div>
+              <CollectionCover id={record.id} name={title} eager={i < 3} priority={i === 0} />
             </a>
             <h2><a href={recordPath(record.id)}>{title}</a></h2>
             {record.id === 'diseno-nacional' && (
@@ -108,7 +94,7 @@ const jsonLd = {
   nav a { text-decoration: none; }
   nav a:hover { text-decoration: underline; }
   h1 {
-    font-family: Didot, "Bodoni MT", "Bodoni 72", "Times New Roman", serif;
+    font-family: var(--f-title);
     font-size: clamp(2.75rem, 1.1rem + 7.2vw, 8rem);
     font-weight: 400;
     letter-spacing: -0.065em;
@@ -135,28 +121,7 @@ const jsonLd = {
   }
   .tile { min-width: 0; }
   .collection { display: block; text-decoration: none; }
-  .collection:hover .preview { outline: 1px solid var(--muted); outline-offset: -1px; }
-  .preview {
-    min-height: 9rem;
-    aspect-ratio: 4 / 3;
-    display: grid;
-    place-items: center;
-    background: #f4f4f2;
-    overflow: hidden;
-  }
-  .preview img {
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-  }
-  .preview-title {
-    padding: 1rem;
-    text-align: center;
-    color: var(--muted);
-    font-family: var(--f-display);
-    font-size: var(--step-2);
-  }
+  .collection:hover :global(.collection-cover) { outline: 1px solid var(--muted); outline-offset: -1px; }
   h2 {
     font-size: clamp(1.14rem, 0.9rem + 0.65vw, 1.55rem);
     letter-spacing: -0.025em;
@@ -176,7 +141,7 @@ const jsonLd = {
   }
   @media (max-width: 34rem) {
     .grid { grid-template-columns: 1fr; gap: 1.55rem; }
-    .preview { aspect-ratio: 3 / 2; }
+    .tile :global(.collection-cover) { aspect-ratio: 3 / 2; }
     .masthead nav { order: 1; margin-block: 0.1rem 0.6rem; }
   }
 </style>
