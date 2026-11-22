@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "description": "Acervo Acervos — Explore o que iniciativas e arquivos compartilham online.",
+  "description": "Coleção de Acervos Digitais — Coleções online de arquivos comunitários do Brasil e da América Latina.",
   "packageManager": "pnpm@10.27.0",
   "scripts": {
     "dev": "astro dev",

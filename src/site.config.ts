@@ -1,6 +1,6 @@
 /** Configuração editorial do site. Edite aqui, não nos componentes. */
 export const siteConfig = {
-  name: 'Acervo Acervos',
+  name: 'Coleção de Acervos Digitais',
   subtitle: 'Explore coleções digitais de arquivos comunitários do Brasil e da América Latina.',
   description:
     'Um catálogo voltado a arquivos comunitários do Brasil e da América Latina que compartilham acervos digitais, de zines e cartazes a fotografias e documentos.',

@@ -10,11 +10,11 @@ const canonical = new URL(home, Astro.site).href;
     <meta charset="utf-8" />
     <meta name="robots" content="noindex, follow" />
     <link rel="canonical" href={canonical} />
-    <title>Acervo Acervos</title>
+    <title>Coleção de Acervos Digitais</title>
     <script is:inline define:vars={{ home }}>
       location.replace(home + location.search + location.hash);
     </script>
     <noscript><meta http-equiv="refresh" content={`0; url=${home}`} /></noscript>
   </head>
-  <body><a href={home}>Buscar no Acervo Acervos</a></body>
+  <body><a href={home}>Buscar na Coleção de Acervos Digitais</a></body>
 </html>

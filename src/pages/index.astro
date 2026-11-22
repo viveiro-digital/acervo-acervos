@@ -18,7 +18,7 @@ import {
 const published = await getPublished();
 const order = [
   'museu-maguta', 'museu-da-mare', 'zumvi', 'potencia-tortillera', 'lesvoz',
-  'acervo-bajuba', 'nova-cartografia-social', 'diseno-nacional', 'biblioteca-de-zines',
+  'acervo-bajuba', 'diseno-nacional', 'biblioteca-de-zines',
   'casca', 'irohin', 'archivo-memoria-trans', 'museu-kuahi', 'cartel-mexico',
 ];
 const sorted = [
@@ -188,9 +188,11 @@ const jsonLd = {
   }
   h1 {
     font-family: var(--f-title);
-    font-size: clamp(2.75rem, 1.1rem + 7.2vw, 8rem);
+    font-size: clamp(2.75rem, 1.05rem + 5.7vw, 6.4rem);
     font-weight: 400;
-    letter-spacing: -0.065em;
+    letter-spacing: -0.06em;
+    line-height: 0.97;
+    text-wrap: balance;
     margin: 0;
   }
   .intro-subtitle { margin: 0.65rem 0 0; color: var(--muted); }

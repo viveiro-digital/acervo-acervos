@@ -52,7 +52,7 @@ last_verified_at: "2026-11-22"
 verification_method: Consulta pública no navegador, com verificação do material na fonte.
 link_status: saudavel
 content_status: conteudo_confirmado
-record_status: publicado
+record_status: rascunho
 created_at: "2026-11-22"
 updated_at: "2026-11-22"
 change_log:
@@ -61,3 +61,9 @@ change_log:
     to: publicado
     reason: Inclusão após consulta pública e revisão da relação com a comunidade.
     source: https://novacartografiasocial.com.br/download/01-comunidade-quilombo-casinhas-jeremoabo-ba/?wpdmdl=10208
+  - date: "2026-11-22"
+    field: record_status
+    from: publicado
+    to: rascunho
+    reason: "Conteúdo digital confirmado. A fonte documenta uma parceria de pesquisa; a gestão comunitária da coleção ainda precisa ser verificada."
+    source: https://novacartografiasocial.com.br/fasciculos/

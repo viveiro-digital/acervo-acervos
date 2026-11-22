@@ -215,7 +215,7 @@ async function openPanel(id: string, mode: 'push' | 'replace' | 'none') {
   try {
     panelBody.innerHTML = await fetchRecord(id);
     const title = panelBody.querySelector('#painel-titulo') as HTMLElement | null;
-    document.title = `${title?.textContent ?? id} — Acervo Acervos`;
+    document.title = `${title?.textContent ?? id} — Coleção de Acervos Digitais`;
     title?.focus();
   } catch {
     panelBody.innerHTML = `<p class="callout">A prévia está indisponível. <a href="${url}">Abrir a página do acervo</a>.</p>`;

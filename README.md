@@ -1,8 +1,8 @@
-# Acervo Acervos
+# Coleção de Acervos Digitais
 
 **Explore o que iniciativas e arquivos compartilham online.**
 
-Acervo Acervos é um catálogo editorial estático, local-first, de iniciativas e
+Coleção de Acervos Digitais é um catálogo editorial estático, local-first, de iniciativas e
 arquivos do Brasil e da América Latina que publicam conteúdo digital
 consultável. Cada registro aponta para a iniciativa de origem e diz **o que foi
 visto, quando, como e o que ainda não se sabe**. Não é diretório exaustivo,
@@ -215,7 +215,7 @@ aponta para `SITE_URL`, não para o preview.
 
 - Primeira rodada de verificações feita por agente de IA em 21/11/2026; **todos
   os registros estão marcados para revisão humana**.
-- Catálogo pequeno: 19 publicados, 3 rascunhos e 2 deixados de fora. A interface usa prévias das coleções e remete às obras na fonte.
+- Catálogo pequeno: 18 publicados, 4 rascunhos e 2 deixados de fora. A interface usa prévias das coleções e remete às obras na fonte.
 - Interface só em português; os campos `es`/`en` existem, mas estão vazios.
 - O canal de correções e o link do código apontam para
   `github.com/viveiro-digital/acervo-acervos`, que só existe depois do push.

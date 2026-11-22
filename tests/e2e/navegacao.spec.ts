@@ -61,7 +61,7 @@ test.describe('sem JavaScript', () => {
   test.use({ javaScriptEnabled: false });
   test('início lista tudo e o link abre a página do registro', async ({ page }) => {
     await page.goto('/?pais=AR');
-    await expect(page.locator('#lista > li')).toHaveCount(19);
+    await expect(page.locator('#lista > li')).toHaveCount(18);
     await page.locator('a[data-open="casca"]').click();
     await expect(page).toHaveURL(/\/acervos\/casca\/$/);
   });

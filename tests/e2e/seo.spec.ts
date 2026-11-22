@@ -15,6 +15,7 @@ test('sitemap só com páginas públicas', async ({ request }) => {
   expect(xml).not.toContain('/revisao/');
   expect(xml).toContain('/acervos/acervo-bajuba/');
   expect(xml).not.toContain('/acervos/arquivo-lesbico-brasileiro/'); // rascunho
+  expect(xml).not.toContain('/acervos/nova-cartografia-social/'); // rascunho
 });
 
 test('fora de produção, robots bloqueia e as páginas têm noindex', async ({ request }) => {
