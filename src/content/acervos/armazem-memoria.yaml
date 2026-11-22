@@ -1,0 +1,70 @@
+id: armazem-memoria
+name: Armazém Memória
+preferred_name: Armazém Memória
+initiative_type: plataforma
+description:
+  pt: >-
+    Acervo virtual com centros de referência temáticos (Brasil Nunca Mais, Luta
+    pela Terra, Indígena, Paulo Freire e outros) em leitor de documentos
+    digitalizados, além de filmotecas e álbuns de fotos.
+initiative_url: https://armazemmemoria.com.br/
+digital_collection_url: https://armazemmemoria.com.br/centros-indigena/
+sample_content_url: https://www.docvirt.com/docreader.net/docmulti.aspx?bib=hemeroarmmem
+access_channel:
+  platform: DocReader (docvirt) e Flickr
+  limitations: Leitor externo; a página de documento não foi confirmada nesta verificação.
+country: [BR]
+geographic_scope: nacional
+languages: [pt]
+collection_types: [documentos-textuais, jornais, fotografia, audiovisual]
+themes: [ditadura, direitos-humanos, indigena]
+formats: [pdf, imagem, video]
+date_range:
+  start: 1964
+  end: 1985
+  precision: intervalo
+  label: "inclui documentos da ditadura de 1964–1985 (centro Brasil Nunca Mais)"
+sample:
+  title: Hemeroteca no DocReader (lista de bibliotecas)
+  observed: >-
+    O leitor abriu e listou duas bibliotecas de recortes de jornal com contagem de
+    páginas, mas nenhuma página digitalizada foi exibida durante a verificação.
+  confirmed_media: [metadados]
+stewardship_or_host:
+  type: desconhecido
+  note: Mantenedor não lido nesta verificação.
+community_evidence:
+  kind: desconhecida
+  note: Não verificado.
+curatorial_reason:
+  pt: >-
+    Grande acervo documental sobre ditadura, luta pela terra e povos indígenas,
+    citado no Guia. Falta confirmar uma página de documento.
+evidence:
+  - claim: O Guia apresenta o Armazém Memória entre os acervos decoloniais.
+    source_url: https://doi.org/10.11606/9788580891874
+    accessed_at: "2026-11-21"
+    kind: terceiros
+    certainty: alta
+    note: Beiguelman (org.), 2026, capítulo "Decoloniais", p. 45.
+access_level: nao-validado
+rights_and_reuse:
+  statement: desconhecido
+gaps:
+  - Página de documento não confirmada.
+last_verified_at: "2026-11-21"
+verification_method: Site e leitor abertos no navegador.
+link_status: saudavel
+content_status: revisao_pendente
+review_flag: true
+review_reason: Abrir um documento no DocReader e registrar uma amostra específica.
+review_priority: media
+record_status: rascunho
+created_at: "2026-11-21"
+updated_at: "2026-11-21"
+change_log:
+  - date: "2026-11-21"
+    field: "*"
+    to: criado
+    reason: Registro criado como rascunho; amostra não confirmada.
+    source: https://armazemmemoria.com.br/

@@ -1,0 +1,105 @@
+id: biblioteca-de-zines
+name: Biblioteca de Zines
+preferred_name: Biblioteca de Zines
+alternative_names: [Biblioteca Brasileira de Zines]
+initiative_type: biblioteca
+self_description:
+  text: "Uma biblioteca virtual e código aberto para catalogar e arquivar iniciativas independentes em formato de zine"
+  lang: pt
+  source_url: https://www.biblioteca-de-zines.com.br/
+description:
+  pt: >-
+    Biblioteca virtual colaborativa de zines independentes brasileiros e
+    latino-americanos, com leitura do PDF na própria página, filtros por ano e
+    categoria e envio aberto de zines.
+initiative_url: https://www.biblioteca-de-zines.com.br/
+digital_collection_url: https://www.biblioteca-de-zines.com.br/zines
+sample_content_url: https://www.biblioteca-de-zines.com.br/zines/coletivo-ventos-do-norte-visagens-no-meio-do-mundo
+access_channel:
+  platform: Google Drive (visualizador embutido)
+  limitations: >-
+    Os PDFs são exibidos por um player do Google Drive; a leitura depende desse
+    serviço externo continuar disponível e público.
+country: [BR, LATAM]
+geographic_scope: nacional
+territory_note: >-
+  Foco declarado em zines brasileiros; o título do site inclui
+  latino-americanos e há ao menos um zine com referência à Costa Rica.
+languages: [pt, es]
+collection_types: [zines, publicacoes]
+themes: [publicacao-independente, cultura-visual]
+themes_original: [zines independentes, fanzine]
+formats: [pdf, imagem]
+date_range:
+  start: null
+  end: 2026
+  precision: desconhecido
+  label: produção contemporânea; datas por zine
+design_dimensions: [editorial, ilustracao, materialidade-impressao]
+sample:
+  title: "Visagens no meio do mundo — Coletivo Ventos do Norte (2026)"
+  observed: >-
+    Página do zine com o PDF renderizado no visualizador embutido (capa
+    visível), descrição, categorias (Terror, Autobiográfico) e créditos: zine
+    produzido por estudantes de Letras da UEAP (Amapá), segundo a ficha.
+  confirmed_media: [pdf]
+  creator: Coletivo Ventos do Norte
+  date: "2026"
+stewardship_or_host:
+  type: independente
+  note: >-
+    Projeto gratuito e de código aberto, segundo a página Sobre; o código está
+    em repositório público no GitHub.
+  source_url: https://www.biblioteca-de-zines.com.br/about
+community_evidence:
+  kind: participacao
+  note: >-
+    Os zines são enviados pelas próprias pessoas autoras por formulário aberto
+    ("Sugerir Zine"). Não há documentação sobre governança coletiva da
+    curadoria.
+  source_url: https://www.biblioteca-de-zines.com.br/about
+curatorial_reason:
+  pt: >-
+    Faz aparecer a publicação independente contemporânea, inclusive da região
+    Norte, com leitura integral na página e envio aberto por quem produz.
+evidence:
+  - claim: Autodescrição como biblioteca virtual de código aberto para zines independentes.
+    source_url: https://www.biblioteca-de-zines.com.br/
+    accessed_at: "2026-11-21"
+    kind: declarado
+    certainty: alta
+  - claim: O PDF do zine da amostra renderiza no visualizador embutido.
+    source_url: https://www.biblioteca-de-zines.com.br/zines/coletivo-ventos-do-norte-visagens-no-meio-do-mundo
+    accessed_at: "2026-11-21"
+    kind: observado
+    certainty: alta
+access_level: player-externo
+access_requirements: Nenhum cadastro; leitura via Google Drive embutido.
+rights_and_reuse:
+  statement: desconhecido
+  source_url: https://www.biblioteca-de-zines.com.br/about
+relationship_disclosure: >-
+  A pessoa que mantém Acervo Acervos também contribui com a Biblioteca de Zines.
+  Por isso este registro foi escrito apenas com o que está publicado no site e
+  precisa de revisão por outra pessoa antes de ser destacado.
+gaps:
+  - Política de direitos por zine não localizada.
+  - Preservação dos PDFs depende de pastas no Google Drive.
+last_verified_at: "2026-11-21"
+verification_method: Página da amostra aberta no navegador; PDF visível no player (captura de tela).
+link_status: saudavel
+content_status: conteudo_confirmado
+review_flag: true
+review_reason: >-
+  Conflito de interesse declarado (relationship_disclosure); a inclusão precisa
+  de revisão humana independente.
+review_priority: alta
+record_status: publicado
+created_at: "2026-11-21"
+updated_at: "2026-11-21"
+change_log:
+  - date: "2026-11-21"
+    field: "*"
+    to: criado
+    reason: Criação do registro após verificação da amostra.
+    source: https://www.biblioteca-de-zines.com.br/zines/coletivo-ventos-do-norte-visagens-no-meio-do-mundo

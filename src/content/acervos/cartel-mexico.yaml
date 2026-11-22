@@ -1,0 +1,86 @@
+id: cartel-mexico
+name: Cartel México
+preferred_name: Cartel México
+alternative_names: [Espacio del cartel mexicano]
+initiative_type: arquivo
+self_description:
+  text: "Somos un archivo digital de acceso libre y abierto que preserva, organiza y difunde el cartel."
+  lang: es
+  source_url: https://cartelmexico.org/
+description:
+  pt: >-
+    Arquivo digital de cartaz mexicano organizado por designers, gerações,
+    coleções temáticas e uma cronologia. Os cartazes aparecem em páginas de
+    portfólio por designer.
+initiative_url: https://cartelmexico.org/
+digital_collection_url: https://cartelmexico.org/disenadores/
+sample_content_url: https://cartelmexico.org/disenadores/sergio-grande/
+country: [MX]
+geographic_scope: nacional
+languages: [es]
+collection_types: [cartazes]
+themes: [design-grafico, cartaz-politico, historia-do-design]
+themes_original: [cartel social, cartel mexicano]
+formats: [imagem]
+date_range:
+  start: 2008
+  end: 2019
+  precision: intervalo
+  label: "2008–2019 nos cartazes da amostra; período do arquivo não informado"
+design_dimensions: [cartaz, tipografia, ilustracao]
+sample:
+  title: "Portfólio de Sergio Grande (cartazes 2008–2019)"
+  observed: >-
+    Página do designer com biografia e cartazes carregados em imagem
+    (aprox. 600 × 900 px cada), entre eles "Justicia" (2010), "Niños migrantes"
+    (2019) e "México 68" (2018). Não encontramos ficha individual por cartaz.
+  confirmed_media: [imagem]
+  creator: Sergio Grande
+  alt_from_source: "© Sergio Grande / cartelmexico.org"
+  rights_text: "© Sergio Grande / cartelmexico.org (no texto alternativo das imagens)"
+stewardship_or_host:
+  type: desconhecido
+  note: A página "Nosotros" não foi lida nesta verificação; mantenedor não identificado.
+  source_url: https://cartelmexico.org/nosotros/
+community_evidence:
+  kind: desconhecida
+  note: Sem informação sobre participação comunitária.
+curatorial_reason:
+  pt: >-
+    Reúne a produção contemporânea de cartaz mexicano por autoria, incluindo
+    cartaz social e político, com contexto biográfico de cada designer.
+evidence:
+  - claim: Autodescrição como arquivo digital de acesso livre que preserva, organiza e difunde o cartaz.
+    source_url: https://cartelmexico.org/
+    accessed_at: "2026-11-21"
+    kind: declarado
+    certainty: alta
+  - claim: A página de Sergio Grande exibe cartazes em imagem.
+    source_url: https://cartelmexico.org/disenadores/sergio-grande/
+    accessed_at: "2026-11-21"
+    kind: observado
+    certainty: alta
+access_level: abre-direto
+rights_and_reuse:
+  statement: "Direitos reservados aos designers (© nas imagens); o site mostra apenas «© 2024 Cartel México»."
+  source_url: https://cartelmexico.org/disenadores/sergio-grande/
+removal_or_contact_url: https://cartelmexico.org/contact/
+gaps:
+  - Sem ficha individual por cartaz (data e título aparecem só no nome do arquivo e na legenda).
+  - Mantenedor não identificado.
+last_verified_at: "2026-11-21"
+verification_method: Página da amostra aberta no navegador; imagens decodificadas conferidas pelo DOM.
+link_status: saudavel
+content_status: conteudo_confirmado
+review_flag: true
+review_reason: Primeira verificação feita por agente automatizado; falta revisão humana e ler a página Nosotros.
+review_priority: baixa
+record_status: publicado
+created_at: "2026-11-21"
+updated_at: "2026-11-21"
+change_log:
+  - date: "2026-11-21"
+    field: "*"
+    to: criado
+    reason: Criação do registro após verificação da amostra.
+    source: https://cartelmexico.org/disenadores/sergio-grande/

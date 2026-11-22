@@ -1,0 +1,85 @@
+id: tipomap-latam
+name: TipoMap Latam
+preferred_name: TipoMap Latam
+alternative_names: [tipomap.lat]
+initiative_type: diretorio
+self_description:
+  text: "Mapeo de la producción tipográfica en Latinoamérica"
+  lang: es
+  source_url: https://tipomap.lat/
+description:
+  pt: >-
+    Base de dados de fontes tipográficas, designers, fundidoras, prêmios e
+    escolas da América Latina, com nós regionais por país e fichas
+    tipográficas trilíngues (es/pt/en).
+initiative_url: https://tipomap.lat/
+digital_collection_url: https://tipomap.lat/br/db_list
+sample_content_url: https://tipomap.lat/br/font/acarau-display
+country: [LATAM, BR, MX]
+geographic_scope: transnacional
+languages: [es, pt, en]
+collection_types: [tipografia]
+themes: [design-grafico, historia-do-design]
+themes_original: [tipografía latinoamericana]
+formats: [metadados, texto]
+date_range:
+  start: null
+  end: null
+  precision: intervalo
+  label: "período de 35 anos, segundo a apresentação (anos não especificados)"
+design_dimensions: [tipografia]
+sample:
+  title: "Acarau Display (registro #3891, nó BR)"
+  observed: >-
+    Ficha com créditos, fundidora, ano (2022), classificação, número de estilos,
+    licenciamento ("público con costo") e texto descritivo em inglês. Nenhum
+    espécime em imagem foi carregado na ficha.
+  confirmed_media: [metadados, texto]
+stewardship_or_host:
+  type: universidade
+  name: Red Latinoamericana de Investigación Tipográfica
+  note: >-
+    A página inicial lista universidades do México, Colômbia, Chile e Brasil e a
+    Asociación Mexicana de Tipografía como impulsionadoras.
+  source_url: https://tipomap.lat/
+community_evidence:
+  kind: desconhecida
+  note: Iniciativa acadêmica; sem informação sobre participação comunitária.
+curatorial_reason:
+  pt: >-
+    Torna visível a produção tipográfica latino-americana como campo, e permite
+    filtrar fontes com suporte a línguas originárias.
+evidence:
+  - claim: Iniciativa impulsionada por universidades e associação listadas na página.
+    source_url: https://tipomap.lat/
+    accessed_at: "2026-11-21"
+    kind: declarado
+    certainty: alta
+  - claim: A ficha da amostra mostra apenas metadados e texto, sem espécime.
+    source_url: https://tipomap.lat/br/font/acarau-display
+    accessed_at: "2026-11-21"
+    kind: observado
+    certainty: alta
+access_level: so-metadados
+access_notes: As fontes em si são produtos de terceiros; a base registra dados sobre elas.
+rights_and_reuse:
+  statement: desconhecido
+  source_url: https://tipomap.lat/mx/terminos
+gaps:
+  - Espécimes visuais não confirmados na ficha verificada (a seção Galería não foi checada).
+last_verified_at: "2026-11-21"
+verification_method: Página da amostra aberta no navegador; conteúdo conferido pelo DOM.
+link_status: saudavel
+content_status: catalogo_sem_midia_confirmada
+review_flag: true
+review_reason: Verificar se a Galería oferece espécimes visuais por ficha.
+review_priority: media
+record_status: publicado
+created_at: "2026-11-21"
+updated_at: "2026-11-21"
+change_log:
+  - date: "2026-11-21"
+    field: "*"
+    to: criado
+    reason: Criação do registro após verificação da amostra.
+    source: https://tipomap.lat/br/font/acarau-display

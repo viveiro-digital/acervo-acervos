@@ -1,0 +1,68 @@
+id: mutha
+name: MUTHA — Museu Transgênero de História e Arte
+preferred_name: MUTHA
+alternative_names: [Museu Transgênero de História e Arte, AHMUTHA]
+initiative_type: museu
+description:
+  pt: >-
+    Museu virtual de história e arte trans com Arquivo Histórico (AHMUTHA),
+    Arquivo Artístico de Dados, coleções e chamada aberta para arquivamento.
+initiative_url: https://mutha.com.br/
+digital_collection_url: https://ah.mutha.com.br/acervo-digital/
+sample_content_url: https://ah.mutha.com.br/colecoes/
+country: [BR]
+geographic_scope: nacional
+languages: [pt, es, en]
+collection_types: [documentos-pessoais, fotografia, arte-digital]
+themes: [memoria-trans, memoria-lgbt, arte-contemporanea]
+formats: [imagem]
+date_range:
+  start: null
+  end: null
+  precision: desconhecido
+  label: não informado
+sample:
+  title: Página de coleções do Arquivo Histórico (não aberta item a item)
+  observed: >-
+    A página inicial do Arquivo Histórico lista coleções e acervos (Acervos
+    Muthantes, Arquivo Vivo, Acervos Transcestrais e outros). Nenhum item foi
+    aberto nesta verificação.
+  confirmed_media: []
+stewardship_or_host:
+  type: desconhecido
+  note: O rodapé atribui direitos a uma pessoa e ao MUTHA; forma de gestão não verificada.
+community_evidence:
+  kind: desconhecida
+  note: O Guia o apresenta como museu de iniciativa virtual e nacional; governança não verificada.
+  source_url: https://doi.org/10.11606/9788580891874
+curatorial_reason:
+  pt: Museu trans citado no Guia, com arquivo histórico e chamada aberta. Falta confirmar uma amostra.
+evidence:
+  - claim: O Guia apresenta o MUTHA entre os arquivos queer.
+    source_url: https://doi.org/10.11606/9788580891874
+    accessed_at: "2026-11-21"
+    kind: terceiros
+    certainty: alta
+    note: Beiguelman (org.), 2026, capítulo "Queer", p. 49.
+access_level: nao-validado
+rights_and_reuse:
+  statement: desconhecido
+sensitive_content_note: Arquivo com documentos e imagens de pessoas trans; não reproduzir sem checar a política do museu.
+gaps:
+  - Nenhum item verificado.
+last_verified_at: "2026-11-21"
+verification_method: Páginas iniciais abertas no navegador; banner de cookies não aceito.
+link_status: saudavel
+content_status: revisao_pendente
+review_flag: true
+review_reason: Abrir uma coleção e registrar uma amostra específica.
+review_priority: media
+record_status: rascunho
+created_at: "2026-11-21"
+updated_at: "2026-11-21"
+change_log:
+  - date: "2026-11-21"
+    field: "*"
+    to: criado
+    reason: Registro criado como rascunho; amostra não confirmada.
+    source: https://ah.mutha.com.br/

@@ -1,0 +1,97 @@
+id: acervo-da-laje
+name: Acervo da Laje
+preferred_name: Acervo da Laje
+alternative_names: [Associação Cultural Acervo da Laje, Acervo da Laje Digital]
+initiative_type: acervo
+self_description:
+  text: "Memória artística, cultural e de pesquisa sobre o Subúrbio Ferroviário de Salvador"
+  lang: pt
+  source_url: https://www.acervodalaje.com.br/o-acervo
+description:
+  pt: >-
+    Casa-museu-escola no Subúrbio Ferroviário de Salvador. O site tem galeria
+    virtual com parte da coleção arrolada (obras de artistas locais, objetos e
+    artefatos do território), páginas por cômodo e projetos, e uma hemeroteca.
+initiative_url: https://www.acervodalaje.com.br/
+digital_collection_url: https://www.acervodalaje.com.br/
+sample_content_url: https://www.acervodalaje.com.br/o-acervo
+country: [BR]
+region: Bahia
+city: Salvador
+geographic_scope: local
+territory_note: Bairro de São João do Cabrito, Subúrbio Ferroviário de Salvador.
+languages: [pt]
+collection_types: [obras-de-arte, cultura-material, fotografia, jornais]
+collection_types_original: [obras de artistas do Subúrbio, hemeroteca, bibliotecas, conchas, azulejos, artefatos históricos]
+themes: [periferias, arte-contemporanea, cultura-popular, territorio, afro-diasporico]
+formats: [imagem, texto]
+date_range:
+  start: null
+  end: null
+  precision: desconhecido
+  label: datas da coleção não informadas na página verificada
+sample:
+  title: Página "O Acervo" (casas 01 e 02)
+  observed: >-
+    Página descritiva dos espaços e da coleção com fotografias carregadas (até
+    812 × 1054 px), créditos de fotografia e lista nominal de artistas do
+    Subúrbio Ferroviário presentes no acervo. Não identificamos página
+    individual por obra.
+  confirmed_media: [imagem, texto]
+stewardship_or_host:
+  type: ong
+  name: Associação Cultural Acervo da Laje
+  note: Fundado em 2010 por José Eduardo Ferreira Santos e Vilma Soares Ferreira Santos (segundo o Guia).
+  source_url: https://www.acervodalaje.com.br/o-acervo
+community_evidence:
+  kind: participacao
+  note: >-
+    O Guia descreve oficinas, visitas e programas educativos com moradores e o
+    Acervinho, com crianças do entorno. Isso documenta participação; não há
+    descrição de governança comunitária formal.
+  source_url: https://doi.org/10.11606/9788580891874
+curatorial_reason:
+  pt: >-
+    Faz aparecer a produção artística das periferias de Salvador, muitas vezes
+    resgatada do descarte, a partir do próprio território.
+evidence:
+  - claim: Galeria virtual criada em 2020 com apoio do Goethe-Institut, com 300 obras na primeira etapa.
+    source_url: https://www.acervodalaje.com.br/
+    accessed_at: "2026-11-21"
+    kind: declarado
+    certainty: media
+  - claim: Descrição da instituição, fundadores e programas.
+    source_url: https://doi.org/10.11606/9788580891874
+    accessed_at: "2026-11-21"
+    kind: terceiros
+    certainty: alta
+    note: Beiguelman (org.), 2026, capítulo "Decoloniais", p. 46.
+  - claim: A página "O Acervo" exibe fotografias da coleção e dos espaços.
+    source_url: https://www.acervodalaje.com.br/o-acervo
+    accessed_at: "2026-11-21"
+    kind: observado
+    certainty: alta
+access_level: acesso-parcial
+access_notes: O Guia cita www.acervodalaje.org; o endereço ativo verificado é acervodalaje.com.br.
+rights_and_reuse:
+  statement: desconhecido
+removal_or_contact_url: mailto:contato@acervodalaje.com.br
+gaps:
+  - Sem ficha individual por obra identificada na galeria virtual.
+  - Autoria e data das obras não verificadas.
+last_verified_at: "2026-11-21"
+verification_method: Página da amostra aberta no navegador; imagens decodificadas conferidas pelo DOM.
+link_status: saudavel
+content_status: conteudo_parcial
+review_flag: true
+review_reason: Localizar na galeria virtual uma obra com ficha própria para servir de amostra.
+review_priority: media
+record_status: publicado
+created_at: "2026-11-21"
+updated_at: "2026-11-21"
+change_log:
+  - date: "2026-11-21"
+    field: "*"
+    to: criado
+    reason: Criação do registro após verificação da amostra.
+    source: https://www.acervodalaje.com.br/o-acervo

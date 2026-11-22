@@ -1,0 +1,81 @@
+id: mexico-disena
+name: México Diseña
+preferred_name: México Diseña
+initiative_type: plataforma
+self_description:
+  text: "Un proyecto de Leer México dedicado a documentar la cultura del diseño vinculada con el libro y la edición en México."
+  lang: es
+  source_url: https://mexicodisena.com.mx/publicaciones/artes-de-mexico-primera-epoca/
+description:
+  pt: >-
+    Arquivo de design editorial mexicano estruturado em fichas que relacionam
+    publicações, pessoas, editoras e funções (direção de arte, design
+    editorial, tipografia), com contexto e fontes citadas.
+initiative_url: https://mexicodisena.com.mx/
+digital_collection_url: https://mexicodisena.com.mx/archivo/
+sample_content_url: https://mexicodisena.com.mx/publicaciones/artes-de-mexico-primera-epoca/
+country: [MX]
+geographic_scope: nacional
+languages: [es]
+collection_types: [revistas, design-editorial, publicacoes]
+themes: [design-grafico, historia-do-design]
+themes_original: [diseño editorial, cultura del diseño, libro y edición]
+formats: [texto, imagem, metadados]
+date_range:
+  start: 1900
+  end: 1999
+  precision: intervalo
+  label: "século XX (etiqueta da ficha da amostra)"
+design_dimensions: [editorial, tipografia, identidade]
+sample:
+  title: "Artes de México — primera época (1953–1963)"
+  observed: >-
+    Ficha com tipo (revista), datas, editora, função documentada e pessoa
+    relacionada (Vicente Rojo), texto de contexto e três fontes citadas. Uma
+    única imagem de capa carregada em miniatura (101 × 150 px).
+  confirmed_media: [texto, imagem]
+stewardship_or_host:
+  type: desconhecido
+  name: Leer México
+  note: O rodapé diz "Parte de Leer México"; natureza da organização não verificada.
+  source_url: https://mexicodisena.com.mx/publicaciones/artes-de-mexico-primera-epoca/
+community_evidence:
+  kind: desconhecida
+  note: Sem informação sobre participação comunitária.
+curatorial_reason:
+  pt: >-
+    Modelo de relação entre pessoa, publicação e função de design: faz
+    relacionar quem desenhou, para quem e com que fontes.
+evidence:
+  - claim: A ficha traz contexto, funções documentadas e fontes externas citadas.
+    source_url: https://mexicodisena.com.mx/publicaciones/artes-de-mexico-primera-epoca/
+    accessed_at: "2026-11-21"
+    kind: observado
+    certainty: alta
+  - claim: A imagem disponível é uma miniatura de capa.
+    source_url: https://mexicodisena.com.mx/publicaciones/artes-de-mexico-primera-epoca/
+    accessed_at: "2026-11-21"
+    kind: observado
+    certainty: alta
+access_level: acesso-parcial
+access_notes: O foco é a ficha descritiva; imagens são poucas e pequenas.
+rights_and_reuse:
+  statement: "Apenas «© 2026 México Diseña» no rodapé."
+gaps:
+  - Imagens da publicação em miniatura, sem digitalização da obra.
+last_verified_at: "2026-11-21"
+verification_method: Página da amostra aberta no navegador; texto e imagem conferidos pelo DOM.
+link_status: saudavel
+content_status: conteudo_parcial
+review_flag: true
+review_reason: Primeira verificação feita por agente automatizado; falta revisão humana.
+review_priority: baixa
+record_status: publicado
+created_at: "2026-11-21"
+updated_at: "2026-11-21"
+change_log:
+  - date: "2026-11-21"
+    field: "*"
+    to: criado
+    reason: Criação do registro após verificação da amostra.
+    source: https://mexicodisena.com.mx/publicaciones/artes-de-mexico-primera-epoca/

@@ -1,0 +1,94 @@
+id: diseno-nacional
+name: Diseño Nacional — Archivo Gráfico de Chile
+preferred_name: Diseño Nacional
+alternative_names: [Diseño Nacional 1840–2000, Archivo Gráfico de Chile]
+initiative_type: arquivo
+self_description:
+  text: "Diseño Nacional - Archivo Gráfico de Chile, es una iniciativa de difusión de la historia del diseño y la cultura material en nuestro país"
+  lang: es
+  source_url: https://www.disenonacional.cl/
+description:
+  pt: >-
+    Arquivo e banco de imagens de gráfica e produtos chilenos de 1840 a 2000,
+    organizado em seis áreas (cartazes, editorial, publicidade, marcas,
+    simbologia, produtos) e navegável por década, setor e arquivo de origem.
+initiative_url: https://www.disenonacional.cl/
+digital_collection_url: https://www.disenonacional.cl/carteles/carteles-politicos/
+sample_content_url: https://www.disenonacional.cl/todo-hombre-tiene-derecho-a-ser-persona-2/
+country: [CL]
+geographic_scope: nacional
+languages: [es]
+collection_types: [cartazes, design-editorial, marcas-e-embalagens, cultura-material]
+collection_types_original: [carteles, editorial, publicidad, marcas, simbología e ilustración, productos]
+themes: [design-grafico, historia-do-design, cartaz-politico, direitos-humanos]
+themes_original: [historia del diseño, cultura material]
+formats: [imagem]
+date_range:
+  start: 1840
+  end: 2000
+  precision: intervalo
+  label: "1840–2000 (segundo o site)"
+design_dimensions: [cartaz, editorial, identidade, tipografia]
+sample:
+  title: "Todo hombre tiene derecho a ser persona: año de los derechos humanos Chile (1978)"
+  observed: >-
+    Ficha com imagem do cartaz carregada (946 × 1291 px), título, ano 1978,
+    autoria (Jorge Castillo Rojas), lugar (Santiago) e arquivo de origem
+    (Carlos Montes de Oca), além da licença declarada.
+  confirmed_media: [imagem]
+  creator: Jorge Castillo Rojas
+  date: "1978"
+  rights_text: "Uso público não comercial — CC BY-NC (segundo a ficha)"
+stewardship_or_host:
+  type: desconhecido
+  note: >-
+    O site se apresenta como iniciativa de difusão, mas a entidade mantenedora não
+    foi identificada nesta verificação. As fichas indicam arquivos de origem
+    (ex.: Biblioteca Nacional de Chile, Biblioteca UC San Joaquín).
+  source_url: https://www.disenonacional.cl/
+community_evidence:
+  kind: desconhecida
+  note: Não há informação sobre participação comunitária.
+curatorial_reason:
+  pt: >-
+    Permite ler a história do design chileno pela cultura material cotidiana,
+    incluindo cartazes políticos do período da ditadura, com autoria e arquivo de
+    origem na ficha.
+evidence:
+  - claim: Arquivo com cerca de 5.000 imagens de gráficas e produtos de 1840 a 2000.
+    source_url: https://www.disenonacional.cl/
+    accessed_at: "2026-11-21"
+    kind: declarado
+    certainty: media
+    note: Número declarado pela fonte; não conferido.
+  - claim: A ficha da amostra exibe a imagem do cartaz e metadados de autoria e origem.
+    source_url: https://www.disenonacional.cl/todo-hombre-tiene-derecho-a-ser-persona-2/
+    accessed_at: "2026-11-21"
+    kind: observado
+    certainty: alta
+provenance_note: A ficha indica o arquivo de origem do item (Carlos Montes de Oca).
+access_level: abre-direto
+rights_and_reuse:
+  statement: "Conteúdo declarado de uso público não comercial, Atribuição-NãoComercial (CC BY-NC), na ficha verificada."
+  source_url: https://www.disenonacional.cl/todo-hombre-tiene-derecho-a-ser-persona-2/
+removal_or_contact_url: http://www.disenonacional.cl/contacto
+gaps:
+  - Mantenedor institucional não identificado.
+  - Várias fichas parecem duplicadas (sufixos -2, -3… no endereço); não investigado.
+last_verified_at: "2026-11-21"
+verification_method: >-
+  Página da amostra aberta no navegador; imagem decodificada conferida pelo DOM.
+link_status: saudavel
+content_status: conteudo_confirmado
+review_flag: true
+review_reason: Primeira verificação feita por agente automatizado; falta revisão humana.
+review_priority: baixa
+record_status: publicado
+created_at: "2026-11-21"
+updated_at: "2026-11-21"
+change_log:
+  - date: "2026-11-21"
+    field: "*"
+    to: criado
+    reason: Criação do registro após verificação da amostra.
+    source: https://www.disenonacional.cl/todo-hombre-tiene-derecho-a-ser-persona-2/

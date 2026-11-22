@@ -1,0 +1,109 @@
+id: archivo-memoria-trans
+name: Archivo de la Memoria Trans
+preferred_name: Archivo de la Memoria Trans
+alternative_names: [AMT, Archivo de la Memoria Trans Argentina]
+initiative_type: arquivo
+self_description:
+  text: "El Archivo de la Memoria Trans (AMT) es un espacio para la protección, la construcción y la reivindicación de la memoria trans."
+  lang: es
+  source_url: https://archivotrans.ar/index.php/acerca
+description:
+  pt: >-
+    Arquivo de memória trans argentina com catálogo público em AtoM (fundos,
+    séries, autoridades), além de publicações e vídeos. Reúne fotografias,
+    cartas, documentos pessoais e recortes de imprensa do início do século XX
+    aos anos 1990.
+initiative_url: https://archivotrans.ar/
+digital_collection_url: https://atom.archivotrans.ar/
+sample_content_url: https://atom.archivotrans.ar/index.php/anotaciones-personales
+country: [AR]
+geographic_scope: nacional
+territory_note: Fundado a partir do exílio; reúne companheiras que viviam em vários países, segundo o site.
+languages: [es]
+collection_types: [fotografia, documentos-pessoais, audiovisual, publicacoes]
+collection_types_original: [memorias fotográficas, fílmicas, sonoras, periodísticas, cartas, legajos, diarios personales]
+themes: [memoria-trans, memoria-lgbt, direitos-humanos]
+themes_original: [memoria trans]
+formats: [imagem, pdf, metadados]
+date_range:
+  start: 1900
+  end: 1999
+  precision: intervalo
+  label: "início do século XX até o fim dos anos 1990 (segundo o site)"
+sample:
+  title: "Anotaciones personales — serie AV01-Pe-ap (1996–2012)"
+  observed: >-
+    Descrição arquivística em AtoM com produtora (Ángela Vanni), nota
+    biográfica, datas e metadados do objeto digital (PDF, 5 MiB). A página
+    mostra uma miniatura; o texto alternativo da fonte indica que o objeto
+    digital original não está acessível publicamente.
+  confirmed_media: [imagem, metadados]
+  alt_from_source: "Original Objeto digital not accessible"
+stewardship_or_host:
+  type: comunitario
+  note: >-
+    Fundado por María Belén Correa a partir de um projeto imaginado com Claudia
+    Pía Baudracco, ambas ativistas trans, reunindo companheiras sobreviventes.
+  source_url: https://archivotrans.ar/index.php/acerca
+community_evidence:
+  kind: iniciativa-comunitaria
+  note: >-
+    A página Acerca descreve a origem do arquivo entre mulheres trans ativistas e
+    sobreviventes, e uma política documental de luta contra a transfobia.
+  source_url: https://archivotrans.ar/index.php/acerca
+curatorial_reason:
+  pt: >-
+    Arquivo construído pela própria comunidade trans, com descrição arquivística
+    pública e regras de acesso explícitas: um exemplo de como fazer aparecer
+    sem expor tudo.
+evidence:
+  - claim: Origem do arquivo, fundadoras e escopo temporal.
+    source_url: https://archivotrans.ar/index.php/acerca
+    accessed_at: "2026-11-21"
+    kind: declarado
+    certainty: alta
+  - claim: Fundos de acesso público com cópia digital sob pedido por e-mail.
+    source_url: https://atom.archivotrans.ar/index.php/claudia-pia-baudracco-132
+    accessed_at: "2026-11-21"
+    kind: declarado
+    certainty: alta
+  - claim: A amostra exibe miniatura e metadados; o original digital não é público.
+    source_url: https://atom.archivotrans.ar/index.php/anotaciones-personales
+    accessed_at: "2026-11-21"
+    kind: observado
+    certainty: alta
+  - claim: O Guia dos Arquivos que não Existem apresenta o AMT entre os arquivos queer.
+    source_url: https://doi.org/10.11606/9788580891874
+    accessed_at: "2026-11-21"
+    kind: terceiros
+    certainty: alta
+    note: Beiguelman (org.), 2026, capítulo "Queer", p. 56.
+access_level: acesso-parcial
+access_requirements: Cópias digitais dos documentos são solicitadas por e-mail ao arquivo.
+access_notes: Catálogo público; muitos objetos digitais aparecem só como miniatura.
+rights_and_reuse:
+  statement: "O uso de documentos deve citar a procedência; cópia digital sob pedido (condições de acesso do fundo CPB01)."
+  source_url: https://atom.archivotrans.ar/index.php/claudia-pia-baudracco-132
+sensitive_content_note: >-
+  O acervo reúne fotografias, documentos de identidade, cartas e registros
+  policiais de pessoas reais, muitas já falecidas. Acervo Acervos não reproduz
+  esses materiais e escolheu como amostra uma série de anotações, não retratos.
+removal_or_contact_url: mailto:archivotrans@gmail.com
+gaps:
+  - Política de publicação de imagens de pessoas não lida nesta verificação.
+last_verified_at: "2026-11-21"
+verification_method: Página da amostra aberta no navegador; miniatura decodificada conferida pelo DOM; metadados lidos.
+link_status: saudavel
+content_status: conteudo_parcial
+review_flag: true
+review_reason: Primeira verificação feita por agente automatizado; falta revisão humana.
+review_priority: media
+record_status: publicado
+created_at: "2026-11-21"
+updated_at: "2026-11-21"
+change_log:
+  - date: "2026-11-21"
+    field: "*"
+    to: criado
+    reason: Criação do registro após verificação da amostra.
+    source: https://atom.archivotrans.ar/index.php/anotaciones-personales

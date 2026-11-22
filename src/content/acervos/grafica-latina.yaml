@@ -1,0 +1,84 @@
+id: grafica-latina
+name: Gráfica Latina
+preferred_name: Gráfica Latina
+initiative_type: arquivo
+self_description:
+  text: "Gráfica Latina es un archivo digital y móvil de diseño gráfico latinoamericano"
+  lang: es
+  source_url: https://graficalatina.com/
+description:
+  pt: >-
+    Arquivo digital e itinerante de design gráfico latino-americano, organizado em
+    microsites temáticos e por autor (cartaz anticolonial, cartaz cultural,
+    cinema, solidariedade e outros), com textos de contexto.
+initiative_url: https://graficalatina.com/
+digital_collection_url: https://graficalatina.com/
+sample_content_url: https://cartelanticolonial.graficalatina.com/
+country: [LATAM, PR]
+geographic_scope: transnacional
+territory_note: >-
+  Caribe, América Central e do Sul, segundo o site; a amostra trata de Porto
+  Rico. Exposições recentes listadas ocorreram nos EUA.
+languages: [es, en]
+collection_types: [cartazes]
+themes: [design-grafico, cartaz-politico, historia-do-design]
+themes_original: [cartel anticolonial, gráfica latinoamericana]
+formats: [imagem, texto]
+date_range:
+  start: 1970
+  end: null
+  precision: desconhecido
+  label: "a amostra menciona cartazes de 1970; período geral não informado"
+design_dimensions: [cartaz, materialidade-impressao, processo]
+sample:
+  title: "El cartel anticolonial — Puerto Rico (Taller Alacrán)"
+  observed: >-
+    Microsite com texto bilíngue sobre o Taller Alacrán, de Antonio Martorell,
+    e imagens de cartazes carregadas (a maior com 305 × 409 px), incluindo
+    menção a "Betances" (1970). Imagens em resolução de tela, sem ficha
+    individual.
+  confirmed_media: [imagem, texto]
+stewardship_or_host:
+  type: desconhecido
+  note: Mantenedor não identificado nas páginas lidas.
+community_evidence:
+  kind: desconhecida
+  note: Sem informação sobre participação comunitária.
+curatorial_reason:
+  pt: >-
+    Relaciona produções gráficas de vários países latino-americanos e caribenhos
+    em percursos temáticos, com texto que explica o contexto político das peças.
+evidence:
+  - claim: Autodescrição como arquivo digital e móvel de design gráfico latino-americano.
+    source_url: https://graficalatina.com/
+    accessed_at: "2026-11-21"
+    kind: declarado
+    certainty: alta
+  - claim: O microsite do cartaz anticolonial exibe imagens e texto de contexto.
+    source_url: https://cartelanticolonial.graficalatina.com/
+    accessed_at: "2026-11-21"
+    kind: observado
+    certainty: alta
+access_level: abre-direto
+access_notes: Imagens hospedadas em serviço de terceiros (construtor de sites); só resolução de tela.
+rights_and_reuse:
+  statement: desconhecido
+gaps:
+  - Sem fichas individuais com autoria, data e dimensões de cada cartaz.
+  - Imagens em baixa resolução.
+last_verified_at: "2026-11-21"
+verification_method: Página da amostra aberta no navegador; imagens decodificadas conferidas pelo DOM.
+link_status: saudavel
+content_status: conteudo_confirmado
+review_flag: true
+review_reason: Primeira verificação feita por agente automatizado; falta revisão humana.
+review_priority: baixa
+record_status: publicado
+created_at: "2026-11-21"
+updated_at: "2026-11-21"
+change_log:
+  - date: "2026-11-21"
+    field: "*"
+    to: criado
+    reason: Criação do registro após verificação da amostra.
+    source: https://cartelanticolonial.graficalatina.com/

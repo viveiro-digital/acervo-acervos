@@ -1,0 +1,84 @@
+id: acervo-bajuba
+name: Acervo Bajubá
+preferred_name: Acervo Bajubá
+initiative_type: acervo
+self_description:
+  text: "O Acervo Bajubá é um projeto comunitário de registro de memórias das comunidades LGBT+ brasileiras."
+  lang: pt
+  source_url: https://acervobajuba.com.br/
+description:
+  pt: >-
+    Projeto comunitário de memória LGBT+ brasileira que atua com exposições,
+    oficinas e mediação. O site não oferece navegação por itens; o canal mais
+    ativo é o Instagram.
+initiative_url: https://acervobajuba.com.br/
+digital_collection_url: https://www.instagram.com/acervobajuba/
+sample_content_url: https://www.instagram.com/acervobajuba/p/CoVhXEEvmoz/
+access_channel:
+  platform: Instagram
+  limitations: >-
+    Sem login, o perfil mostra poucos posts e pede cadastro; não há busca nem
+    ordenação, e o conteúdo depende da plataforma.
+country: [BR]
+geographic_scope: nacional
+languages: [pt]
+collection_types: [documentos-pessoais, fotografia, cultura-material]
+themes: [memoria-lgbt]
+themes_original: [memórias LGBT+, diversidade sexual, identidades de gênero]
+formats: [post-de-rede-social, imagem]
+date_range:
+  start: null
+  end: null
+  precision: desconhecido
+  label: não informado
+sample:
+  title: "Post institucional «Como funciona o Acervo Bajubá?» (2023)"
+  observed: >-
+    O post abriu sem login, com imagem carregada (768 × 768 px) e legenda que
+    descreve o projeto. É um post sobre o projeto, não um item do acervo.
+  confirmed_media: [post-de-rede-social, imagem]
+stewardship_or_host:
+  type: comunitario
+  note: Autodescrição como projeto comunitário mantido por pessoas educadoras e pesquisadoras voluntárias.
+  source_url: https://www.instagram.com/acervobajuba/p/CoVhXEEvmoz/
+community_evidence:
+  kind: iniciativa-comunitaria
+  note: Autodescrição (site e Instagram); o Guia também o apresenta como projeto comunitário.
+  source_url: https://acervobajuba.com.br/
+curatorial_reason:
+  pt: >-
+    Referência de memória LGBT+ comunitária citada no Guia. Ainda falta localizar
+    conteúdo do acervo navegável para confirmar a inclusão.
+evidence:
+  - claim: Autodescrição como projeto comunitário de registro de memórias LGBT+.
+    source_url: https://acervobajuba.com.br/
+    accessed_at: "2026-11-21"
+    kind: declarado
+    certainty: alta
+  - claim: O Guia lista o Acervo Bajubá apontando para o perfil @acervobajuba.
+    source_url: https://doi.org/10.11606/9788580891874
+    accessed_at: "2026-11-21"
+    kind: terceiros
+    certainty: alta
+    note: Beiguelman (org.), 2026, capítulo "Queer", p. 57.
+access_level: nao-validado
+rights_and_reuse:
+  statement: desconhecido
+gaps:
+  - Nenhum item do acervo verificado; a amostra atual é um post institucional.
+last_verified_at: "2026-11-21"
+verification_method: Site e post abertos no navegador sem login.
+link_status: saudavel
+content_status: revisao_pendente
+review_flag: true
+review_reason: Encontrar post, destaque ou coleção que mostre itens do acervo; revisar se o Instagram é canal substantivo.
+review_priority: alta
+record_status: rascunho
+created_at: "2026-11-21"
+updated_at: "2026-11-21"
+change_log:
+  - date: "2026-11-21"
+    field: "*"
+    to: criado
+    reason: Registro criado como rascunho; conteúdo do acervo ainda não confirmado.
+    source: https://www.instagram.com/acervobajuba/p/CoVhXEEvmoz/

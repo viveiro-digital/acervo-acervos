@@ -1,0 +1,89 @@
+id: xingu-entangled
+name: Xingu Entangled
+preferred_name: Xingu Entangled
+alternative_names: [Emaranhados do Xingu]
+initiative_type: projeto-de-pesquisa
+description:
+  pt: >-
+    Interface experimental que conecta vídeos, diagramas, desenhos, fotografias e
+    palavras-chave em narrativas não lineares sobre cultura material do povo
+    Kuikuro, do Alto Xingu, e sobre coleções etnográficas em museus.
+initiative_url: https://uclab-potsdam.github.io/xingu-entangled/
+digital_collection_url: https://uclab-potsdam.github.io/xingu-entangled/
+sample_content_url: https://uclab-potsdam.github.io/xingu-entangled/#/graph/28c47119-1798-4f58-95ea-b25d4e7045f2
+country: [BR]
+region: Alto Xingu
+geographic_scope: transnacional
+territory_note: Conteúdo sobre o Alto Xingu (Brasil); a interface é publicada por laboratório na Alemanha, a julgar pelo endereço.
+languages: [en]
+collection_types: [audiovisual, objetos-etnograficos, cultura-material]
+themes: [indigena, territorio]
+themes_original: [Kuikuro, Alto Xingu, Moriche, fish trap]
+formats: [visualizacao, video, texto]
+date_range:
+  start: null
+  end: null
+  precision: desconhecido
+  label: não informado
+design_dimensions: [interface]
+sample:
+  title: Grafo inicial (nós sobre o buriti/moriche, armadilha de pesca, esteiras)
+  observed: >-
+    A interface carregou um grafo com nós textuais como "Making of the fish
+    trap" e "Moriche – Scientific Name and Collection History". O vídeo de
+    introdução não chegou a carregar durante a verificação.
+  confirmed_media: [visualizacao, texto]
+stewardship_or_host:
+  type: universidade
+  note: >-
+    Publicado sob o endereço uclab-potsdam no GitHub Pages, com mídia em
+    servidor fh-potsdam.de. Equipe e parcerias não foram lidas nesta verificação.
+community_evidence:
+  kind: desconhecida
+  note: >-
+    O Guia afirma que o projeto apresenta perspectivas indígenas e discute
+    parcerias com comunidades em termos gerais; não verificamos a forma de
+    participação Kuikuro neste projeto.
+  source_url: https://doi.org/10.11606/9788580891874
+curatorial_reason:
+  pt: >-
+    Referência de navegação não linear: faz relacionar objetos, lugares, plantas
+    e saberes que as coleções de museu costumam separar.
+evidence:
+  - claim: O Guia apresenta o Xingu Entangled como interface de narrativa não linear sobre a cultura Kuikuro.
+    source_url: https://doi.org/10.11606/9788580891874
+    accessed_at: "2026-11-21"
+    kind: terceiros
+    certainty: alta
+    note: Beiguelman (org.), 2026, capítulo "Design de interface", p. 85–86.
+  - claim: A interface carrega nós e diagramas; o vídeo de introdução não carregou.
+    source_url: https://uclab-potsdam.github.io/xingu-entangled/
+    accessed_at: "2026-11-21"
+    kind: observado
+    certainty: media
+access_level: acesso-parcial
+access_notes: Aplicação JavaScript; sem JavaScript não há conteúdo. Vídeos dependem de servidor externo.
+rights_and_reuse:
+  statement: desconhecido
+sensitive_content_note: >-
+  Trata de saberes e objetos indígenas; protocolos de circulação definidos pelo
+  povo Kuikuro não foram localizados.
+gaps:
+  - Forma de participação Kuikuro não documentada aqui.
+  - Vídeos não confirmados.
+last_verified_at: "2026-11-21"
+verification_method: Interface aberta no navegador; elementos conferidos pelo DOM (vídeo com readyState 0).
+link_status: midia-nao-carrega
+content_status: conteudo_parcial
+review_flag: true
+review_reason: Reabrir com mais tempo de carregamento para confirmar vídeos e ler créditos/parcerias.
+review_priority: alta
+record_status: publicado
+created_at: "2026-11-21"
+updated_at: "2026-11-21"
+change_log:
+  - date: "2026-11-21"
+    field: "*"
+    to: criado
+    reason: Criação do registro; referência citada no Guia e no método do projeto.
+    source: https://uclab-potsdam.github.io/xingu-entangled/

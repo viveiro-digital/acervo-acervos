@@ -1,0 +1,114 @@
+id: museu-kuahi
+name: Museu Kuahí
+preferred_name: Museu Kuahí
+alternative_names: [Museu Kuahi, Museu dos Povos Indígenas do Oiapoque]
+initiative_type: museu
+self_description:
+  text: "dedicado à preservação e valorização da cultura e história dos povos indígenas Palikur-Arukwayene, Galibi Kali’na, Karipuna e Galibi-Marworno"
+  lang: pt
+  source_url: https://museukuahi.com.br/
+description:
+  pt: >-
+    Museu em Oiapoque (Amapá) com acervo etnográfico, arqueológico e audiovisual
+    publicado em Tainacan, além de um dicionário Kheuól Karipuna listado no site.
+initiative_url: https://museukuahi.com.br/
+digital_collection_url: https://museukuahi.com.br/acervo-etnografico/
+sample_content_url: https://museukuahi.com.br/kuahi-teste/rede-de-dormir/
+country: [BR]
+region: Amapá
+city: Oiapoque
+geographic_scope: local
+territory_note: Região do Oiapoque, fronteira com a Guiana Francesa.
+languages: [pt]
+collection_types: [objetos-etnograficos, cultura-material, audiovisual, dicionarios]
+collection_types_original: [Acervo Etnográfico, Acervo Arqueológico, Acervo Audiovisual, Dicionário Kheuol Karipuna]
+themes: [indigena, territorio, linguas]
+themes_original: [Palikur-Arukwayene, Galibi Kali’na, Karipuna, Galibi-Marworno]
+formats: [imagem, objeto-fisico-documentado]
+date_range:
+  start: null
+  end: null
+  precision: desconhecido
+  label: datas do acervo não informadas na listagem
+design_dimensions: [materialidade-impressao]
+sample:
+  title: "Rede de dormir (MK-2006/038)"
+  observed: >-
+    Ficha com fotografia do objeto carregada (1024 × 575 px), número de
+    registro, descrição da técnica (contratorcido combinado, fios de algodão),
+    palavras-chave e o campo "Nome do povo" (Galibi-Kali'na).
+  confirmed_media: [imagem]
+stewardship_or_host:
+  type: desconhecido
+  note: >-
+    O e-mail de contato usa domínio da Secretaria de Cultura do Amapá
+    (secult.ap.gov.br), o que sugere vínculo com o governo estadual; o vínculo
+    não foi confirmado em texto da fonte.
+  source_url: https://museukuahi.com.br/
+community_evidence:
+  kind: conteudo-sobre-comunidade
+  note: >-
+    O site descreve o museu como centro de referência para os povos indígenas da
+    região e menciona loja com peças feitas pelos próprios indígenas. Não
+    encontramos documentação sobre governança indígena do acervo digital.
+  source_url: https://museukuahi.com.br/
+curatorial_reason:
+  pt: >-
+    Um dos poucos acervos etnográficos da Amazônia amapaense publicados item a
+    item, com o povo de origem identificado na ficha.
+evidence:
+  - claim: Autodescrição do museu, inauguração em 2007 e povos com que trabalha.
+    source_url: https://museukuahi.com.br/
+    accessed_at: "2026-11-21"
+    kind: declarado
+    certainty: alta
+  - claim: A listagem do acervo etnográfico exibe 429 itens.
+    source_url: https://museukuahi.com.br/acervo-etnografico/
+    accessed_at: "2026-11-21"
+    kind: observado
+    certainty: media
+    note: Contagem instável; não exibida na interface principal.
+  - claim: A ficha MK-2006/038 exibe fotografia do objeto e identifica o povo.
+    source_url: https://museukuahi.com.br/kuahi-teste/rede-de-dormir/
+    accessed_at: "2026-11-21"
+    kind: observado
+    certainty: alta
+  - claim: Parte do acervo é classificada pela fonte como objeto ritual ou de culto (ex. MK-2006/017).
+    source_url: https://museukuahi.com.br/kuahi-teste/escultura-de-cobra-de-tres-cabecas/
+    accessed_at: "2026-11-21"
+    kind: observado
+    certainty: alta
+    note: Por isso a amostra escolhida é um objeto de uso doméstico.
+access_level: abre-direto
+access_notes: >-
+  O endereço das fichas contém "kuahi-teste", o que sugere caminho provisório;
+  links podem mudar.
+rights_and_reuse:
+  statement: desconhecido
+sensitive_content_note: >-
+  A fonte classifica parte dos objetos como rituais, cerimoniais ou de culto.
+  Acervo Acervos não reproduz imagens desses itens e só aponta para a ficha
+  original. Protocolos de circulação definidos pelos povos não foram
+  localizados no site.
+gaps:
+  - Governança indígena do acervo digital não documentada no site.
+  - Direitos de uso das imagens não informados.
+  - Dicionário Kheuól Karipuna não verificado nesta rodada.
+last_verified_at: "2026-11-21"
+verification_method: Página da amostra aberta no navegador; imagens decodificadas conferidas pelo DOM.
+link_status: saudavel
+content_status: conteudo_confirmado
+review_flag: true
+review_reason: >-
+  Revisão humana pendente; confirmar mantenedor e se há protocolo comunitário
+  para objetos rituais publicados no acervo.
+review_priority: alta
+record_status: publicado
+created_at: "2026-11-21"
+updated_at: "2026-11-21"
+change_log:
+  - date: "2026-11-21"
+    field: "*"
+    to: criado
+    reason: Criação do registro após verificação da amostra.
+    source: https://museukuahi.com.br/kuahi-teste/rede-de-dormir/
