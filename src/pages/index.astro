@@ -148,7 +148,7 @@ const jsonLd = {
             data-name={record.name}
             data-updated={record.updated_at}
             data-created={record.created_at}
-            data-search={JSON.stringify(searchFields(record, collectionViews[record.id]?.map(([label]) => label) ?? []))}
+            data-search={JSON.stringify(searchFields(record, collectionViews[record.id]?.map(([label]) => label) ?? [], collectionSubtitles[record.id]))}
             {...Object.fromEntries(facets.map((f) => [`data-${f.param}`, f.pick(record).join(' ')]))}
           >
             <a href={preview?.page ?? record.digital_collection_url} class="collection" rel="noopener noreferrer external">

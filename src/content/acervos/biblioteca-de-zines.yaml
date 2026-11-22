@@ -9,8 +9,10 @@ self_description:
   source_url: https://www.biblioteca-de-zines.com.br/
 description:
   pt: >-
-    Zines independentes do Brasil e da América Latina para ler online. Busque
-    por título ou autor, ou navegue por ano e categoria.
+    Uma biblioteca digital de fanzines independentes, com foco na produção brasileira.
+    Quem faz zines pode enviar suas publicações ou criar a partir dos temas mensais
+    do Clube de Zines. No catálogo, é possível ler os PDFs gratuitamente e buscar
+    por título, autoria, ano ou categoria.
 initiative_url: https://www.biblioteca-de-zines.com.br/
 digital_collection_url: https://www.biblioteca-de-zines.com.br/zines
 sample_content_url: https://www.biblioteca-de-zines.com.br/zines/coletivo-ventos-do-norte-visagens-no-meio-do-mundo
@@ -43,7 +45,7 @@ territory_note: >-
 languages: [pt]
 collection_types: [zines, publicacoes]
 themes: [publicacao-independente, cultura-visual]
-themes_original: [zines independentes, fanzine]
+themes_original: [zines independentes, fanzines, autopublicação]
 formats: [pdf, imagem]
 date_range:
   start: null
@@ -73,14 +75,14 @@ stewardship_or_host:
 community_evidence:
   kind: participacao
   note: >-
-    Os zines são enviados pelas próprias pessoas autoras por formulário aberto
-    ("Sugerir Zine"). Não há documentação sobre governança coletiva da
-    curadoria.
-  source_url: https://www.biblioteca-de-zines.com.br/about
+    Quem faz zines pode enviar suas publicações por formulário aberto. O Clube de
+    Zines propõe temas mensais e convida quem participa a compartilhar o que fez.
+  source_url: https://www.biblioteca-de-zines.com.br/zines-club
 curatorial_reason:
   pt: >-
-    Faz aparecer a publicação independente contemporânea, inclusive da região
-    Norte, com leitura integral na página e envio aberto por quem produz.
+    Ao reunir publicações enviadas por suas autorias, a biblioteca dá acesso a
+    zines que circulam fora das grandes editoras. A coleção inclui trabalhos do
+    Norte, como o zine do Coletivo Ventos do Norte, feito no Amapá.
 evidence:
   - claim: Autodescrição como biblioteca virtual de código aberto para zines independentes.
     source_url: https://www.biblioteca-de-zines.com.br/
@@ -91,6 +93,11 @@ evidence:
     source_url: https://www.biblioteca-de-zines.com.br/zines/coletivo-ventos-do-norte-visagens-no-meio-do-mundo
     accessed_at: "2026-11-21"
     kind: observado
+    certainty: alta
+  - claim: O formulário permite enviar zines ao acervo e o Clube convida participantes a enviar as publicações dos encontros.
+    source_url: https://www.biblioteca-de-zines.com.br/zines-club
+    accessed_at: "2026-11-22"
+    kind: declarado
     certainty: alta
 access_level: player-externo
 access_requirements: Nenhum cadastro; leitura via Google Drive embutido.

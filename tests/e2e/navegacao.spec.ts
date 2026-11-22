@@ -79,6 +79,15 @@ test('início: busca o conteúdo catalogado e tolera erro de digitação', async
   await expect(page.locator('#lista > li:visible').first()).toHaveAttribute('data-id', 'biblioteca-de-zines');
 });
 
+test('início: encontra a biblioteca pelo clube e pelo material do Amapá', async ({ page }) => {
+  await page.goto('/?q=clube+de+zines');
+  const first = page.locator('#lista > li:visible').first();
+  await expect(first).toHaveAttribute('data-id', 'biblioteca-de-zines');
+  await expect(first).toContainText('enviados por quem os faz');
+  await page.goto('/?q=fanzines+do+Amap%C3%A1');
+  await expect(first).toHaveAttribute('data-id', 'biblioteca-de-zines');
+});
+
 test('o endereço antigo preserva a busca e os filtros no catálogo inicial', async ({ page }) => {
   await page.goto('/explorar/?q=carteles+politicos&pais=CL');
   await expect(page).toHaveURL(/\/\?q=carteles\+politicos&pais=CL$/);

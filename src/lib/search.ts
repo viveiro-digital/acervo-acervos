@@ -13,6 +13,7 @@ const equivalentWords = [
   ['colecao', 'colecoes', 'coleccion', 'colecciones'],
   ['etnografico', 'etnografica', 'etnograficos', 'etnograficas'],
   ['indigena', 'indigenas'],
+  ['zine', 'zines', 'fanzine', 'fanzines'],
 ];
 const equivalents = new Map(equivalentWords.flatMap((group) => group.map((word) => [word, group[0]] as const)));
 
@@ -35,7 +36,7 @@ interface SearchField {
 export function prepareSearch(fields: [number, string][]): SearchField[] {
   return fields.map(([weight, text]) => {
     const words = tokenize(text);
-    return { weight, words: new Set(words), phrase: words.join(' ') };
+    return { weight, words: new Set(words), phrase: words.filter((word) => !stopWords.has(word)).join(' ') };
   });
 }
 
@@ -76,9 +77,8 @@ export function rankSearch(fields: SearchField[], terms: string[], allowTypos = 
     score += best;
   }
   if (terms.length > 1) {
-    for (const field of fields) {
-      if (field.phrase === phrase) return score + 40 + field.weight;
-    }
+    const exactWeight = Math.max(0, ...fields.filter((field) => field.phrase === phrase).map((field) => field.weight));
+    if (exactWeight) return score + 40 + exactWeight;
   }
   return score;
 }

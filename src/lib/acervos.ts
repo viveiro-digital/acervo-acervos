@@ -61,11 +61,11 @@ export function periodKeys(r: Acervo): string[] {
     .map((b) => b.key);
 }
 
-export function searchFields(r: Acervo, collectionLabels: string[]): [number, string][] {
+export function searchFields(r: Acervo, collectionLabels: string[], subtitle: string | undefined): [number, string][] {
   return [
     ...[r.name, r.preferred_name ?? '', ...r.alternative_names].map((name): [number, string] => [24, name]),
     ...[r.sample.title, ...collectionLabels].map((title): [number, string] => [19, title]),
-    [15, [
+    ...[
       r.sample.creator, r.sample.date, r.city, r.region, r.territory_note, r.date_range.label,
       ...r.country.map((c) => V.label(V.countries, c)),
       ...r.themes.map((t) => V.label(V.themes, t)), ...r.themes_original,
@@ -74,7 +74,10 @@ export function searchFields(r: Acervo, collectionLabels: string[]): [number, st
       ...r.languages.map((l) => V.label(V.languages, l)),
       ...r.design_dimensions.map((d) => V.label(V.designDimensions, d)),
       V.label(V.initiativeTypes, r.initiative_type),
-    ].filter(Boolean).join(' ')],
+    ].filter((value): value is string => Boolean(value)).map((value): [number, string] => [15, value]),
+    ...[subtitle, r.curatorial_reason?.pt, r.community_evidence.note]
+      .filter((value): value is string => Boolean(value))
+      .map((value): [number, string] => [10, value]),
     [5, [
       ...Object.values(r.description), r.self_description?.text, r.sample.observed,
       r.platform?.software, ...r.holdings_extent.map((holding) => holding.statement),
