@@ -215,7 +215,7 @@ aponta para `SITE_URL`, não para o preview.
 
 - Primeira rodada de verificações feita por agente de IA em 21/11/2026; **todos
   os registros estão marcados para revisão humana**.
-- Catálogo pequeno: 12 publicados, 4 rascunhos e 2 deixados de fora. A interface usa prévias das coleções e remete às obras na fonte.
+- Catálogo pequeno: 19 publicados, 3 rascunhos e 2 deixados de fora. A interface usa prévias das coleções e remete às obras na fonte.
 - Interface só em português; os campos `es`/`en` existem, mas estão vazios.
 - O canal de correções e o link do código apontam para
   `github.com/viveiro-digital/acervo-acervos`, que só existe depois do push.

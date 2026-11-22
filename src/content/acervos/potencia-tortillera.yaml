@@ -1,0 +1,63 @@
+id: potencia-tortillera
+name: "Potencia Tortillera"
+initiative_type: arquivo
+description:
+  pt: "Recortes, fotografias e registros de ações do ativismo lésbico na Argentina. O arquivo colaborativo organiza o material por data e por assunto."
+initiative_url: https://potenciatortillera.blogspot.com/
+digital_collection_url: https://potenciatortillera.blogspot.com/
+sample_content_url: https://potenciatortillera.blogspot.com/1996/08/amenaza-lesbica.html
+country: [AR]
+geographic_scope: nacional
+languages: [es]
+collection_types: [jornais, fotografia, material-grafico-de-movimentos, documentos-textuais]
+themes: [memoria-lesbica, feminismos, memoria-lgbt]
+formats: [imagem, texto]
+date_range:
+  start: null
+  end: null
+  precision: desconhecido
+  label: Período da coleção não informado
+sample:
+  title: "Amenaza Lésbica"
+  level_of_description:
+    value: item
+    declared_by_source: false
+  observed: "A página do recorte de 1996 abriu com a imagem digitalizada e a referência ao periódico de origem."
+  confirmed_media: [imagem, texto]
+stewardship_or_host:
+  type: coletivo
+  note: "O arquivo se apresenta como uma construção colaborativa de ativistas lésbicas e convida à contribuição de materiais."
+  source_url: https://potenciatortillera.blogspot.com/
+community_evidence:
+  kind: iniciativa-comunitaria
+  note: "O arquivo se apresenta como uma construção colaborativa de ativistas lésbicas e convida à contribuição de materiais."
+  source_url: https://potenciatortillera.blogspot.com/
+curatorial_reason:
+  pt: "Recortes, fotografias e registros de ações do ativismo lésbico na Argentina. O arquivo colaborativo organiza o material por data e por assunto."
+evidence:
+  - claim: "O arquivo se apresenta como uma construção colaborativa de ativistas lésbicas e convida à contribuição de materiais."
+    source_url: https://potenciatortillera.blogspot.com/
+    accessed_at: "2026-11-22"
+    kind: declarado
+    certainty: alta
+  - claim: "A página do recorte de 1996 abriu com a imagem digitalizada e a referência ao periódico de origem."
+    source_url: https://potenciatortillera.blogspot.com/1996/08/amenaza-lesbica.html
+    accessed_at: "2026-11-22"
+    kind: observado
+    certainty: alta
+access_level: abre-direto
+rights_and_reuse:
+  statement: desconhecido
+last_verified_at: "2026-11-22"
+verification_method: Consulta pública no navegador, com verificação do material na fonte.
+link_status: saudavel
+content_status: conteudo_confirmado
+record_status: publicado
+created_at: "2026-11-22"
+updated_at: "2026-11-22"
+change_log:
+  - date: "2026-11-22"
+    field: "*"
+    to: publicado
+    reason: Inclusão após consulta pública e revisão da relação com a comunidade.
+    source: https://potenciatortillera.blogspot.com/1996/08/amenaza-lesbica.html

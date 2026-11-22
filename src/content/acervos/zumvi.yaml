@@ -1,0 +1,65 @@
+id: zumvi
+name: "Zumvi Arquivo Fotográfico"
+initiative_type: arquivo
+description:
+  pt: "Fotografias da vida negra na Bahia, das festas populares às mobilizações do movimento negro. Navegue por fotógrafo, série ou coleção."
+initiative_url: https://zumvi.org.br/
+digital_collection_url: https://acervo.zumvi.org.br/
+sample_content_url: https://zumvi.org.br/wp-content/uploads/2026/01/catalogo-zumvi-versao-final.pdf
+country: [BR]
+region: "Bahia"
+city: "Salvador"
+geographic_scope: regional
+languages: [pt]
+collection_types: [fotografia, publicacoes]
+themes: [movimento-negro, afro-diasporico, cultura-popular]
+formats: [imagem, pdf]
+date_range:
+  start: null
+  end: null
+  precision: desconhecido
+  label: Período da coleção não informado
+sample:
+  title: "Catálogo Virtual Zumvi"
+  level_of_description:
+    value: pagina-agregada
+    declared_by_source: false
+  observed: "O catálogo abriu com filtros por fotógrafo, coleção e série. O livro digital com uma seleção de fotografias respondeu como PDF público."
+  confirmed_media: [pdf]
+stewardship_or_host:
+  type: ong
+  note: "O Zumvi apresenta o acervo como trabalho coletivo de fotógrafos negros da Bahia e recebe contribuições para ampliar essa rede de memória."
+  source_url: https://zumvi.org.br/sobre/
+community_evidence:
+  kind: iniciativa-comunitaria
+  note: "O Zumvi apresenta o acervo como trabalho coletivo de fotógrafos negros da Bahia e recebe contribuições para ampliar essa rede de memória."
+  source_url: https://zumvi.org.br/sobre/
+curatorial_reason:
+  pt: "Fotografias da vida negra na Bahia, das festas populares às mobilizações do movimento negro. Navegue por fotógrafo, série ou coleção."
+evidence:
+  - claim: "O Zumvi apresenta o acervo como trabalho coletivo de fotógrafos negros da Bahia e recebe contribuições para ampliar essa rede de memória."
+    source_url: https://zumvi.org.br/sobre/
+    accessed_at: "2026-11-22"
+    kind: declarado
+    certainty: alta
+  - claim: "O catálogo abriu com filtros por fotógrafo, coleção e série. O livro digital com uma seleção de fotografias respondeu como PDF público."
+    source_url: https://zumvi.org.br/wp-content/uploads/2026/01/catalogo-zumvi-versao-final.pdf
+    accessed_at: "2026-11-22"
+    kind: observado
+    certainty: alta
+access_level: abre-direto
+rights_and_reuse:
+  statement: desconhecido
+last_verified_at: "2026-11-22"
+verification_method: Consulta pública no navegador, com verificação do material na fonte.
+link_status: saudavel
+content_status: conteudo_confirmado
+record_status: publicado
+created_at: "2026-11-22"
+updated_at: "2026-11-22"
+change_log:
+  - date: "2026-11-22"
+    field: "*"
+    to: publicado
+    reason: Inclusão após consulta pública e revisão da relação com a comunidade.
+    source: https://zumvi.org.br/wp-content/uploads/2026/01/catalogo-zumvi-versao-final.pdf

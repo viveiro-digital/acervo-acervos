@@ -13,7 +13,8 @@ test('sitemap só com páginas públicas', async ({ request }) => {
   const xml = await (await request.get('/sitemap.xml')).text();
   expect(xml).toContain('/acervos/casca/');
   expect(xml).not.toContain('/revisao/');
-  expect(xml).not.toContain('acervo-bajuba'); // rascunho
+  expect(xml).toContain('/acervos/acervo-bajuba/');
+  expect(xml).not.toContain('/acervos/arquivo-lesbico-brasileiro/'); // rascunho
 });
 
 test('fora de produção, robots bloqueia e as páginas têm noindex', async ({ request }) => {

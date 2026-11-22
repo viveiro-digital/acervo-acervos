@@ -6,8 +6,9 @@ test('início: filtros refletem na URL e escondem itens', async ({ page }) => {
   await page.locator('#f-pais').selectOption('AR');
   await expect(page).toHaveURL(/\/\?pais=AR$/);
   const visiveis = page.locator('#lista > li:visible');
-  await expect(visiveis).toHaveCount(1);
-  await expect(page.locator('#contagem')).toContainText('1 de');
+  await expect(visiveis).toHaveCount(2);
+  await expect(visiveis.last()).toHaveAttribute('data-id', 'potencia-tortillera');
+  await expect(page.locator('#contagem')).toContainText('2 de');
 });
 
 test('início: busca ignora acentos', async ({ page }) => {
@@ -33,7 +34,7 @@ test('painel: abre com URL canônica, navega e fecha com Esc e voltar', async ({
   await expect(page).toHaveURL(/\/acervos\/irohin\/$/);
   await expect(page.locator('#painel-titulo')).toBeFocused();
   await page.locator('[data-panel="next"]').click();
-  await expect(page).toHaveURL(/\/acervos\/museu-kuahi\/$/);
+  await expect(page).toHaveURL(/\/acervos\/museu-da-mare\/$/);
   await page.keyboard.press('Escape');
   await expect(page.locator('#painel')).not.toHaveAttribute('open', '');
   await expect(page).toHaveURL(/\/\?pais=BR$/);
@@ -60,7 +61,7 @@ test.describe('sem JavaScript', () => {
   test.use({ javaScriptEnabled: false });
   test('início lista tudo e o link abre a página do registro', async ({ page }) => {
     await page.goto('/?pais=AR');
-    await expect(page.locator('#lista > li')).toHaveCount(12);
+    await expect(page.locator('#lista > li')).toHaveCount(19);
     await page.locator('a[data-open="casca"]').click();
     await expect(page).toHaveURL(/\/acervos\/casca\/$/);
   });

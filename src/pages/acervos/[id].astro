@@ -121,6 +121,12 @@ const jsonLd = [
         {r.platform && <p class="meta muted">Plataforma identificada: {r.platform.software}.</p>}
         {r.community_protocol && <p>{r.community_protocol}</p>}
         {r.relationship_disclosure && <p>{r.relationship_disclosure}</p>}
+        {['iniciativa-comunitaria', 'governanca-comunitaria', 'participacao'].includes(r.community_evidence.kind) && (
+          <>
+            <h2>Relação com a comunidade</h2>
+            <p>{r.community_evidence.note}</p>
+          </>
+        )}
         <h2>Fontes consultadas</h2>
         <ul class="record-links">
           <li><ExtLink href={r.initiative_url}>Site da iniciativa</ExtLink></li>

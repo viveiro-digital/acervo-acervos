@@ -8,55 +8,43 @@ self_description:
   source_url: https://acervobajuba.com.br/
 description:
   pt: >-
-    Projeto comunitário de memória LGBT+ brasileira que atua com exposições,
-    oficinas e mediação. O site não oferece navegação por itens; o canal mais
-    ativo é o Instagram.
+    Memórias LGBT+ brasileiras reunidas em exposições e publicações. Explore o
+    memorial sobre a epidemia de aids e o livro Poéticas de vida: escritas de si(da).
 initiative_url: https://acervobajuba.com.br/
-digital_collection_url: https://www.instagram.com/acervobajuba/
-sample_content_url: https://www.instagram.com/acervobajuba/p/CoVhXEEvmoz/
-access_channel:
-  platform: Instagram
-  limitations: >-
-    Sem login, o perfil mostra poucos posts e pede cadastro; não há busca nem
-    ordenação, e o conteúdo depende da plataforma.
-platform:
-  software: Instagram
-  evidence: canal-declarado
-  checked_at: "2026-11-22"
+digital_collection_url: https://acervobajuba.com.br/memorial/
+sample_content_url: https://acervobajuba.com.br/poeticas-de-vida-escritas-de-sida/
 country: [BR]
 geographic_scope: nacional
 languages: [pt]
-collection_types: [documentos-pessoais, fotografia, cultura-material]
+collection_types: [documentos-pessoais, fotografia, cultura-material, publicacoes]
 themes: [memoria-lgbt]
 themes_original: [memórias LGBT+, diversidade sexual, identidades de gênero]
-formats: [post-de-rede-social, imagem]
+formats: [imagem, texto, pdf]
 date_range:
   start: null
   end: null
   precision: desconhecido
   label: não informado
-media_note: "Rascunho: nenhum item do acervo confirmado."
 sample:
-  title: "Post institucional «Como funciona o Acervo Bajubá?» (2023)"
+  title: "Poéticas de vida: escritas de si(da)"
   level_of_description:
-    value: nao-se-aplica
+    value: item
     declared_by_source: false
   observed: >-
-    O post abriu sem login, com imagem carregada (768 × 768 px) e legenda que
-    descreve o projeto. É um post sobre o projeto, não um item do acervo.
-  confirmed_media: [post-de-rede-social, imagem]
+    A página do livro abriu com texto e imagens. O link da edição digital
+    respondeu como PDF público.
+  confirmed_media: [texto, imagem, pdf]
+  date: "2022"
 stewardship_or_host:
   type: comunitario
   note: Autodescrição como projeto comunitário mantido por pessoas educadoras e pesquisadoras voluntárias.
-  source_url: https://www.instagram.com/acervobajuba/p/CoVhXEEvmoz/
+  source_url: https://acervobajuba.com.br/
 community_evidence:
   kind: iniciativa-comunitaria
   note: Autodescrição (site e Instagram); o Guia também o apresenta como projeto comunitário.
   source_url: https://acervobajuba.com.br/
 curatorial_reason:
-  pt: >-
-    Referência de memória LGBT+ comunitária citada no Guia. Ainda falta localizar
-    conteúdo do acervo navegável para confirmar a inclusão.
+  pt: O memorial e as publicações oferecem acesso público a iniciativas de memória LGBT+ do Acervo Bajubá.
 evidence:
   - claim: Autodescrição como projeto comunitário de registro de memórias LGBT+.
     source_url: https://acervobajuba.com.br/
@@ -69,19 +57,19 @@ evidence:
     kind: terceiros
     certainty: alta
     note: Beiguelman (org.), 2026, capítulo "Queer", p. 57.
-access_level: nao-validado
+  - claim: A página do memorial reúne fotografias e legendas; a página de Poéticas de vida oferece o livro digital.
+    source_url: https://acervobajuba.com.br/poeticas-de-vida-escritas-de-sida/
+    accessed_at: "2026-11-22"
+    kind: observado
+    certainty: alta
+access_level: abre-direto
 rights_and_reuse:
   statement: desconhecido
-gaps:
-  - Nenhum item do acervo verificado; a amostra atual é um post institucional.
-last_verified_at: "2026-11-21"
-verification_method: Site e post abertos no navegador sem login.
+last_verified_at: "2026-11-22"
+verification_method: Memorial e página do livro abertos no navegador; link do PDF verificado.
 link_status: saudavel
-content_status: revisao_pendente
-review_flag: true
-review_reason: Encontrar post, destaque ou coleção que mostre itens do acervo; revisar se o Instagram é canal substantivo.
-review_priority: alta
-record_status: rascunho
+content_status: conteudo_confirmado
+record_status: publicado
 created_at: "2026-11-21"
 updated_at: "2026-11-22"
 change_log:
@@ -96,3 +84,9 @@ change_log:
     to: verificado no site
     reason: Catalogação conforme ISDIAH (5.3.7 acervo, 5.3.8 instrumentos de pesquisa); ver docs/CATALOGACAO.md.
     source: verificação no navegador
+  - date: "2026-11-22"
+    field: record_status
+    from: rascunho
+    to: publicado
+    reason: Memorial e publicação disponíveis no site do acervo.
+    source: https://acervobajuba.com.br/poeticas-de-vida-escritas-de-sida/
