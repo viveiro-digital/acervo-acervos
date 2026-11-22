@@ -34,6 +34,9 @@ design_dimensions: [materialidade-impressao, cartaz, editorial]
 media_note: "A ficha exibe a imagem do bóton, mas não localizamos condições de reuso; por isso ela não é reproduzida aqui."
 sample:
   title: "Bóton. Carolina de Jesus. (IR20190281)"
+  level_of_description:
+    value: item
+    declared_by_source: false
   observed: >-
     Ficha do Acervo Iconográfico com imagem digitalizada do bóton carregada
     (1497 × 1058 px), código da imagem, descrição e gênero (iconográfico).

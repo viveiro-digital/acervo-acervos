@@ -77,6 +77,10 @@ const jsonLd = [
     ],
   },
 ];
+const levelLabel: Record<string, string> = {
+  fundo: 'Fundo', serie: 'Série', dossie: 'Dossiê', item: 'Item',
+  'pagina-agregada': 'Página que reúne vários itens', 'nao-se-aplica': 'Não se aplica (amostra é uma página de coleção)',
+};
 ---
 {redirectTo ? (
   <html lang="pt-BR">
@@ -133,6 +137,8 @@ const jsonLd = [
           <h2>{r.sample.title}</h2>
           <p>{r.sample.observed}</p>
           <dl class="fields">
+            <dt>Nível de descrição</dt>
+            <dd>{levelLabel[r.sample.level_of_description.value]} <span class="muted">({r.sample.level_of_description.declared_by_source ? 'segundo a fonte' : 'atribuído pela curadoria'})</span></dd>
             {r.sample.creator && (<><dt>Autoria (fonte)</dt><dd>{r.sample.creator}</dd></>)}
             {r.sample.date && (<><dt>Data (fonte)</dt><dd>{r.sample.date}</dd></>)}
             <dt>O que foi confirmado</dt>

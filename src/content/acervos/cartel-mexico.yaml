@@ -31,6 +31,9 @@ design_dimensions: [cartaz, tipografia, ilustracao]
 media_note: "Os cartazes têm direitos reservados aos designers (©); não são reproduzidos aqui."
 sample:
   title: "Portfólio de Sergio Grande"
+  level_of_description:
+    value: pagina-agregada
+    declared_by_source: false
   observed: >-
     Página do designer com biografia e cartazes carregados em imagem
     (aprox. 600 × 900 px cada), entre eles "Justicia", "Niños migrantes" e

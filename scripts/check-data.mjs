@@ -26,6 +26,19 @@ const sums = new Map(
       })
     : [],
 );
+// Registro de ativos (manifesto verificável): scripts/asset-register.mjs
+const MANIFEST = 'src/assets/acervos/MANIFESTO.csv';
+const manifest = new Map();
+if (existsSync(MANIFEST)) {
+  const [head, ...lines] = readFileSync(MANIFEST, 'utf8').trim().split('\n');
+  const cols = head.split(',');
+  for (const l of lines) {
+    // células simples (sem vírgulas) bastam para arquivo, sha256 e registro
+    const cells = l.match(/("([^"]|"")*"|[^,]*)(,|$)/g).map((c) => c.replace(/,$/, ''));
+    const row = Object.fromEntries(cols.map((c, i) => [c, cells[i]]));
+    manifest.set(row.arquivo, row);
+  }
+}
 const ids = new Map();
 const oldIds = new Map();
 
@@ -63,6 +76,13 @@ for (const f of files) {
     if (!expected) err(file, `media[${i}]: ${basename(asset)} sem checksum em ${SUMS}`);
     else if (expected !== actual) err(file, `media[${i}]: checksum de ${basename(asset)} não confere (arquivo alterado?)`);
     if (!m.license_or_permission) err(file, `media[${i}]: falta license_or_permission`);
+    // Convenção de nomes (docs/PRESERVACAO.md): minúsculas, números e hífens, ≤ 64 caracteres.
+    if (!/^[a-z0-9]+(-[a-z0-9]+)*\.[a-z0-9]+$/.test(basename(asset)) || basename(asset).length > 64)
+      err(file, `media[${i}]: nome de arquivo fora da convenção: ${basename(asset)}`);
+    const row = manifest.get(basename(asset));
+    if (!row) err(file, `media[${i}]: ${basename(asset)} ausente do ${MANIFEST} (rode pnpm register)`);
+    else if (row.sha256 !== actual || row.registro !== r.id)
+      err(file, `media[${i}]: ${basename(asset)} diverge do ${MANIFEST} (rode pnpm register e revise)`);
   }
 
   for (const [p, u] of urls(r)) {

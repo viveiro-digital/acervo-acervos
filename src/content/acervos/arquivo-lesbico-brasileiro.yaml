@@ -29,6 +29,9 @@ date_range:
 media_note: "Acervo em área restrita, com reprodução vedada."
 sample:
   title: Página de coleções (sem itens visíveis sem cadastro)
+  level_of_description:
+    value: pagina-agregada
+    declared_by_source: false
   observed: >-
     A página pública lista duas coleções (Livros acadêmicos; Biblioteca Digital
     do Clube de Leitura). Os itens ficam na área restrita; não criamos conta.

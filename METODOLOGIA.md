@@ -84,6 +84,17 @@ precisa ser humana**.
   imagem aqui, mesmo com licença, sem protocolo da comunidade ou consentimento.
 - Sem imagem, `media_note` explica por quê, e o site mostra uma prancha
   tipográfica.
+- Na entrada: registre `retrieved_at` e, se a fonte publicar, `source_checksum`;
+  nomeie o arquivo na convenção (minúsculas, hífens, ≤ 64 caracteres) e rode
+  `pnpm register`. Fluxo completo em `docs/PRESERVACAO.md`.
+
+## Nível de descrição da amostra
+
+`sample.level_of_description` usa os níveis da ISAD(G): `fundo`, `serie`,
+`dossie`, `item`; e dois valores nossos, `pagina-agregada` (página que reúne
+vários itens sem ficha própria) e `nao-se-aplica` (a amostra é a página de uma
+coleção). `declared_by_source: true` só quando a fonte diz o nível, como em
+sistemas AtoM; caso contrário é atribuição da curadoria.
 
 ## Linguagem e cuidado
 

@@ -30,6 +30,9 @@ design_dimensions: [editorial, tipografia, identidade]
 media_note: "A fonte mostra apenas uma miniatura de capa, sem licença de reuso; nada é reproduzido aqui."
 sample:
   title: "Artes de México — primera época (1953–1963)"
+  level_of_description:
+    value: serie
+    declared_by_source: false
   observed: >-
     Ficha com tipo (revista), datas, editora, função documentada e pessoa
     relacionada (Vicente Rojo), texto de contexto e três fontes citadas. Uma

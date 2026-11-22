@@ -34,6 +34,9 @@ date_range:
 media_note: "Rascunho: nenhum item do acervo confirmado."
 sample:
   title: "Post institucional «Como funciona o Acervo Bajubá?» (2023)"
+  level_of_description:
+    value: nao-se-aplica
+    declared_by_source: false
   observed: >-
     O post abriu sem login, com imagem carregada (768 × 768 px) e legenda que
     descreve o projeto. É um post sobre o projeto, não um item do acervo.

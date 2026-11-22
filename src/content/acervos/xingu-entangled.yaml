@@ -29,6 +29,9 @@ design_dimensions: [interface]
 media_note: "Conteúdo audiovisual e diagramas de terceiros sem licença de reuso localizada; nada é reproduzido aqui."
 sample:
   title: Grafo inicial (nós sobre o buriti/moriche, armadilha de pesca, esteiras)
+  level_of_description:
+    value: nao-se-aplica
+    declared_by_source: false
   observed: >-
     A interface carregou um grafo com nós textuais como "Making of the fish
     trap" e "Moriche – Scientific Name and Collection History". O vídeo de

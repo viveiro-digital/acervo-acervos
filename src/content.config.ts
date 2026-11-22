@@ -33,7 +33,7 @@ import {
   themes,
 } from './data/vocabulario';
 
-export const SCHEMA_VERSION = 2; // v2: campo `media` (imagens com licença declarada)
+export const SCHEMA_VERSION = 3; // v3: nível de descrição da amostra; proveniência técnica da mídia
 
 const isoDate = z
   .string()
@@ -89,6 +89,10 @@ const mediaItem = (image: SchemaContext['image']) =>
     alt_source: z.enum(['fonte', 'curadoria']),
     caption: z.string().optional(),
     rights_checked_at: isoDate,
+    /** Data em que o arquivo foi obtido da fonte. */
+    retrieved_at: isoDate,
+    /** Checksum publicado pela fonte, se houver (para conferir no recebimento). */
+    source_checksum: z.string().optional(),
     order: z.number().int().default(0),
   });
 
@@ -151,6 +155,16 @@ const acervos = defineCollection({
       // ── Amostra ──────────────────────────────────────────────
       sample: z.object({
         title: z.string(),
+        /**
+         * Nível de descrição da amostra, nos termos da ISAD(G) (fundo, série,
+         * dossiê, item), ou `pagina-agregada` quando a amostra é uma página que
+         * reúne vários itens sem ficha própria. `declared_by_source` diz se o
+         * nível é o declarado pela fonte ou atribuído pela curadoria.
+         */
+        level_of_description: z.object({
+          value: z.enum(['fundo', 'serie', 'dossie', 'item', 'pagina-agregada', 'nao-se-aplica']),
+          declared_by_source: z.boolean(),
+        }),
         /** Resumo do que foi observado — escrito pela curadoria. */
         observed: z.string(),
         /** O que exatamente foi confirmado (imagem, PDF, player…). */

@@ -31,6 +31,9 @@ design_dimensions: [tipografia]
 media_note: "A ficha verificada não tem espécime visual."
 sample:
   title: "Acarau Display (registro #3891, nó BR)"
+  level_of_description:
+    value: item
+    declared_by_source: false
   observed: >-
     Ficha com créditos, fundidora, ano (2022), classificação, número de estilos,
     licenciamento ("público con costo") e texto descritivo em inglês. Nenhum

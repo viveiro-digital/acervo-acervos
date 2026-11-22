@@ -33,9 +33,13 @@ date_range:
 media_note: "O arquivo pede citação de procedência e libera cópias sob pedido; por cuidado com pessoas retratadas, nenhuma imagem é reproduzida aqui."
 sample:
   title: "Anotaciones personales — serie AV01-Pe-ap (1996–2012)"
+  level_of_description:
+    value: serie
+    declared_by_source: true
   observed: >-
-    Descrição arquivística em AtoM com produtora (Ángela Vanni), nota
-    biográfica, datas e metadados do objeto digital (PDF, 5 MiB). A página
+    Descrição arquivística em AtoM, de nível "Serie" segundo a fonte, com
+    produtora identificada, nota biográfica, datas e metadados do objeto
+    digital (PDF, 5 MiB). A página
     mostra uma miniatura; o texto alternativo da fonte indica que o objeto
     digital original não está acessível publicamente.
   confirmed_media: [imagem, metadados]
@@ -101,10 +105,16 @@ review_reason: Primeira verificação feita por agente automatizado; falta revis
 review_priority: media
 record_status: publicado
 created_at: "2026-11-21"
-updated_at: "2026-11-21"
+updated_at: "2026-11-22"
 change_log:
   - date: "2026-11-21"
     field: "*"
     to: criado
     reason: Criação do registro após verificação da amostra.
     source: https://atom.archivotrans.ar/index.php/anotaciones-personales
+  - date: "2026-11-22"
+    field: sample.observed
+    from: "nome da produtora citado no resumo"
+    to: "produtora referida sem nome"
+    reason: Minimização de dados pessoais (LGPD art. 6º, III); o nome segue disponível na fonte.
+    source: docs/PRESERVACAO.md

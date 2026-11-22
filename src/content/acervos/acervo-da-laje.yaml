@@ -33,6 +33,9 @@ date_range:
 media_note: "Não localizamos condições de reuso das fotografias; elas não são reproduzidas aqui."
 sample:
   title: Página "O Acervo" (casas 01 e 02)
+  level_of_description:
+    value: pagina-agregada
+    declared_by_source: false
   observed: >-
     Página descritiva dos espaços e da coleção com fotografias carregadas (até
     812 × 1054 px), créditos de fotografia e lista nominal de artistas do

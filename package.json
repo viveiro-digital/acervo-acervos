@@ -16,6 +16,7 @@
     "validate": "pnpm check && pnpm build && pnpm test:e2e",
     "review": "node scripts/review.mjs",
     "export": "node scripts/export.mjs",
+    "register": "node scripts/asset-register.mjs",
     "og": "node scripts/make-og.mjs",
     "astro": "astro"
   },

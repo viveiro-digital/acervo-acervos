@@ -34,6 +34,9 @@ design_dimensions: [materialidade-impressao]
 media_note: "As fichas exibem fotografias, mas o site não informa direitos de uso, e parte do acervo é ritual; nenhuma imagem é reproduzida aqui."
 sample:
   title: "Rede de dormir (MK-2006/038)"
+  level_of_description:
+    value: item
+    declared_by_source: false
   observed: >-
     Ficha com fotografia do objeto carregada (1024 × 575 px), número de
     registro, descrição da técnica (contratorcido combinado, fios de algodão),

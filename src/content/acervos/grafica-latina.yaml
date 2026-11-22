@@ -33,6 +33,9 @@ design_dimensions: [cartaz, materialidade-impressao, processo]
 media_note: "Não localizamos condições de reuso das imagens; elas não são reproduzidas aqui."
 sample:
   title: "El cartel anticolonial — Puerto Rico (Taller Alacrán)"
+  level_of_description:
+    value: pagina-agregada
+    declared_by_source: false
   observed: >-
     Microsite com texto em inglês sobre o Taller Alacrán, de Antonio Martorell,
     e imagens de cartazes carregadas (a maior com 305 × 409 px), incluindo

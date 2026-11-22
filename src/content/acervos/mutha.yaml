@@ -24,6 +24,9 @@ date_range:
 media_note: "Rascunho: nenhum item confirmado."
 sample:
   title: Página de coleções do Arquivo Histórico (não aberta item a item)
+  level_of_description:
+    value: pagina-agregada
+    declared_by_source: false
   observed: >-
     A página inicial do Arquivo Histórico lista coleções e acervos (Acervos
     Muthantes, Arquivo Vivo, Acervos Transcestrais e outros). Nenhum item foi

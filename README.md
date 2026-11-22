@@ -201,6 +201,12 @@ aponta para `SITE_URL`, não para o preview.
   os YAML no Git são a fonte; o JSON exportado contém os mesmos registros.
 - Isso preserva **o catálogo**, não os acervos externos. Um link monitorado não
   garante a continuidade da iniciativa de origem.
+- `pnpm register` gera `src/assets/acervos/MANIFESTO.csv` (registro de ativos:
+  tamanho, SHA-256, MIME, PUID do PRONOM, dimensões, origem, licença) e
+  `SHA256SUMS`; `pnpm check:data` confere os arquivos contra eles.
+- Autoavaliação NDSA Levels v2.1 e DPC RAM v3, política de acervo, convenção de
+  nomes, mapeamento Dublin Core, LGPD, arquivabilidade e plano de sucessão:
+  [`docs/PRESERVACAO.md`](docs/PRESERVACAO.md) e ADR 0010.
 
 ## Limitações conhecidas
 

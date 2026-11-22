@@ -16,6 +16,11 @@
 6. Publicar o repositório em `github.com/viveiro-digital/acervo-acervos`. O
    link de correções e o de código do site apontam para lá.
 7. Decidir domínio (`SITE_URL`) e hospedagem (ADR 0007, status proposed).
+8. Preservação (detalhes em `docs/PRESERVACAO.md`): o push do passo 6 cria a
+   segunda cópia (NDSA nível 1 em armazenamento). Depois: proteger `main`,
+   ter duas pessoas administradoras na organização (plano de sucessão),
+   anexar `pnpm export` a uma release e capturar o site no Internet Archive
+   quando ele estiver no ar.
 
 # Registros não verificados ou pendentes
 

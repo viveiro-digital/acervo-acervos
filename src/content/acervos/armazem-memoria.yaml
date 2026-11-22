@@ -27,6 +27,9 @@ date_range:
 media_note: "Rascunho: nenhuma página de documento confirmada."
 sample:
   title: Hemeroteca no DocReader (lista de bibliotecas)
+  level_of_description:
+    value: nao-se-aplica
+    declared_by_source: false
   observed: >-
     O leitor abriu e listou duas bibliotecas de recortes de jornal com contagem de
     páginas, mas nenhuma página digitalizada foi exibida durante a verificação.

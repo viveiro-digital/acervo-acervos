@@ -42,9 +42,13 @@ media:
     alt_source: fonte
     caption: "Cartaz da III Feira do Artesanato Baiano, 23 de outubro a 1º de novembro de 1977."
     rights_checked_at: "2026-11-21"
+    retrieved_at: "2026-11-21"
     order: 0
 sample:
   title: Cartaz da III Feira do Artesanato Baiano (1977)
+  level_of_description:
+    value: item
+    declared_by_source: false
   observed: >-
     Ficha do item #7647 na coleção Cordel, com imagem do cartaz carregada
     (619 × 800 px), data de 1977, texto alternativo fornecido pela fonte,

@@ -39,6 +39,9 @@ design_dimensions: [editorial, ilustracao, materialidade-impressao]
 media_note: "Os zines são lidos no visualizador da fonte; não há licença de reuso declarada por zine."
 sample:
   title: "Visagens no meio do mundo — Coletivo Ventos do Norte (2026)"
+  level_of_description:
+    value: item
+    declared_by_source: false
   observed: >-
     Página do zine com o PDF renderizado no visualizador embutido (capa
     visível), descrição, categorias (Terror, Autobiográfico) e créditos: zine

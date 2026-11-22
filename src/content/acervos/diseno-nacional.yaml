@@ -40,9 +40,13 @@ media:
     alt_source: curadoria
     caption: "Todo hombre tiene derecho a ser persona: año de los derechos humanos, Chile (1978)."
     rights_checked_at: "2026-11-21"
+    retrieved_at: "2026-11-21"
     order: 0
 sample:
   title: "Todo hombre tiene derecho a ser persona: año de los derechos humanos Chile (1978)"
+  level_of_description:
+    value: item
+    declared_by_source: false
   observed: >-
     Ficha com imagem do cartaz carregada (946 × 1291 px), título, ano 1978,
     autoria (Jorge Castillo Rojas), lugar (Santiago) e arquivo de origem

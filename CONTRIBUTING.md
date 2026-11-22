@@ -54,7 +54,8 @@ ADR para CSS, correções pequenas ou curadoria.
 - [ ] `pnpm check` e `pnpm build` sem erros.
 - [ ] Cada afirmação nova tem fonte, data e tipo de evidência.
 - [ ] Imagens novas têm licença declarada pela fonte, crédito, alt (e origem do
-      alt) e checksum.
+      alt), `retrieved_at`, nome na convenção e entrada no `MANIFESTO.csv`
+      (`pnpm register`).
 - [ ] Páginas novas têm `h1` único, título, descrição, canonical e funcionam
       com teclado e sem JavaScript.
 - [ ] `pnpm test:e2e` passa (incluindo axe).
