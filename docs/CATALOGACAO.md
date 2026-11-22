@@ -1,6 +1,6 @@
 # Catalogação: o modelo de dados e a ISDIAH
 
-Cada ficha de Acervo Acervos descreve uma **iniciativa que mantém um acervo
+Cada ficha da Coleção de Acervos Digitais descreve uma **iniciativa que mantém um acervo
 digital**. A norma do Conselho Internacional de Arquivos para esse tipo de
 descrição é a **ISDIAH** (*International Standard for Describing Institutions
 with Archival Holdings*, 1ª ed., 2008), a mesma usada no modelo de instituições
@@ -16,7 +16,7 @@ quando houver versão estável, revisar este mapeamento.
 
 Obrigatórios na ISDIAH (seção 4.7): 5.1.1, 5.1.2 e 5.2.1. Atendemos os três.
 
-| ISDIAH | Elemento | Campo em Acervo Acervos | Situação |
+| ISDIAH | Elemento | Campo na Coleção de Acervos Digitais | Situação |
 |---|---|---|---|
 | 5.1.1 | Identificador | `id` (nunca reutilizado; `previous_ids`) | atende, com identificador nosso |
 | 5.1.2 | Forma autorizada do nome | `name` | atende |

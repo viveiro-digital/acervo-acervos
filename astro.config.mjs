@@ -3,7 +3,7 @@ import { defineConfig } from 'astro/config';
 
 /**
  * Origem pública do site.
- * - SITE_URL: endereço canônico definitivo (ex.: https://acervoacervos.org).
+ * - SITE_URL: endereço canônico definitivo (ex.: https://viveiro-digital.github.io).
  *   Sem ela, usamos localhost e TODAS as páginas saem com noindex.
  * - DEPLOY_ENV=production: só neste caso o robots.txt libera indexação.
  * Previews nunca devem receber DEPLOY_ENV=production.

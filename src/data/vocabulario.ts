@@ -1,11 +1,11 @@
 /**
- * Vocabulários controlados de Acervo Acervos.
+ * Vocabulários controlados da Coleção de Acervos Digitais.
  *
  * São uma camada de DESCOBERTA, não uma classificação verdadeira das
  * iniciativas. Cada registro também guarda os termos originais usados
  * pela própria fonte (`themes_original`, `collection_types_original`).
  * Para adicionar um termo: inclua a chave aqui (minúsculas, sem acento,
- * hífen como separador) e o rótulo exibido. Ver README › Convenções.
+ * hífen como separador) e o rótulo exibido. Ver docs/CATALOGACAO.md.
  */
 
 export const initiativeTypes = {

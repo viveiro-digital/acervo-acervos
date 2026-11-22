@@ -13,14 +13,10 @@
 4. **`pnpm build && pnpm preview`** e, em outra aba, **`pnpm audit:lighthouse`**:
    anote os números em `docs/VALIDACAO.md`.
 5. Teste com **VoiceOver** (Safari): painel, filtros e uma página de registro.
-6. Publicar o repositório em `github.com/viveiro-digital/acervo-acervos`. O
-   link de correções e o de código do site apontam para lá.
-7. Decidir domínio (`SITE_URL`) e hospedagem (ADR 0007, status proposed).
-8. Catalogação (`docs/CATALOGACAO.md`): falta o identificador externo de
+6. Catalogação (`docs/CATALOGACAO.md`): falta o identificador externo de
    cada instituição (ISDIAH 5.6.2), por exemplo Wikidata ou ISIL. Só incluir
    depois de conferir que o item corresponde à iniciativa.
-9. Preservação (detalhes em `docs/PRESERVACAO.md`): o push do passo 6 cria a
-   segunda cópia (NDSA nível 1 em armazenamento). Depois: proteger `main`,
+7. Preservação (detalhes em `docs/PRESERVACAO.md`): proteger `main`,
    ter duas pessoas administradoras na organização (plano de sucessão),
    anexar `pnpm export` a uma release e capturar o site no Internet Archive
    quando ele estiver no ar.
@@ -45,7 +41,7 @@ feita por agente de IA e precisa de revisão humana. Prioridade alta:
 
 | Registro | Situação | O que falta |
 | --- | --- | --- |
-| `acervo-bajuba` | Site sem navegação por itens; Instagram abre parcialmente sem login. A amostra atual é um post institucional. | Encontrar post, destaque ou coleção com itens do acervo. |
+| `nova-cartografia-social` | Conteúdo digital confirmado. | Verificar quem decide sobre a curadoria e a manutenção da coleção digital. |
 | `arquivo-lesbico-brasileiro` | Acervo em área restrita, com cadastro e reprodução vedada. | Alguém da curadoria se cadastrar e confirmar uma amostra, respeitando as regras. |
 | `armazem-memoria` | O leitor de documentos abriu, mas nenhuma página foi exibida. | Abrir um documento e registrar a amostra. |
 | `mutha` | Coleções listadas; nenhum item aberto. | Abrir uma coleção e registrar a amostra. |

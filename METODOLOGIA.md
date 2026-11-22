@@ -1,11 +1,11 @@
-# Metodologia — Acervo Acervos
+# Metodologia — Coleção de Acervos Digitais
 
 Versão pública e navegável em `/metodologia/` (o `/sobre/` é o resumo curto). Este arquivo é a referência para quem
 edita os dados.
 
 ## Posição
 
-Acervo Acervos é uma interface de descoberta, não um diretório neutro nem um selo.
+A Coleção de Acervos Digitais ajuda a encontrar e consultar acervos comunitários online.
 Toma como lente as três ações propostas por Giselle Beiguelman na introdução do
 *Guia dos Arquivos que não Existem* (FAU-USP, 2026, p. 6–9): **fazer aparecer,
 fazer ler e fazer relacionar**. Na interface, isso vira:
@@ -21,13 +21,13 @@ classificação universal.
 
 ## Critérios de inclusão
 
-Um registro só é **publicado** quando tem:
+Para publicar uma nova ficha, verificamos:
 
 1. URL da iniciativa, URL da coleção ou canal, e **URL de uma amostra específica**;
 2. resumo do que foi observado na amostra e do que exatamente carregou;
 3. regime de acesso, data e método da verificação;
-4. quem mantém o acervo, relação documentada com comunidades (ou "desconhecida"),
-   direitos segundo a fonte (ou "desconhecido");
+4. quem mantém o acervo e como a comunidade participa da sua curadoria e manutenção;
+   direitos de uso segundo a fonte, quando informados;
 5. pelo menos uma evidência com fonte e data.
 
 Fica como **rascunho** (não publicado) quando falta a amostra, quando o
@@ -38,8 +38,7 @@ Vai para **fora do catálogo** (`src/content/fora-do-catalogo/`) quando foi
 verificado e não atende ao recorte ou ao critério de conteúdo, por exemplo um
 repositório anunciado para o futuro.
 
-Não é preciso ser independente ou comunitário: é preciso relevância digital e
-uma descrição honesta da relação com comunidades e instituições.
+Para novas inclusões, a coleção deve ser mantida por uma comunidade, um coletivo ou uma organização comunitária. A abertura da amostra confirma que há material para ver, ler ou ouvir online. Quando a fonte não esclarece quem cuida da coleção, a ficha fica em revisão.
 
 ## Estados de verificação (`content_status`)
 

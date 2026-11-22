@@ -1,4 +1,4 @@
-# Contribuindo com Acervo Acervos
+# Contribuindo com a Coleção de Acervos Digitais
 
 ## Preparar o Mac
 
@@ -24,7 +24,7 @@ pnpm audit:lighthouse   # com `pnpm preview` rodando em outra aba
 
 ## Propor ou revisar um registro
 
-1. Siga "Adicionar, revisar, arquivar" no README e os critérios em `METODOLOGIA.md`.
+1. Confira os critérios em [Metodologia](METODOLOGIA.md) e os campos em [Catalogação](docs/CATALOGACAO.md).
 2. Abra uma amostra específica e descreva só o que viu, com data e fonte.
 3. Imagem só com licença declarada pela fonte: guarde em `src/assets/acervos/`,
    acrescente a linha em `SHA256SUMS` (`shasum -a 256 arquivo`) e preencha

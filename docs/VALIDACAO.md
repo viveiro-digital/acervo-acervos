@@ -88,7 +88,7 @@ cai de propósito, porque as páginas saem com `noindex`.
 
 ### SEO e metadados (build de produção simulado)
 
-Feito com `SITE_URL=https://acervoacervos.example DEPLOY_ENV=production`:
+Feito com `SITE_URL=https://acervos-digitais.example DEPLOY_ENV=production`:
 - canonical absoluto e `index, follow` em home e registros;
 - JSON-LD: `WebSite` + `SearchAction` na home, `WebPage` (com `about:
   Collection`) + `BreadcrumbList` nos registros, e `primaryImageOfPage` quando

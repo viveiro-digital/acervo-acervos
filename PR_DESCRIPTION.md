@@ -1,4 +1,4 @@
-# Acervo Acervos v1
+# Coleção de Acervos Digitais v1
 
 Branch `feat/v1` → `main`. Um projeto do Viveiro Digital. Para publicar e
 abrir o PR:
@@ -7,9 +7,9 @@ abrir o PR:
 git restore .github               # o CI está no commit; o macOS bloqueou a cópia
 pnpm install                      # atualiza o lockfile (typescript >=5.9 <7)
 git add pnpm-lock.yaml && git commit -m "chore: lockfile com TypeScript 6"
-git remote add origin git@github.com:viveiro-digital/acervo-acervos.git
+git remote add origin git@github.com:viveiro-digital/colecao-de-acervos-digitais.git
 git push -u origin main feat/v1
-gh pr create --base main --head feat/v1 --title "Acervo Acervos v1" --body-file PR_DESCRIPTION.md
+gh pr create --base main --head feat/v1 --title "Coleção de Acervos Digitais v1" --body-file PR_DESCRIPTION.md
 ```
 
 ## O que entra

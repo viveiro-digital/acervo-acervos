@@ -5,15 +5,8 @@ export const siteConfig = {
   description:
     'Um catálogo voltado a arquivos comunitários do Brasil e da América Latina que compartilham acervos digitais, de zines e cartazes a fotografias e documentos.',
   locale: 'pt-BR',
-  /**
-   * Canal público para sugestões, correções e pedidos de remoção.
-   * Decidido em 21/11/2026: issues do repositório no GitHub do Viveiro
-   * Digital. O endereço passa a funcionar quando o repositório for publicado
-   * em github.com/viveiro-digital/acervo-acervos (ver PENDENTES.md).
-   */
-  contactUrl: 'https://github.com/viveiro-digital/acervo-acervos/issues' as string | null,
-  /** Código-fonte e dados (mesma ressalva acima). */
-  repoUrl: 'https://github.com/viveiro-digital/acervo-acervos' as string | null,
+  contactUrl: 'https://github.com/viveiro-digital/colecao-de-acervos-digitais/issues' as string | null,
+  repoUrl: 'https://github.com/viveiro-digital/colecao-de-acervos-digitais' as string | null,
   /**
    * Viveiro Digital. Não há site público verificado; o prompt pede o
    * repositório de documentação como referência provisória. Troque aqui

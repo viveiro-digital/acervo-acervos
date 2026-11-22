@@ -1,6 +1,6 @@
 # Preservação, catalogação e política de acervo
 
-Este documento confere Acervo Acervos com referências da comunidade de
+Este documento confere a Coleção de Acervos Digitais com referências da comunidade de
 preservação digital e de descrição arquivística. Diz o que já atendemos, o que
 falta e o que decidimos não fazer. Revisar a cada seis meses ou quando o
 catálogo mudar de escala (ver "Ciclo de revisão").
@@ -41,7 +41,7 @@ que parte do nível seguinte já existe.
 
 | Área | Nível | O que temos | O que falta para o próximo |
 |---|---|---|---|
-| Armazenamento | **0 → 1 ao publicar** | Hoje: uma cópia no Mac + histórico Git local. | Nível 1: duas cópias completas em locais separados. Basta fazer push para `viveiro-digital/acervo-acervos` no GitHub (cópia 2). Nível 2: terceira cópia em outro lugar geográfico, por exemplo um espelho em Codeberg ou GitLab, ou um disco externo atualizado mensalmente; documentar onde estão. |
+| Armazenamento | **0 → 1 ao publicar** | Hoje: uma cópia no Mac + histórico Git local. | Nível 1: duas cópias completas em locais separados. Basta fazer push para `viveiro-digital/colecao-de-acervos-digitais` no GitHub (cópia 2). Nível 2: terceira cópia em outro lugar geográfico, por exemplo um espelho em Codeberg ou GitLab, ou um disco externo atualizado mensalmente; documentar onde estão. |
 | Integridade | **1, parcial 2** | SHA-256 gerado no recebimento das imagens (`SHA256SUMS`, `MANIFESTO.csv`) e conferido a cada `pnpm check:data`; a exportação gera `export/SHA256SUMS`; o Git verifica a integridade de cada objeto. As fontes não publicam checksums, então registramos `checksum_da_fonte: não fornecido`. | Nível 2: checksums guardados também fora do repositório (vão junto ao anexar a exportação a uma release). Não fazemos varredura de vírus: imagens são baixadas de sites conhecidos por URL direta; anotar isso como risco aceito. |
 | Controle | **1** | Quem lê/escreve: só quem mantém o repositório (por enquanto, uma pessoa). | Nível 2: documentar papéis (ver "Papéis e sucessão") e proteger a branch `main` no GitHub. Nível 3: o histórico Git e os logs do GitHub servem de registro de ações. |
 | Metadados | **1, parcial 2** | Inventário completo: as fichas YAML + `MANIFESTO.csv` (arquivo, tamanho, formato, origem, licença, registro). Metadados descritivos (schema), de proveniência (`change_log`, `evidence`), técnicos das imagens (manifesto). | Nível 2: cópia do inventário fora do repositório (exportação anexada à release). Nível 3: padrões escolhidos e lacunas mapeadas (este documento + DCMI na exportação). |

@@ -1,4 +1,4 @@
-# Identidade visual — Acervo Acervos
+# Identidade visual — Coleção de Acervos Digitais
 
 **Hierarquia:** primeiro o conteúdo do acervo, depois o nome e o contexto, e
 por último os controles do site. A identidade é a moldura: aparece no ritmo,

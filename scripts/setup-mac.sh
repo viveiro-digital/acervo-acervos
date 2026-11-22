@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Acervo Acervos — preparação do ambiente no macOS.
+# Coleção de Acervos Digitais — preparação do ambiente no macOS.
 #
 # Rode na raiz do projeto:  bash scripts/setup-mac.sh
 #

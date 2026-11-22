@@ -1,5 +1,5 @@
 /**
- * Schema dos registros de Acervo Acervos (versão 1 do schema).
+ * Schema dos registros da Coleção de Acervos Digitais (versão 1 do schema).
  *
  * Cada registro é um arquivo YAML em src/content/acervos/<id>.yaml.
  * O build falha com mensagem do Zod indicando arquivo e campo quando
@@ -111,7 +111,7 @@ const acervos = defineCollection({
           source_url: url,
         })
         .optional(),
-      /** Descrição editorial curta, escrita por Acervo Acervos. */
+      /** Descrição editorial curta, escrita pela Coleção de Acervos Digitais. */
       description: editorialText,
       initiative_url: url,
       digital_collection_url: url,
