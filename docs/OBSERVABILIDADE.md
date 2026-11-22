@@ -3,7 +3,7 @@
 Três coisas diferentes, que não devem ser confundidas:
 
 1. **Build e qualidade**: sinais gerados por comandos, localmente e no CI.
-2. **Site em produção**: o catálogo está no GitHub Pages. Não há coleta de métricas de visita configurada.
+2. **Site em produção**: visualizações e cliques registrados no Google Analytics.
 3. **Telemetria da CLI do Astro**: dados de uso da ferramenta enviados ao time
    do Astro. Não monitora visitantes nem erros do site. Para desligar:
    `pnpm astro telemetry disable`.
@@ -37,12 +37,20 @@ Para novos registros, acrescente uma seção datada em vez de sobrescrever.
 
 ## Produção
 
-- **GitHub Pages**: não há métricas de tráfego. Os sinais são os testes
-  sintéticos e a aba Actions.
-- **Cloudflare**: o Web Analytics mede Core Web Vitals sem cookies, mas
-  carrega um script externo. Só ligue por decisão registrada em ADR e informe
-  na página Sobre.
-- **Nunca registrar** termos de busca, IPs ou identificadores persistentes.
+Use a propriedade [Coleção de Acervos Digitais](https://analytics.google.com/analytics/web/#/p565456946/reports/intelligenthome).
+Em **Relatórios → Tempo real**, confira a chegada de visualizações. No relatório **Eventos**, consulte:
+
+| Evento | O que conta |
+| --- | --- |
+| `page_view` | Abertura de uma página pública do catálogo |
+| `archive_open` | Clique no ícone do card ou no botão que abre o acervo original |
+| `file_download` | Clique em um link para baixar um arquivo hospedado no catálogo |
+
+A medição só roda no endereço público principal. Os eventos usam o caminho da
+página sem os parâmetros de busca. A medição otimizada, os sinais para publicidade
+e a personalização de anúncios estão desativados. Os cookies do catálogo duram
+até o fim da sessão do navegador. Downloads feitos em outros sites ficam fora dos
+relatórios.
 
 ## O que não está coberto
 

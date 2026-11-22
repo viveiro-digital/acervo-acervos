@@ -7,6 +7,10 @@ export const siteConfig = {
   shareTitle: 'Acervos digitais',
   shareDescription: 'Coleções digitais do Brasil e da América Latina com material disponível para consulta online.',
   locale: 'pt-BR',
+  analytics: {
+    id: 'G-ZWH8XGYVVG',
+    site: 'https://viveiro-digital.github.io/acervos-digitais-colecao/',
+  },
   contactUrl: 'https://docs.google.com/forms/d/e/1FAIpQLScd36uSvVGrMqDMPIS7kQ7NP8kD6Y-TvEVmO4k2Hz90jSF8bQ/viewform',
   contactEmail: 'bibliotecadezines@gmail.com',
   repoUrl: 'https://github.com/viveiro-digital/colecao-de-acervos-digitais' as string | null,

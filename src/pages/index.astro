@@ -151,7 +151,7 @@ const jsonLd = {
             <CollectionCover id={record.id} name={title} eager={i < 3} priority={i === 0} />
             <div class="tile-heading">
               <h2 class="collection-tile-title"><a class="tile-link" href={recordPath(record.id)} data-open={record.id}>{title}</a></h2>
-              <a class="tile-source" href={record.digital_collection_url} target="_blank" rel="noopener noreferrer external"
+              <a class="tile-source" data-archive-source={record.id} href={record.digital_collection_url} target="_blank" rel="noopener noreferrer external"
                 aria-label={`Abrir ${title} no site de origem (nova aba)`} title="Abrir acervo original em nova aba">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
                   <path d="M13 5h6v6M19 5l-8 8M10 5H6a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-4" />

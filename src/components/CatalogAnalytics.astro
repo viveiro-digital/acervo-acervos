@@ -1,0 +1,61 @@
+---
+import { sitePath } from '../lib/site-path';
+import { isIndexable, siteConfig } from '../site.config';
+
+const { enabled } = Astro.props as { enabled: boolean };
+const basePath = sitePath('/');
+const { id, site } = siteConfig.analytics;
+const active = enabled && isIndexable && new URL(basePath, Astro.site).href === site;
+---
+
+{active && (
+  <script define:vars={{ id, basePath }}>
+    if (!navigator.globalPrivacyControl && navigator.doNotTrack !== '1') {
+      window.dataLayer ??= [];
+      function gtag() { window.dataLayer.push(arguments); }
+
+      gtag('js', new Date());
+      gtag('config', id, {
+        send_page_view: false,
+        allow_google_signals: false,
+        allow_ad_personalization_signals: false,
+        cookie_expires: 0,
+        cookie_prefix: 'acervos',
+        cookie_path: basePath,
+        page_location: location.origin + location.pathname,
+        page_referrer: document.referrer ? new URL(document.referrer).origin : '',
+      });
+      gtag('event', 'page_view');
+
+      for (const event of ['click', 'auxclick']) {
+        document.addEventListener(event, (click) => {
+          if (click.defaultPrevented || click.button > 1 || !(click.target instanceof Element)) return;
+          const link = click.target.closest('a[href]');
+          if (!link) return;
+
+          const destination = new URL(link.href);
+          if (link.dataset.archiveSource) {
+            gtag('event', 'archive_open', {
+              archive_id: link.dataset.archiveSource,
+              link_domain: destination.hostname,
+            });
+          } else if (
+            destination.origin === location.origin &&
+            destination.pathname.startsWith(basePath) &&
+            (link.hasAttribute('download') || /\.(pdf|zip|csv|json)$/i.test(destination.pathname))
+          ) {
+            gtag('event', 'file_download', {
+              file_name: destination.pathname.split('/').pop(),
+            });
+          }
+        });
+      }
+
+      const tag = document.createElement('script');
+      tag.async = true;
+      tag.referrerPolicy = 'no-referrer';
+      tag.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(id);
+      document.head.append(tag);
+    }
+  </script>
+)}

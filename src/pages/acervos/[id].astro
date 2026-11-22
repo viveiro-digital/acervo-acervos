@@ -98,7 +98,7 @@ const jsonLd = [
           <p class="lede">{r.description.pt}</p>
           {accessNote && <p class="meta muted">{accessNote}</p>}
         </div>
-        <ExtLink href={r.digital_collection_url} class="btn btn--primary" newTab>Abrir acervo original ↗</ExtLink>
+        <ExtLink href={r.digital_collection_url} class="btn btn--primary" newTab archiveId={r.id}>Abrir acervo original ↗</ExtLink>
       </div>
     </header>
 

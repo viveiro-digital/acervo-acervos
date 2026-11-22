@@ -3,6 +3,7 @@ import { sitePath } from '../lib/site-path';
 import '../styles/global.css';
 import Wordmark from '../components/Wordmark.astro';
 import Footer from '../components/Footer.astro';
+import CatalogAnalytics from '../components/CatalogAnalytics.astro';
 import { siteConfig, isIndexable } from '../site.config';
 
 interface Props {
@@ -75,6 +76,7 @@ const nav = [
     <meta name="twitter:image" content={imageUrl} />
     <meta name="twitter:image:alt" content={ogImageAlt} />
     {jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
+    <CatalogAnalytics enabled={!noindex} />
     <slot name="head" />
   </head>
   <body>
