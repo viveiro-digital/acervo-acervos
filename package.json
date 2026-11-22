@@ -9,8 +9,11 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "check": "node scripts/check-data.mjs && astro sync",
+    "check": "node scripts/check-data.mjs && astro check",
     "check:data": "node scripts/check-data.mjs",
+    "test:e2e": "playwright test",
+    "audit:lighthouse": "node scripts/lighthouse.mjs",
+    "validate": "pnpm check && pnpm build && pnpm test:e2e",
     "review": "node scripts/review.mjs",
     "export": "node scripts/export.mjs",
     "og": "node scripts/make-og.mjs",
@@ -21,10 +24,31 @@
   },
   "pnpm": {
     "supportedArchitectures": {
-      "os": ["current", "linux"],
-      "cpu": ["current", "arm64"],
-      "libc": ["glibc"]
+      "os": [
+        "current",
+        "linux"
+      ],
+      "cpu": [
+        "current",
+        "arm64"
+      ],
+      "libc": [
+        "glibc"
+      ]
     },
-    "onlyBuiltDependencies": ["esbuild", "sharp"]
+    "onlyBuiltDependencies": [
+      "esbuild",
+      "sharp"
+    ]
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.12",
+    "@axe-core/playwright": "^4.14.0",
+    "@playwright/test": "^1.65.1",
+    "lighthouse": "^13.6.0",
+    "typescript": ">=5.9 <7"
+  },
+  "engines": {
+    "node": ">=22.23.4"
   }
 }
