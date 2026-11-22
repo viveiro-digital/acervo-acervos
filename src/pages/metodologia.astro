@@ -18,32 +18,12 @@ const statuses = Object.keys(V.contentStatuses) as (keyof typeof V.contentStatus
 >
   <div class="wrap prose-wrap">
     <header>
-      <p class="kicker">Método curatorial</p>
       <h1>Metodologia</h1>
-      <p class="lede">
-        Acervo Acervos é uma interface de descoberta: ajuda a encontrar iniciativas e arquivos
-        que publicam conteúdo digital consultável, com destaque para os independentes,
-        comunitários e ligados a memórias pouco presentes em acervos oficiais. Também inclui
-        acervos institucionais quando o conteúdo é relevante, sempre dizendo quem os mantém.
-      </p>
+      <p class="lede">Como escolhemos e descrevemos as coleções do catálogo.</p>
     </header>
 
-    <nav class="toc" aria-label="Nesta página">
-      <ol>
-        <li><a href="#posicao">Posição curatorial</a></li>
-        <li><a href="#metodo">Critérios e verificação</a></li>
-        <li><a href="#estados">Estados de verificação</a></li>
-        <li><a href="#imagens">Imagens</a></li>
-        <li><a href="#descricao">Descrição e preservação</a></li>
-        <li><a href="#linguagem">Linguagem e cuidado</a></li>
-        <li><a href="#pendentes">Pendentes e fora do catálogo</a></li>
-        <li><a href="#limitacoes">Limitações</a></li>
-        <li><a href="#referencias">Referências</a></li>
-      </ol>
-    </nav>
-
-    <section id="posicao" aria-labelledby="h-posicao">
-      <h2 id="h-posicao">Posição curatorial</h2>
+    <details id="posicao" class="method-section">
+      <summary id="h-posicao">Posição curatorial</summary>
       <p>
         O ponto de partida é o <cite>Guia dos Arquivos que não Existem: acervos digitais
         contra-hegemônicos</cite>, organizado por Giselle Beiguelman (FAU-USP, 2026). Na
@@ -77,10 +57,10 @@ const statuses = Object.keys(V.contentStatuses) as (keyof typeof V.contentStatus
         plataforma não é centro de autoridade: aponta para a iniciativa de origem e mantém
         contexto, autoria, procedência e condições de acesso junto ao link.
       </p>
-    </section>
+    </details>
 
-    <section id="metodo" aria-labelledby="h-metodo">
-      <h2 id="h-metodo">Critérios e verificação</h2>
+    <details id="metodo" class="method-section">
+      <summary id="h-metodo">Critérios e verificação</summary>
       <h3>Entra no catálogo publicado quando</h3>
       <ul>
         <li>há conteúdo digital substantivo e navegável, ligado ao Brasil ou à América Latina (inclusive diásporas e iniciativas transnacionais);</li>
@@ -111,10 +91,10 @@ const statuses = Object.keys(V.contentStatuses) as (keyof typeof V.contentStatus
         registros estão marcados para <strong>revisão humana</strong>, que é obrigatória antes
         de considerar uma verificação concluída.
       </p>
-    </section>
+    </details>
 
-    <section id="estados" aria-labelledby="h-estados">
-      <h2 id="h-estados">Estados de verificação</h2>
+    <details id="estados" class="method-section">
+      <summary id="h-estados">Estados de verificação</summary>
       <dl class="fields">
         {statuses.map((s) => (
           <>
@@ -127,20 +107,16 @@ const statuses = Object.keys(V.contentStatuses) as (keyof typeof V.contentStatus
         Uma falha temporária não torna um acervo "inativo". Registros não são apagados: mudam de
         estado e guardam o histórico, com data e motivo.
       </p>
-    </section>
+    </details>
 
-    <section id="imagens" aria-labelledby="h-imagens">
-      <h2 id="h-imagens">Imagens</h2>
-      <ul>
-        <li>Uma imagem só aparece aqui quando a fonte declara licença ou permissão que autoriza a exibição. O arquivo é guardado localmente com fonte, crédito, licença, data da checagem e checksum.</li>
-        <li>As imagens aparecem inteiras, na proporção original, sem recorte e sem ampliação além do tamanho publicado pela fonte.</li>
-        <li>O texto alternativo vem da fonte quando existe. Quando é escrito pela curadoria, descreve só o que é visível e é marcado assim.</li>
-        <li>Sem imagem autorizada, o registro mostra uma prancha tipográfica com o título da amostra e o motivo da ausência. Não há capa inventada, miniatura sintética nem imagem gerada por IA.</li>
-      </ul>
-    </section>
+    <details id="imagens" class="method-section">
+      <summary id="h-imagens">Imagens</summary>
+      <p>As prévias usam imagens sociais, imagens de coleção ou capturas das páginas de origem.</p>
+      <p>Nas notas de cada acervo, imagens de obras exibidas têm crédito e licença da fonte. Elas são mostradas na proporção original e têm texto alternativo.</p>
+    </details>
 
-    <section id="descricao" aria-labelledby="h-descricao">
-      <h2 id="h-descricao">Descrição e preservação</h2>
+    <details id="descricao" class="method-section">
+      <summary id="h-descricao">Descrição e preservação</summary>
       <ul>
         <li>Cada amostra diz em que nível de descrição está, nos termos da norma arquivística ISAD(G): item, dossiê, série ou fundo, ou uma página que reúne vários itens. O registro indica se o nível foi declarado pela fonte ou atribuído pela curadoria.</li>
         <li>A ficha segue a ISDIAH, norma do Conselho Internacional de Arquivos para descrever instituições com acervos. Por isso registra, quando encontramos, o tamanho do acervo (dizendo se foi declarado pela fonte ou contado por nós), o software que o publica e se há acesso por máquina, como OAI-PMH ou API.</li>
@@ -148,10 +124,10 @@ const statuses = Object.keys(V.contentStatuses) as (keyof typeof V.contentStatus
         <li>Quando uma ficha cita pessoas, usamos só o que a própria iniciativa tornou público e só o necessário para descrever o acervo. Correções e pedidos de remoção podem ser feitos pelo canal público indicado em cada registro.</li>
         <li>O registro das referências usadas (NDSA Levels, DPC RAM, ISAD(G), Dublin Core) e da autoavaliação está no repositório, em <code>docs/PRESERVACAO.md</code>.</li>
       </ul>
-    </section>
+    </details>
 
-    <section id="linguagem" aria-labelledby="h-linguagem">
-      <h2 id="h-linguagem">Linguagem e cuidado</h2>
+    <details id="linguagem" class="method-section">
+      <summary id="h-linguagem">Linguagem e cuidado</summary>
       <ul>
         <li>"Comunitário", "independente", "dissidente", "contra-hegemônico" e "decolonial" não são sinônimos. Só usamos um desses termos quando há evidência para ele.</li>
         <li>Quem mantém o acervo e a comunidade representada nele são campos separados. Uma instituição não vira "comunitária" porque guarda conteúdo de uma comunidade.</li>
@@ -160,10 +136,10 @@ const statuses = Object.keys(V.contentStatuses) as (keyof typeof V.contentStatus
         <li>Digitalização, acesso público, permissão de reuso e preservação de longo prazo são dimensões diferentes, e nenhuma é presumida.</li>
         <li>Quando alguém da curadoria tem vínculo com uma iniciativa, isso aparece no registro, e o registro não é destacado na página inicial.</li>
       </ul>
-    </section>
+    </details>
 
-    <section id="pendentes" aria-labelledby="h-pendentes">
-      <h2 id="h-pendentes">Pendentes e fora do catálogo</h2>
+    <details id="pendentes" class="method-section">
+      <summary id="h-pendentes">Pendentes e fora do catálogo</summary>
       <h3>Em revisão (não publicados)</h3>
       <ul class="plain">
         {pendentes.map((r) => (
@@ -184,10 +160,10 @@ const statuses = Object.keys(V.contentStatuses) as (keyof typeof V.contentStatus
           </li>
         ))}
       </ul>
-    </section>
+    </details>
 
-    <section id="limitacoes" aria-labelledby="h-limitacoes">
-      <h2 id="h-limitacoes">Limitações</h2>
+    <details id="limitacoes" class="method-section">
+      <summary id="h-limitacoes">Limitações</summary>
       <ul>
         <li>O catálogo é pequeno e parcial: reflete as fontes e o tempo desta primeira rodada, não o campo inteiro.</li>
         <li>Verificar uma amostra não garante que o resto do acervo esteja acessível.</li>
@@ -195,10 +171,10 @@ const statuses = Object.keys(V.contentStatuses) as (keyof typeof V.contentStatus
         <li>Este site preserva seus próprios dados (arquivos versionados e exportáveis), mas não preserva os acervos de origem e não garante a continuidade deles.</li>
         <li>A interface está em português. A estrutura de dados aceita textos em espanhol e inglês, ainda não preenchidos.</li>
       </ul>
-    </section>
+    </details>
 
-    <section id="referencias" aria-labelledby="h-referencias">
-      <h2 id="h-referencias">Referências</h2>
+    <details id="referencias" class="method-section">
+      <summary id="h-referencias">Referências</summary>
       <p>
         BEIGUELMAN, Giselle (org.). <cite>Guia dos Arquivos que não Existem: acervos digitais
         contra-hegemônicos</cite>. São Paulo: FAU-USP, 2026. 131 p. e-ISBN 978-85-8089-187-4.
@@ -209,29 +185,39 @@ const statuses = Object.keys(V.contentStatuses) as (keyof typeof V.contentStatus
         Página do projeto Acervos Digitais e Pesquisa (FAU-USP):
         <ExtLink href="https://www.acervosdigitais.fau.usp.br/">acervosdigitais.fau.usp.br</ExtLink>.
       </p>
-    </section>
+    </details>
   </div>
 </Base>
 
+<script>
+  function openLinkedSection() {
+    const section = document.getElementById(location.hash.slice(1))?.closest('details');
+    if (section) {
+      section.open = true;
+      section.scrollIntoView();
+    }
+  }
+  openLinkedSection();
+  window.addEventListener('hashchange', openLinkedSection);
+</script>
 <style>
   .prose-wrap {
-    max-width: 54rem;
+    max-width: 78rem;
   }
+  .method-section { max-width: 52rem; }
   .lede {
     font-size: var(--step-1);
     line-height: 1.4;
   }
-  section {
-    border-top: 2px solid var(--rule);
-    padding-top: 1rem;
-    margin-top: 2.5rem;
+  .method-section { border-top: 1px solid var(--rule); }
+  .method-section:last-child { border-bottom: 1px solid var(--rule); }
+  .method-section summary {
+    cursor: pointer;
+    font-family: var(--f-display);
+    font-size: var(--step-1);
+    padding: 0.85rem 0;
   }
-  .toc ol {
-    columns: 2 14rem;
-    padding-left: 1.2rem;
-    font-family: var(--f-mono);
-    font-size: var(--step--1);
-  }
+  .method-section[open] { padding-bottom: 1rem; }
   ul.plain {
     list-style: none;
     padding: 0;

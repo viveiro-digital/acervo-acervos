@@ -33,7 +33,7 @@ const all = await getPublished();
 const rel = related(r, all);
 const place = [r.city, r.region, ...r.country.map((c) => V.label(V.countries, c))].filter(Boolean).join(', ');
 const description = r.description.pt;
-const sections = collectionViews[r.id] ?? [];
+const sections = (collectionViews[r.id] ?? []).filter(([, url]) => url !== r.digital_collection_url);
 const accessNote = r.access_channel
   ? r.access_channel.limitations
   : r.access_requirements;
@@ -116,43 +116,29 @@ const levelLabel: Record<string, string> = {
         <p class="lede">{r.description.pt}</p>
         <div class="cta">
           <ExtLink href={r.digital_collection_url} class="btn btn--primary">Explorar a coleção</ExtLink>
-          {r.initiative_url !== r.digital_collection_url && (
-            <ExtLink href={r.initiative_url} class="btn">Site da iniciativa</ExtLink>
-          )}
         </div>
         {accessNote && <p class="meta muted">{accessNote}</p>}
       </div>
       <CollectionCover id={r.id} name={r.name} eager />
     </header>
 
-    <div class="record-discovery">
-      {sections.length > 0 && (
-        <section aria-labelledby="colecao-partes">
-          <h2 id="colecao-partes">Por onde começar</h2>
-          <ul class="record-links">
-            {sections.map(([label, url]) => <li><ExtLink href={url}>{label}</ExtLink></li>)}
-          </ul>
-        </section>
-      )}
-      {!sections.some(([, url]) => url === r.sample_content_url) && r.sample_content_url !== r.digital_collection_url && (
-        <section aria-labelledby="ver-amostra">
-          <h2 id="ver-amostra">Uma amostra do acervo</h2>
-          <ul class="record-links"><li><ExtLink href={r.sample_content_url}>{r.sample.title}</ExtLink></li></ul>
-        </section>
-      )}
-    </div>
-
-    {rel.length > 0 && (
-      <section aria-labelledby="relacoes" class="record-related">
-        <h2 id="relacoes">Outros acervos para explorar</h2>
+    {(sections.length > 0 || r.sample_content_url !== r.digital_collection_url) && (
+      <section class="record-discovery" aria-labelledby="colecao-partes">
+        <h2 id="colecao-partes">Na coleção</h2>
         <ul class="record-links">
-          {rel.map(({ record }) => <li><a href={recordPath(record.id)}>{record.name}</a></li>)}
+          {sections.map(([label, url]) => (
+            <li><ExtLink href={url}>{label}</ExtLink></li>
+          ))}
+          {!sections.some(([, url]) => url === r.sample_content_url) && r.sample_content_url !== r.digital_collection_url && (
+            <li><ExtLink href={r.sample_content_url}>{r.sample.title}</ExtLink></li>
+          )}
         </ul>
       </section>
     )}
 
     <details class="record-notes">
       <summary>Notas e fontes</summary>
+      {r.initiative_url !== r.digital_collection_url && <p><ExtLink href={r.initiative_url}>Site da iniciativa</ExtLink></p>}
     <div class="cols">
       <div class="main">
         <section class="sample" aria-labelledby="amostra">
@@ -362,6 +348,15 @@ const levelLabel: Record<string, string> = {
         <p><a class="btn" href={sitePath(`/comparar/?ids=${r.id}`)}>Comparar com outros</a></p>
       </aside>
     </div>
+
+    {rel.length > 0 && (
+      <section aria-labelledby="relacoes">
+        <h2 id="relacoes">Outros acervos</h2>
+        <ul class="record-links">
+          {rel.map(({ record }) => <li><a href={recordPath(record.id)}>{record.name}</a></li>)}
+        </ul>
+      </section>
+    )}
 
     <section aria-labelledby="historico" class="history">
       <h2 id="historico">Histórico do registro</h2>

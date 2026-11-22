@@ -12,30 +12,13 @@ import { siteConfig } from '../site.config';
   <div class="wrap narrow">
     <h1>Sobre</h1>
     <p class="lede">
-      Acervo Acervos reúne iniciativas e arquivos do Brasil e da América Latina que publicam
-      conteúdo digital consultável: zines, cartazes, documentos, objetos, fotografias. Cada
-      registro aponta para a fonte e mantém junto ao link o contexto, a autoria, a procedência e
-      as condições de acesso.
+      Uma seleção de arquivos e iniciativas do Brasil e da América Latina. Explore zines,
+      cartazes, fotografias e outros materiais nas coleções de origem.
     </p>
-    <dl class="fields">
-      <dt>Como verifica</dt>
-      <dd>
-        Um registro só é publicado quando uma amostra específica foi aberta e o conteúdo carregou.
-        A data e o método da verificação ficam no registro.
-      </dd>
-      <dt>O que não é</dt>
-      <dd>Não é diretório exaustivo, ranking nem selo, e não guarda nem substitui os acervos de origem.</dd>
-      <dt>Limitações</dt>
-      <dd>
-        O catálogo é pequeno e ainda está em revisão humana. Imagens só aparecem com licença
-        declarada pela fonte. A interface está em português.
-      </dd>
-      <dt>Referência</dt>
-      <dd>
-        Lente crítica do <cite>Guia dos Arquivos que não Existem</cite> (Beiguelman, org.,
-        FAU-USP, 2026): fazer aparecer, fazer ler, fazer relacionar.
-      </dd>
-    </dl>
+    <p>
+      Um projeto do <ExtLink href={siteConfig.viveiro.url}>{siteConfig.viveiro.name}</ExtLink>.
+      <a href={sitePath('/metodologia/')}>Conheça a metodologia</a>.
+    </p>
     <h2 id="corrigir">Corrigir um registro</h2>
     <p>
       Iniciativas podem contestar ou corrigir como são descritas, e pedidos de remoção têm
@@ -47,17 +30,10 @@ import { siteConfig } from '../site.config';
       )}{' '}
       ou veja <a href={sitePath('/contribuir/')}>como contribuir</a>.
     </p>
-    <h2>Viveiro Digital</h2>
-    <p>
-      Acervo Acervos é um projeto do{' '}
-      <ExtLink href={siteConfig.viveiro.url}>{siteConfig.viveiro.name}</ExtLink>
-      {siteConfig.viveiro.provisional && ' (link para a documentação no GitHub, enquanto não há site público)'}.
-    </p>
-    <p><a href={sitePath('/metodologia/')}>Leia a metodologia completa</a>.</p>
   </div>
 </Base>
 <style>
-  .narrow { max-width: 46rem; }
+  .narrow { max-width: 78rem; }
   .lede { font-size: var(--step-1); line-height: 1.4; }
   h2 { margin-top: 2rem; }
 </style>

@@ -1,7 +1,6 @@
 ---
 import { sitePath } from '../lib/site-path';
 import Base from '../layouts/Base.astro';
-import ExtLink from '../components/ExtLink.astro';
 import CollectionCover from '../components/CollectionCover.astro';
 import * as V from '../data/vocabulario';
 import { collectionViews } from '../data/collection-views';
@@ -65,12 +64,14 @@ const facetOptions = facets.map((f) => {
 
     <div class="layout">
       <form id="filtros" class="filters" action={sitePath('/explorar/')} method="get" role="search" aria-label="Filtros do índice">
-        <div class="field">
-          <label for="q" class="kicker">Busca textual</label>
-          <input id="q" name="q" type="search" placeholder="Ex.: cartazes políticos" autocomplete="off" />
+        <div class="search-row">
+          <label for="q" class="visually-hidden">Buscar no catálogo</label>
+          <input id="q" name="q" type="search" placeholder="Nome, tema ou lugar" autocomplete="off" />
+          <button class="btn" type="submit">Buscar</button>
         </div>
         <details id="mais-filtros" class="more">
-          <summary class="btn">Filtros e ordenação <span id="n-filtros" class="meta"></span></summary>
+          <summary>Filtros <span id="n-filtros" class="meta"></span></summary>
+          <div class="filter-fields">
         <div class="field">
           <label for="ordem" class="kicker">Ordenar por</label>
           <select id="ordem" name="ordem">
@@ -94,11 +95,9 @@ const facetOptions = facets.map((f) => {
             {f.note && <p class="meta muted hint">{f.note}</p>}
           </div>
         ))}
+          </div>
+          <a class="reset-filters" href={sitePath('/explorar/')} id="limpar">Limpar filtros</a>
         </details>
-        <div class="actions">
-          <button class="btn btn--primary" type="submit">Aplicar</button>
-          <a class="btn" href={sitePath('/explorar/')} id="limpar">Limpar</a>
-        </div>
         <noscript>
           <p class="callout meta">
             Os filtros precisam de JavaScript. Sem ele, a lista abaixo mostra todos os registros
@@ -110,14 +109,14 @@ const facetOptions = facets.map((f) => {
       <section aria-labelledby="resultados-titulo">
         <h2 id="resultados-titulo" class="visually-hidden">Resultados</h2>
         <div id="chips" class="chips" aria-label="Filtros ativos"></div>
-        <p id="contagem" class="meta" role="status" aria-live="polite">
+        <p id="contagem" class="meta muted" role="status" aria-live="polite">
           {records.length} registros publicados.
         </p>
         <p id="vazio" class="callout" hidden>
           Nenhum acervo encontrado. Tente buscar com menos palavras ou remova um filtro.
         </p>
 
-        <ol class="vindex" id="lista">
+        <ol class="collection-grid" id="lista">
           {records.map((r) => (
             <li
               data-id={r.id}
@@ -127,16 +126,10 @@ const facetOptions = facets.map((f) => {
               data-search={JSON.stringify(searchFields(r, collectionViews[r.id]?.map(([label]) => label) ?? []))}
               {...Object.fromEntries(facets.map((f) => [`data-${f.param}`, f.pick(r).join(' ')]))}
             >
-              <CollectionCover id={r.id} name={r.name} />
-              <div class="entry-text">
-                <p class="kicker">
-                  {r.country.map((c) => V.label(V.countries, c)).join(' · ')}
-                  {r.city && ` — ${r.city}`} · {V.label(V.initiativeTypes, r.initiative_type)}
-                </p>
-                <h3><a href={recordPath(r.id)} data-open={r.id}>{r.name}</a></h3>
-                <p>{r.description.pt}</p>
-                <p class="sample-link"><ExtLink href={r.sample_content_url}>{r.sample.title}</ExtLink></p>
-              </div>
+              <a class="entry-link" href={recordPath(r.id)} data-open={r.id}>
+                <CollectionCover id={r.id} name={r.name} />
+                <h3 class="collection-tile-title">{r.name}</h3>
+              </a>
             </li>
           ))}
         </ol>
@@ -150,7 +143,7 @@ const facetOptions = facets.map((f) => {
       <span class="meta" id="painel-pos" aria-live="polite"></span>
       <button type="button" class="btn" data-panel="next" aria-label="Próximo registro nos resultados">→</button>
       <a class="meta panel-page" id="painel-link" href={sitePath('/explorar/')}>Página do acervo</a>
-      <button type="button" class="btn" data-panel="close">Fechar <span class="visually-hidden">painel</span>(Esc)</button>
+      <button type="button" class="btn" data-panel="close">Fechar<span class="visually-hidden"> painel</span></button>
     </div>
     <div id="painel-corpo" class="panel-body"></div>
   </dialog>
@@ -237,7 +230,7 @@ const facetOptions = facets.map((f) => {
       if (!li.hidden) n++;
     }
     const total = items.length;
-    count.textContent = n === total ? `${total} registros publicados.` : `${n} de ${total} registros correspondem aos filtros.`;
+    count.textContent = n === total ? `${total} acervos` : `${n} de ${total} acervos`;
     empty.hidden = n !== 0;
     renderChips(s);
     const nAtivos = FACETS.filter((f) => s[f]).length;
@@ -273,7 +266,8 @@ const facetOptions = facets.map((f) => {
   }
 
   const more = document.getElementById('mais-filtros') as HTMLDetailsElement;
-  if (FACETS.some((facet) => new URLSearchParams(location.search).has(facet))) more.open = true;
+  if (new URLSearchParams(location.search).has('ordem') ||
+      FACETS.some((facet) => new URLSearchParams(location.search).has(facet))) more.open = true;
 
   readUrl();
   apply();
@@ -421,100 +415,37 @@ const facetOptions = facets.map((f) => {
 </script>
 
 <style>
-  .page-head {
-    margin-bottom: 1.5rem;
+  .page-head { margin-bottom: 1rem; }
+  .filters { margin-bottom: 1.25rem; }
+  .search-row {
+    display: flex;
+    gap: 0.4rem;
+    max-width: 27rem;
   }
-  .layout {
-    display: grid;
-    gap: 2rem;
-  }
-  @media (min-width: 60rem) {
-    .layout {
-      grid-template-columns: 17rem minmax(0, 1fr);
-      align-items: start;
-    }
-    .filters {
-      position: sticky;
-      top: 1rem;
-      max-height: calc(100vh - 2rem);
-      overflow: auto;
-      padding: 0.25rem 0.35rem;
-    }
-  }
-  .field {
-    margin-bottom: 0.9rem;
-    display: grid;
-    gap: 0.2rem;
-  }
-  .field select,
-  .field input {
-    width: 100%;
-  }
-  .hint {
-    margin: 0;
+  .search-row input { flex: 1; min-width: 0; }
+  .more {
+    margin-top: 0.6rem;
+    border-bottom: 1px solid var(--rule);
   }
   .more > summary {
-    list-style: none;
-    margin-bottom: 0.9rem;
-    width: 100%;
-    justify-content: space-between;
+    width: fit-content;
+    cursor: pointer;
+    padding: 0.55rem 0;
   }
-  .more > summary::-webkit-details-marker {
-    display: none;
-  }
-  .more > summary::after {
-    content: '+';
-    font-family: var(--f-mono);
-  }
-  .more[open] > summary::after {
-    content: '−';
-  }
-  .actions {
-    display: flex;
-    gap: 0.5rem;
-    margin-top: 0.5rem;
-  }
-  .chips {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.4rem;
-    margin-bottom: 0.6rem;
-  }
-  .chips:empty {
-    display: none;
-  }
-  .vindex {
-    list-style: none;
-    margin: 0;
-    padding: 0;
+  .filter-fields {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
-    gap: 2rem var(--gap);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr));
+    gap: 0.7rem 1rem;
+    padding: 0.5rem 0;
   }
-  .vindex > li {
-    display: grid;
-    align-content: start;
-    gap: 0.7rem;
-    min-width: 0;
-  }
-  .vindex :global(.collection-cover) {
-    aspect-ratio: 3 / 2;
-  }
-  .entry-text h3 {
-    font-size: var(--step-2);
-    margin: 0 0 0.4rem;
-  }
-  .entry-text h3 a {
-    text-decoration: none;
-  }
-  .entry-text h3 a:hover,
-  .entry-text h3 a:focus-visible {
-    text-decoration: underline;
-  }
-  .sample-link {
-    margin-bottom: 0;
-    color: var(--red);
-  }
+  .field { display: grid; align-content: start; gap: 0.2rem; min-width: 0; }
+  .field select { width: 100%; }
+  .hint { margin: 0; }
+  .reset-filters { display: inline-block; padding: 0.55rem 0; }
+  .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 0.6rem; }
+  .chips:empty { display: none; }
+  .entry-link { display: block; text-decoration: none; }
+  .entry-link:hover h3 { text-decoration: underline; }
 
   /* Painel contextual */
   .panel {
@@ -530,7 +461,7 @@ const facetOptions = facets.map((f) => {
     box-shadow: -1px 0 0 var(--rule);
   }
   .panel::backdrop {
-    background: rgb(28 26 23 / 0.25);
+    background: rgb(0 0 0 / 0.13);
   }
   .panel-bar {
     position: sticky;

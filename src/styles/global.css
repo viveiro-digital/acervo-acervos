@@ -1,12 +1,12 @@
 :root {
   --paper: #fff;
-  --paper-2: #f6f6f3;
-  --ink: #222522;
-  --muted: #555b54;
-  --red: #375c49;
-  --blue: #375c49;
-  --rule: #dadcd7;
-  --focus: #375c49;
+  --paper-2: #f6f6f6;
+  --ink: #181818;
+  --muted: #555;
+  --red: #272727;
+  --blue: #272727;
+  --rule: #dedede;
+  --focus: #272727;
 
   --f-title: Didot, "Bodoni MT", "Bodoni 72", "Times New Roman", serif;
   --f-display: 'Iowan Old Style', Georgia, serif;
@@ -141,7 +141,7 @@ p {
 }
 
 .site-header {
-  padding-block: 1.35rem 0.5rem;
+  padding-block: 1.15rem 0.35rem;
 }
 .site-header .wrap {
   display: flex;
@@ -188,7 +188,7 @@ main {
   letter-spacing: -0.035em;
 }
 .wordmark--small {
-  font-size: 1.3rem;
+  font-size: 1rem;
 }
 .wordmark--large {
   font-size: var(--step-4);
@@ -389,12 +389,12 @@ dl.fields dd {
 }
 
 .callout {
-  border: 2px solid var(--ink);
+  border: 1px solid var(--rule);
   padding: 1rem 1.2rem;
   background: var(--paper-2);
 }
 .callout--warn {
-  border-color: var(--red);
+  border-color: var(--rule);
 }
 
 blockquote.self {
@@ -430,7 +430,7 @@ th[scope='row'] {
 input[type='search'],
 input[type='text'],
 select {
-  border: 1px solid #899188;
+  border: 1px solid #939393;
   border-radius: 0.25rem;
   background: #fff;
   color: var(--ink);
@@ -491,13 +491,38 @@ legend {
   }
 }
 
+/* Grade compartilhada pelo início e pelo catálogo. */
+.collection-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 2.4rem clamp(0.9rem, 2vw, 1.6rem);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.collection-grid > li { min-width: 0; }
+.collection-tile-title {
+  font-size: clamp(1.14rem, 0.9rem + 0.65vw, 1.55rem);
+  letter-spacing: -0.025em;
+  margin: 0.55rem 0 0;
+}
+.collection-tile-title a { text-decoration: none; }
+.collection-tile-title a:hover { text-decoration: underline; }
+@media (max-width: 57rem) {
+  .collection-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 34rem) {
+  .collection-grid { grid-template-columns: 1fr; gap: 1.55rem; }
+  .collection-grid .collection-cover { aspect-ratio: 3 / 2; }
+}
+
 /* Capas das coleções, também usadas na prévia aberta pelo catálogo. */
 .collection-cover {
   min-width: 0;
   aspect-ratio: 4 / 3;
   display: grid;
   place-items: center;
-  background: #f4f4f2;
+  background: #f5f5f5;
 }
 .collection-cover img {
   display: block;
@@ -522,13 +547,13 @@ legend {
   display: grid;
   gap: var(--gap);
   align-items: start;
-  margin-bottom: clamp(2rem, 5vw, 4rem);
+  margin-bottom: clamp(1.5rem, 3vw, 2.5rem);
 }
 .record-head p:first-child {
   margin-bottom: 0.55rem;
 }
 .record-head .lede {
-  max-width: 48ch;
+  max-width: 38ch;
 }
 .record .cta {
   display: flex;
@@ -543,14 +568,15 @@ legend {
 .record-discovery:empty {
   display: none;
 }
-.record-related,
 .record-notes {
   margin-top: 2.1rem;
 }
+.record-discovery h2 { font-size: var(--step-1); }
 .record-links {
   list-style: none;
   padding: 0;
   margin: 0;
+  max-width: 42rem;
 }
 .record-links li {
   border-top: 1px solid var(--rule);
@@ -607,9 +633,9 @@ legend {
   padding-top: 1.1rem;
 }
 @media (min-width: 55rem) {
-  .record-head,
-  .record-discovery {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+  .record-head {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr);
+    align-items: center;
   }
   .record .cols {
     grid-template-columns: minmax(0, 1fr) minmax(13rem, 24%);
