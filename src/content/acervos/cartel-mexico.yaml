@@ -23,17 +23,17 @@ themes: [design-grafico, cartaz-politico, historia-do-design]
 themes_original: [cartel social, cartel mexicano]
 formats: [imagem]
 date_range:
-  start: 2008
-  end: 2019
-  precision: intervalo
-  label: "2008–2019 nos cartazes da amostra; período do arquivo não informado"
+  start: null
+  end: null
+  precision: desconhecido
+  label: "período não informado (as páginas de designer não datam os cartazes)"
 design_dimensions: [cartaz, tipografia, ilustracao]
 sample:
-  title: "Portfólio de Sergio Grande (cartazes 2008–2019)"
+  title: "Portfólio de Sergio Grande"
   observed: >-
     Página do designer com biografia e cartazes carregados em imagem
-    (aprox. 600 × 900 px cada), entre eles "Justicia" (2010), "Niños migrantes"
-    (2019) e "México 68" (2018). Não encontramos ficha individual por cartaz.
+    (aprox. 600 × 900 px cada), entre eles "Justicia", "Niños migrantes" e
+    "México 68". Os cartazes não têm ficha individual nem data visível.
   confirmed_media: [imagem]
   creator: Sergio Grande
   alt_from_source: "© Sergio Grande / cartelmexico.org"
@@ -66,7 +66,7 @@ rights_and_reuse:
   source_url: https://cartelmexico.org/disenadores/sergio-grande/
 removal_or_contact_url: https://cartelmexico.org/contact/
 gaps:
-  - Sem ficha individual por cartaz (data e título aparecem só no nome do arquivo e na legenda).
+  - Sem ficha individual nem data por cartaz.
   - Mantenedor não identificado.
 last_verified_at: "2026-11-21"
 verification_method: Página da amostra aberta no navegador; imagens decodificadas conferidas pelo DOM.

@@ -28,7 +28,7 @@ date_range:
   end: null
   precision: decada
   label: "décadas de 1950 até o presente (segundo o site)"
-  source_note: Recorte temporal declarado na página inicial; não conferido item a item.
+  source_note: Recorte declarado na página Sobre (https://casca-archive.org/pt-br/about); não conferido item a item.
 design_dimensions: [cartaz, ilustracao, editorial, materialidade-impressao]
 sample:
   title: Cartaz da III Feira do Artesanato Baiano (1977)

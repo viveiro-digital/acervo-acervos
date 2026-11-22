@@ -20,12 +20,12 @@ access_channel:
   limitations: >-
     Os PDFs são exibidos por um player do Google Drive; a leitura depende desse
     serviço externo continuar disponível e público.
-country: [BR, LATAM]
+country: [BR]
 geographic_scope: nacional
 territory_note: >-
-  Foco declarado em zines brasileiros; o título do site inclui
-  latino-americanos e há ao menos um zine com referência à Costa Rica.
-languages: [pt, es]
+  Foco declarado em zines brasileiros; o título do site também menciona zines
+  latino-americanos.
+languages: [pt]
 collection_types: [zines, publicacoes]
 themes: [publicacao-independente, cultura-visual]
 themes_original: [zines independentes, fanzine]
