@@ -8,7 +8,7 @@
  *
  * Ao mudar este arquivo, atualize SCHEMA_VERSION e o README.
  */
-import { defineCollection } from 'astro:content';
+import { defineCollection, type SchemaContext } from 'astro:content';
 import { glob } from 'astro/loaders';
 import { z } from 'astro/zod';
 import {
@@ -33,7 +33,7 @@ import {
   themes,
 } from './data/vocabulario';
 
-export const SCHEMA_VERSION = 1;
+export const SCHEMA_VERSION = 2; // v2: campo `media` (imagens com licença declarada)
 
 const isoDate = z
   .string()
@@ -67,9 +67,34 @@ const changeLogEntry = z.object({
   source: z.string().optional(),
 });
 
+/**
+ * Mídia exibível. Só entra aqui imagem cuja fonte declara licença ou
+ * permissão que autoriza a exibição. O arquivo fica em src/assets/acervos/
+ * (baixado uma vez, com checksum em SHA256SUMS). Sem isso, o site usa o
+ * fallback tipográfico — nunca uma imagem inventada ou gerada.
+ */
+const mediaItem = (image: SchemaContext['image']) =>
+  z.object({
+    local_asset: image(),
+    /** URL do arquivo de imagem na fonte. */
+    source_url: url,
+    /** Página do item na fonte (onde a licença está declarada). */
+    page_url: url,
+    relation: z.enum(['amostra-verificada', 'item-do-acervo']),
+    credit: z.string(),
+    license_or_permission: z.string(),
+    license_url: url.optional(),
+    /** Texto alternativo e de onde ele vem. */
+    alt: z.string().min(1),
+    alt_source: z.enum(['fonte', 'curadoria']),
+    caption: z.string().optional(),
+    rights_checked_at: isoDate,
+    order: z.number().int().default(0),
+  });
+
 const acervos = defineCollection({
   loader: glob({ pattern: '**/*.yaml', base: './src/content/acervos' }),
-  schema: z
+  schema: ({ image }) => z
     .object({
       // ── Identidade e contexto ────────────────────────────────
       id: z.string().regex(/^[a-z0-9-]+$/, 'id: minúsculas, números e hífen'),
@@ -118,6 +143,10 @@ const acervos = defineCollection({
         source_note: z.string().optional(),
       }),
       design_dimensions: z.array(z.enum(keysOf(designDimensions))).default([]),
+      /** Imagens com direito de exibição confirmado (pode ficar vazio). */
+      media: z.array(mediaItem(image)).default([]),
+      /** Por que não há imagem exibida (aparece no fallback tipográfico). */
+      media_note: z.string().optional(),
 
       // ── Amostra ──────────────────────────────────────────────
       sample: z.object({

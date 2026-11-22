@@ -26,6 +26,7 @@ date_range:
   end: null
   precision: desconhecido
   label: não informado
+media_note: "Acervo em área restrita, com reprodução vedada."
 sample:
   title: Página de coleções (sem itens visíveis sem cadastro)
   observed: >-

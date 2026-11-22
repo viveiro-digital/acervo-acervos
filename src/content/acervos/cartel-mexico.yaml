@@ -28,6 +28,7 @@ date_range:
   precision: desconhecido
   label: "período não informado (as páginas de designer não datam os cartazes)"
 design_dimensions: [cartaz, tipografia, ilustracao]
+media_note: "Os cartazes têm direitos reservados aos designers (©); não são reproduzidos aqui."
 sample:
   title: "Portfólio de Sergio Grande"
   observed: >-

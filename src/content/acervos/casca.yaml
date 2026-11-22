@@ -30,6 +30,19 @@ date_range:
   label: "décadas de 1950 até o presente (segundo o site)"
   source_note: Recorte declarado na página Sobre (https://casca-archive.org/pt-br/about); não conferido item a item.
 design_dimensions: [cartaz, ilustracao, editorial, materialidade-impressao]
+media:
+  - local_asset: ../../assets/acervos/casca-7647.jpg
+    source_url: https://casca-archive.org/files/fullsize/32/7647/item_0445.jpg
+    page_url: https://casca-archive.org/items/show/7647
+    relation: amostra-verificada
+    credit: "Arquivo CASCA, coleção Cordel, item #7647. Autoria do cartaz não informada na ficha."
+    license_or_permission: "CC0 1.0 Universal (declarada na ficha do item)"
+    license_url: https://creativecommons.org/publicdomain/zero/1.0/
+    alt: "Cartaz da III Feira do Artesanato Baiano, from the Cordel collection"
+    alt_source: fonte
+    caption: "Cartaz da III Feira do Artesanato Baiano, 23 de outubro a 1º de novembro de 1977."
+    rights_checked_at: "2026-11-21"
+    order: 0
 sample:
   title: Cartaz da III Feira do Artesanato Baiano (1977)
   observed: >-

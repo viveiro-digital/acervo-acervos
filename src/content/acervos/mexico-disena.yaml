@@ -27,6 +27,7 @@ date_range:
   precision: intervalo
   label: "século XX (etiqueta da ficha da amostra)"
 design_dimensions: [editorial, tipografia, identidade]
+media_note: "A fonte mostra apenas uma miniatura de capa, sem licença de reuso; nada é reproduzido aqui."
 sample:
   title: "Artes de México — primera época (1953–1963)"
   observed: >-

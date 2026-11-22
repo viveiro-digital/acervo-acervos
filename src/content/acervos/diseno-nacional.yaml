@@ -29,6 +29,18 @@ date_range:
   precision: intervalo
   label: "1840–2000 (segundo o site)"
 design_dimensions: [cartaz, editorial, identidade, tipografia]
+media:
+  - local_asset: ../../assets/acervos/diseno-nacional-todo-hombre.jpg
+    source_url: https://www.disenonacional.cl/slides/wp-content/uploads/2023/04/todo_hombre_derecho_1-946x1291.jpg
+    page_url: https://www.disenonacional.cl/todo-hombre-tiene-derecho-a-ser-persona-2/
+    relation: amostra-verificada
+    credit: "Jorge Castillo Rojas, 1978. Archivo Carlos Montes de Oca / Diseño Nacional."
+    license_or_permission: "Uso público não comercial, Atribuição-NãoComercial (CC BY-NC), declarado na ficha"
+    alt: "Cartaz de fundo azul com a silhueta de uma cabeça humana em preto, preenchida por pombas brancas em voo. Abaixo, o texto: todo hombre tiene derecho a ser persona. 1948–1978: año de los derechos humanos, Chile."
+    alt_source: curadoria
+    caption: "Todo hombre tiene derecho a ser persona: año de los derechos humanos, Chile (1978)."
+    rights_checked_at: "2026-11-21"
+    order: 0
 sample:
   title: "Todo hombre tiene derecho a ser persona: año de los derechos humanos Chile (1978)"
   observed: >-

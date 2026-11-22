@@ -31,6 +31,7 @@ date_range:
   precision: desconhecido
   label: datas do acervo não informadas na listagem
 design_dimensions: [materialidade-impressao]
+media_note: "As fichas exibem fotografias, mas o site não informa direitos de uso, e parte do acervo é ritual; nenhuma imagem é reproduzida aqui."
 sample:
   title: "Rede de dormir (MK-2006/038)"
   observed: >-

@@ -30,6 +30,7 @@ date_range:
   precision: desconhecido
   label: "a amostra menciona cartazes de 1970; período geral não informado"
 design_dimensions: [cartaz, materialidade-impressao, processo]
+media_note: "Não localizamos condições de reuso das imagens; elas não são reproduzidas aqui."
 sample:
   title: "El cartel anticolonial — Puerto Rico (Taller Alacrán)"
   observed: >-

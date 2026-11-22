@@ -36,6 +36,7 @@ date_range:
   precision: desconhecido
   label: produção contemporânea; datas por zine
 design_dimensions: [editorial, ilustracao, materialidade-impressao]
+media_note: "Os zines são lidos no visualizador da fonte; não há licença de reuso declarada por zine."
 sample:
   title: "Visagens no meio do mundo — Coletivo Ventos do Norte (2026)"
   observed: >-

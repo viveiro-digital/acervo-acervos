@@ -21,6 +21,7 @@ date_range:
   end: null
   precision: desconhecido
   label: não informado
+media_note: "Rascunho: nenhum item confirmado."
 sample:
   title: Página de coleções do Arquivo Histórico (não aberta item a item)
   observed: >-

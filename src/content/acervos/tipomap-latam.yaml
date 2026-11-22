@@ -28,6 +28,7 @@ date_range:
   precision: intervalo
   label: "período de 35 anos, segundo a apresentação (anos não especificados)"
 design_dimensions: [tipografia]
+media_note: "A ficha verificada não tem espécime visual."
 sample:
   title: "Acarau Display (registro #3891, nó BR)"
   observed: >-
