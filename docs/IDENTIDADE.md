@@ -1,5 +1,11 @@
 # Identidade visual — Acervo Acervos
 
+**Hierarquia:** primeiro o conteúdo do acervo, depois o nome e o contexto, e
+por último os controles do site. A identidade é a moldura: aparece no ritmo,
+nos espaços, na tipografia de apoio e nos fios, nunca em efeitos que disputem
+atenção com as obras. O header e o footer são finos (fio de 1 px, navegação em
+mono pequena).
+
 **Ideia:** um acervo de acervos é uma reimpressão. A marca repete a palavra:
 "ACERVO" em tinta preta e "ACERVOS" em vermelho, deslocado como num segundo
 passe de impressão fora de registro (risografia, serigrafia, offset popular).
@@ -44,8 +50,15 @@ das letras.
 
 ## Imagens
 
-- Não usamos imagens geradas por IA nem imagens de obras dos acervos. O projeto
-  descreve e aponta para a fonte.
+- Imagens de acervos só com licença declarada pela fonte (ver
+  `METODOLOGIA.md`), sempre inteiras e na proporção original, com legenda,
+  crédito e licença em texto logo abaixo. Nunca recortadas para caber num
+  grid.
+- Sem imagem autorizada, entra a **prancha tipográfica**: o título da amostra
+  em display condensado, o tipo de mídia em mono azul, o motivo da ausência e
+  o link da fonte, sobre um pautado leve de papel. Ela é honesta: não imita
+  capa.
+- Nenhuma imagem gerada por IA.
 - Quando a fonte fornece texto alternativo, ele é citado. Quando não fornece,
   o registro diz "descrição ainda não fornecida".
 - A imagem de compartilhamento padrão (`public/og-default.png`) é gerada a

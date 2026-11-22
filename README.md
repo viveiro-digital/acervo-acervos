@@ -8,20 +8,42 @@ consultável. Cada registro aponta para a iniciativa de origem e diz **o que foi
 visto, quando, como e o que ainda não se sabe**. Não é diretório exaustivo,
 selo de qualidade nem substituto dos catálogos das próprias iniciativas.
 
-- Método e critérios: [`METODOLOGIA.md`](METODOLOGIA.md), também visível em `/sobre/`
+Um projeto do [Viveiro Digital](https://github.com/viveiro-digital/docs).
+
+- Método e critérios: [`METODOLOGIA.md`](METODOLOGIA.md) e `/metodologia/` no site
 - Registros pendentes: [`PENDENTES.md`](PENDENTES.md)
-- Identidade visual: [`docs/IDENTIDADE.md`](docs/IDENTIDADE.md)
+- Decisões técnicas: [`docs/DECISOES_TECNICAS.md`](docs/DECISOES_TECNICAS.md) e [ADRs](docs/adr/README.md)
+- Validação: [`docs/VALIDACAO.md`](docs/VALIDACAO.md) · Observabilidade: [`docs/OBSERVABILIDADE.md`](docs/OBSERVABILIDADE.md)
+- Composição visual: [`docs/COMPOSICAO.md`](docs/COMPOSICAO.md) · Identidade: [`docs/IDENTIDADE.md`](docs/IDENTIDADE.md)
+- Como contribuir e Definition of Done: [`CONTRIBUTING.md`](CONTRIBUTING.md)
+
+## Setup no macOS
+
+Ambiente auditado em 21/11/2026 (`docs/ambiente-macos.txt`): Apple Silicon
+(arm64), macOS 15.5, nvm 0.39.1, git 2.45.2. O Node 22.22.0 do sistema não
+atendia ao `>=22.23.4` do Astro 7.4.13, então o projeto usa **Node 26.13.0
+(LTS) via nvm** (`.nvmrc`) e **pnpm 10.27.0**.
+
+```sh
+cd ~/www/acervo-acervos
+nvm install && nvm use              # lê .nvmrc
+npm install -g pnpm@10.27.0         # o pnpm global do Node 26 vinha na 9.4
+pnpm install
+pnpm exec playwright install chromium   # para os testes
+```
+
+Também dá para auditar e preparar tudo com `bash scripts/setup-mac.sh`. O
+script não apaga nada e não usa sudo.
 
 ## Rodar localmente
 
-Requer Node ≥ 22.23 e pnpm 10.
-
 ```sh
-pnpm install
 pnpm dev          # http://localhost:4321
-pnpm check        # consistência dos dados + schema (astro sync)
+pnpm check        # dados + checksums das imagens + astro check (tipos)
 pnpm build        # gera dist/ (falha se algum registro não seguir o schema)
 pnpm preview      # serve dist/ localmente para revisão
+pnpm test:e2e     # Playwright + axe (sobe o preview sozinho)
+pnpm validate     # check + build + test:e2e
 ```
 
 Outros comandos:
@@ -30,7 +52,8 @@ Outros comandos:
 pnpm review list                                   # registros sinalizados
 pnpm review resolve <id> --motivo "..." [--fonte URL]
 pnpm review flag <id> --motivo "..." [--prioridade alta|media|baixa]
-pnpm export       # export/acervos.json + export/acervos.csv + SHA256SUMS
+pnpm export       # export/: JSON, CSV, DCMI Terms e SHA256SUMS
+pnpm audit:lighthouse   # com `pnpm preview` rodando em outra aba
 pnpm og           # regenera public/og-default.png a partir de design/og-default.svg
 ```
 
@@ -49,17 +72,22 @@ saem com `noindex` e o `robots.txt` bloqueia tudo**.
 ```
 src/
   content.config.ts          schema dos registros (Zod, validado no build)
-  content/acervos/*.yaml     um arquivo por registro — os dados
+  content/acervos/*.yaml     um arquivo por registro: os dados
   content/fora-do-catalogo/  iniciativas verificadas e deixadas de fora (com motivo)
+  assets/acervos/            imagens com licença declarada + SHA256SUMS
   data/vocabulario.ts        vocabulários controlados e rótulos
   lib/acervos.ts             consultas, facetas, relações (sem UI)
-  layouts/ components/       apresentação
-  pages/                     início, explorar, registro, comparar, sobre,
-                             contribuir, revisão (noindex), sitemap, robots
-  site.config.ts             nome, subtítulo, canal de contato, indexação
-scripts/                     check-data, review, export, make-og
+  components/                MediaPlate (imagem ou prancha tipográfica), Footer…
+  layouts/Base.astro         head (SEO, OG, JSON-LD), header e footer
+  pages/                     início, explorar (+ painel), registro, comparar,
+                             sobre, metodologia, contribuir, revisão (noindex),
+                             sitemap, robots
+  site.config.ts             nome, Viveiro Digital, canal de correções, indexação
+scripts/                     setup-mac, check-data, review, export, lighthouse, make-og
+tests/e2e/                   Playwright + axe
+docs/                        ADRs, decisões, observabilidade, validação, composição
 design/                      fontes editáveis da identidade (SVG)
-public/marca/                marca em SVG para uso fora do site
+.github/workflows/ci.yml     CI gratuito (sem deploy)
 ```
 
 Os dados ficam separados da apresentação: os componentes só leem
@@ -90,6 +118,11 @@ Cada registro é um YAML em `src/content/acervos/<id>.yaml`. O **nome do arquivo
   `access_level`, `rights_and_reuse`, `sensitive_content_note`,
   `community_protocol`, `removal_or_contact_url`, `relationship_disclosure`,
   `gaps[]`.
+- **Mídia** (schema v2): `media[]` só com imagem de licença declarada pela
+  fonte, com `local_asset`, `source_url`, `page_url`, `relation`, `credit`,
+  `license_or_permission`, `license_url`, `alt`, `alt_source` (fonte ou
+  curadoria), `caption`, `rights_checked_at` e `order`; `media_note` explica
+  a ausência.
 - **Verificação e histórico**: `last_verified_at`, `verification_method`,
   `link_status`, `content_status`, `review_flag`/`review_reason`/`review_priority`,
   `record_status` (`rascunho` | `publicado` | `arquivado`), `demo`,
@@ -129,32 +162,31 @@ Cada registro é um YAML em `src/content/acervos/<id>.yaml`. O **nome do arquivo
 
 ## Decisões de arquitetura
 
-- **Astro 7, saída estática, sem backend.** Conteúdo e metadados essenciais
-  estão no HTML inicial. JavaScript é usado só em filtros e comparação, que têm
-  fallback textual sem JS.
-- **YAML por registro** em vez de CSV: aceita listas, textos longos, evidências
-  aninhadas e histórico, e continua editável à mão e legível em diffs do Git.
-- **Validação no build** (Zod via Content Collections) e regras extras em
-  `scripts/check-data.mjs`. Nenhuma URL é acessada durante o build.
-- **Sem dependências além do Astro.** Sitemap e robots são endpoints próprios.
-  Os scripts reaproveitam `yaml` e `sharp`, que já vêm com o Astro.
-- **Sem rastreadores, cookies, fontes remotas ou scripts de terceiros.** Links
-  externos usam `rel="noopener noreferrer external"`.
-- **Sem imagens de obras** dos acervos: o projeto descreve e aponta, não copia.
-  A imagem de compartilhamento é a do próprio projeto.
-- **Facetas na URL** (`/explorar/?pais=BR&tema=...`), com parâmetros em ordem
-  fixa. As combinações não viram páginas indexáveis: há uma só URL canônica,
-  `/explorar/`. Páginas por tema ou território não foram geradas porque o
-  catálogo ainda é pequeno demais para elas terem conteúdo próprio.
+Resumo; os detalhes e as alternativas estão nos [ADRs](docs/adr/README.md).
+
+- **Astro 7, saída estática, sem backend** (ADR 0001). JavaScript só no
+  explorar (filtros e painel) e no comparar, com alternativa sem JS.
+- **Painel contextual** com a página canônica do registro, URL copiável e
+  voltar/Esc coerentes (ADR 0002).
+- **YAML por registro**, schema validado no build e exportação DCMI Terms
+  (ADR 0003).
+- **Imagens só com licença declarada pela fonte**, guardadas localmente com
+  checksum e processadas por `astro:assets` (ADR 0004).
+- **Sem dependências de runtime além do Astro.** As devDependencies são as
+  ferramentas de qualidade (astro check, Playwright, axe, Lighthouse).
+- **Sem rastreadores, cookies, fontes remotas ou scripts de terceiros**
+  (ADR 0008). Links externos usam `rel="noopener noreferrer external"`.
+- **Facetas na URL** com uma única URL canônica, `/explorar/` (ADR 0006).
 
 ## SEO e compartilhamento
 
-Cada página tem título, descrição, canonical absoluto, Open Graph e Twitter
-Card. `sitemap.xml` lista só as páginas públicas canônicas (início, explorar,
-sobre, contribuir e registros publicados). Revisão, comparação, 404 e
-rascunhos ficam de fora; `/revisao/` sempre sai com `noindex`. Para conferir,
-rode `pnpm build` e veja `dist/sitemap.xml`, `dist/robots.txt` e o `<head>` de
-qualquer `dist/acervos/*/index.html`.
+Cada página tem título, descrição, canonical absoluto, Open Graph, Twitter
+Card e JSON-LD schema.org (`WebSite` na home; `WebPage` + `Collection` +
+`BreadcrumbList` nos registros). O `sitemap.xml` lista só as páginas públicas
+canônicas: início, explorar, sobre, metodologia, contribuir e registros
+publicados. Revisão, comparação, 404 e rascunhos ficam de fora, e `/revisao/`
+sempre sai com `noindex`. O teste `tests/e2e/seo.spec.ts` confere esses pontos
+no HTML gerado.
 
 **Preview**: sem provedor de hospedagem configurado, o preview é local
 (`pnpm build && pnpm preview`). Se um provedor gerar URLs de preview, não defina
@@ -174,15 +206,15 @@ aponta para `SITE_URL`, não para o preview.
 
 - Primeira rodada de verificações feita por agente de IA em 21/11/2026; **todos
   os registros estão marcados para revisão humana**.
-- Catálogo pequeno: 12 publicados, 4 rascunhos e 2 deixados de fora.
-- Interface só em português; os campos `es`/`en` existem mas estão vazios.
-- Canal público de contato ainda não definido (`siteConfig.contactUrl = null`).
-- Acessibilidade conferida em parte: navegação por teclado, foco visível,
-  contraste das cores principais (≥ 5,2:1), funcionamento sem JS e layout em
-  390 px foram testados. Não houve auditoria com leitor de tela nem com
-  ferramenta automática como axe.
-- O Guia (PDF) foi lido e é citado com páginas; o projeto não reproduz trechos
-  longos dele.
+- Catálogo pequeno: 12 publicados, 4 rascunhos e 2 deixados de fora. Só 2
+  registros têm imagem licenciada; os outros mostram prancha tipográfica.
+- Interface só em português; os campos `es`/`en` existem, mas estão vazios.
+- O canal de correções e o link do código apontam para
+  `github.com/viveiro-digital/acervo-acervos`, que só existe depois do push.
+- O Viveiro Digital aparece com o link provisório do repositório de
+  documentação, porque não há site público verificado.
+- Validação: ver `docs/VALIDACAO.md`. Lighthouse, leitor de tela real, Safari
+  e Firefox não foram testados.
 
 ## Referência
 

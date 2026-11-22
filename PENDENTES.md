@@ -1,3 +1,22 @@
+# Pendências
+
+## O que precisa de você (técnico)
+
+1. **`pnpm install`** no Mac, para o lockfile refletir `typescript >=5.9 <7`
+   (o `astro check` não suporta TS 7). Sem isso, o CI com `--frozen-lockfile`
+   falha.
+2. **`git restore .github`** (ou `git checkout -- .github`): o workflow de CI
+   está no commit, mas o macOS bloqueou a escrita dessa pasta pelas
+   ferramentas remotas.
+3. **`pnpm validate`**: roda a suíte `tests/e2e/` de verdade (o agente rodou
+   verificações equivalentes, mas não a suíte em si).
+4. **`pnpm build && pnpm preview`** e, em outra aba, **`pnpm audit:lighthouse`**:
+   anote os números em `docs/VALIDACAO.md`.
+5. Teste com **VoiceOver** (Safari): painel, filtros e uma página de registro.
+6. Publicar o repositório em `github.com/viveiro-digital/acervo-acervos`. O
+   link de correções e o de código do site apontam para lá.
+7. Decidir domínio (`SITE_URL`) e hospedagem (ADR 0007, status proposed).
+
 # Registros não verificados ou pendentes
 
 Atualizado em 21/11/2026. A lista viva está em `/revisao/` (rodando `pnpm dev`)
@@ -29,6 +48,12 @@ feita por agente de IA e precisa de revisão humana. Prioridade alta:
 - `acervo-da-laje`: sem ficha individual por obra identificada na galeria virtual.
 - `irohin`, `diseno-nacional`, `cartel-mexico`, `grafica-latina`, `mexico-disena`: mantenedor não identificado.
 - `archivo-memoria-trans`: originais digitais não públicos (cópia sob pedido); política de imagens de pessoas não lida.
+
+## Imagens
+
+Só 2 registros publicados têm imagem (CASCA, CC0; Diseño Nacional, CC BY-NC).
+Para os demais, o caminho é pedir autorização a cada iniciativa ou encontrar
+itens com licença declarada. Não use hotlink.
 
 ## Fora do catálogo (verificados e não incluídos)
 

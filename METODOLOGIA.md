@@ -1,6 +1,6 @@
 # Metodologia — Acervo Acervos
 
-Versão pública e navegável em `/sobre/`. Este arquivo é a referência para quem
+Versão pública e navegável em `/metodologia/` (o `/sobre/` é o resumo curto). Este arquivo é a referência para quem
 edita os dados.
 
 ## Posição
@@ -67,6 +67,23 @@ Na rodada de 21/11/2026, as verificações foram feitas por um agente de IA, que
 abriu as páginas em navegador e conferiu dimensões das imagens e players pelo
 DOM. Por isso todos os registros têm `review_flag: true`: **a última revisão
 precisa ser humana**.
+
+## Imagens
+
+- Uma imagem só entra (`media`) quando a ficha da fonte declara licença ou
+  permissão que autoriza exibir. Registre a licença como texto da fonte, o
+  link oficial da licença quando houver, o crédito, a data da checagem e a
+  relação com o registro (amostra verificada ou outro item do acervo).
+- O arquivo fica em `src/assets/acervos/`, baixado uma vez, sem
+  redimensionar, com SHA-256 em `SHA256SUMS`.
+- Nada de recorte, ampliação além do tamanho publicado, colagem, capa
+  inventada ou imagem gerada por IA.
+- Alt: use o da fonte. Se não houver, a curadoria descreve só o que é visível
+  e marca `alt_source: curadoria`.
+- Material ritual, sagrado, pessoal ou de pessoas identificáveis não vira
+  imagem aqui, mesmo com licença, sem protocolo da comunidade ou consentimento.
+- Sem imagem, `media_note` explica por quê, e o site mostra uma prancha
+  tipográfica.
 
 ## Linguagem e cuidado
 
