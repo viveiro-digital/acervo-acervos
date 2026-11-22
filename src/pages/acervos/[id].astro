@@ -98,7 +98,7 @@ const description = `${r.description.pt} Amostra verificada: ${r.sample.title}.`
               <p>{r.self_description.text}</p>
               <footer class="meta">
                 Autodescrição ({V.label(V.languages, r.self_description.lang)}) —{' '}
-                <ExtLink href={r.self_description.source_url}>fonte</ExtLink>
+                <ExtLink href={r.self_description.source_url} label="fonte da autodescrição">fonte</ExtLink>
               </footer>
             </blockquote>
           )}
@@ -112,13 +112,13 @@ const description = `${r.description.pt} Amostra verificada: ${r.sample.title}.`
               <strong>{V.label(V.stewardshipTypes, r.stewardship_or_host.type)}</strong>
               {r.stewardship_or_host.name && <> — {r.stewardship_or_host.name}</>}
               <br />{r.stewardship_or_host.note}
-              {r.stewardship_or_host.source_url && <> <ExtLink href={r.stewardship_or_host.source_url}>fonte</ExtLink></>}
+              {r.stewardship_or_host.source_url && <> <ExtLink href={r.stewardship_or_host.source_url} label="fonte sobre quem mantém">fonte</ExtLink></>}
             </dd>
             <dt>Relação comunitária</dt>
             <dd>
               <strong>{V.label(V.communityEvidenceKinds, r.community_evidence.kind)}</strong>
               <br />{r.community_evidence.note}
-              {r.community_evidence.source_url && <> <ExtLink href={r.community_evidence.source_url}>fonte</ExtLink></>}
+              {r.community_evidence.source_url && <> <ExtLink href={r.community_evidence.source_url} label="fonte sobre a relação comunitária">fonte</ExtLink></>}
             </dd>
             {r.provenance_note && (<><dt>Procedência</dt><dd>{r.provenance_note}</dd></>)}
           </dl>
@@ -139,7 +139,7 @@ const description = `${r.description.pt} Amostra verificada: ${r.sample.title}.`
               {r.rights_and_reuse.statement === 'desconhecido'
                 ? 'Desconhecido: a fonte não informa ou não localizamos.'
                 : r.rights_and_reuse.statement}
-              {r.rights_and_reuse.source_url && <> <ExtLink href={r.rights_and_reuse.source_url}>fonte</ExtLink></>}
+              {r.rights_and_reuse.source_url && <> <ExtLink href={r.rights_and_reuse.source_url} label="fonte sobre direitos e reuso">fonte</ExtLink></>}
             </dd>
             {r.community_protocol && (<><dt>Protocolo comunitário</dt><dd>{r.community_protocol}</dd></>)}
             {r.sensitive_content_note && (<><dt>Conteúdo sensível</dt><dd>{r.sensitive_content_note}</dd></>)}
@@ -163,13 +163,13 @@ const description = `${r.description.pt} Amostra verificada: ${r.sample.title}.`
         <section aria-labelledby="evidencias">
           <h2 id="evidencias">Evidências e fontes</h2>
           <ol class="evidence">
-            {r.evidence.map((e) => (
+            {r.evidence.map((e, i) => (
               <li>
                 <p>{e.claim}</p>
                 <p class="meta">
                   {V.label(V.evidenceKinds, e.kind)} · certeza {V.label(V.certaintyLevels, e.certainty).toLowerCase()} ·
                   consultado em <time datetime={e.accessed_at}>{formatDate(e.accessed_at)}</time> ·{' '}
-                  <ExtLink href={e.source_url}>fonte</ExtLink>
+                  <ExtLink href={e.source_url} label={`fonte ${i + 1}: ${e.claim}`}>fonte</ExtLink>
                 </p>
                 {e.note && <p class="meta muted">{e.note}</p>}
               </li>

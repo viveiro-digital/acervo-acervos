@@ -78,12 +78,13 @@ const facetOptions = facets.map((f) => {
         <div class="field">
           <label for="ordem" class="kicker">Ordenar por</label>
           <select id="ordem" name="ordem">
-            <option value="">Padrão (nome; correspondência quando há busca)</option>
+            <option value="">Padrão</option>
             <option value="nome">Nome (A–Z)</option>
             <option value="atualizacao">Atualização mais recente</option>
             <option value="inclusao">Inclusão mais recente</option>
             <option value="relevancia">Correspondência com a busca</option>
           </select>
+          <p class="meta muted hint">Padrão: nome; com busca, correspondência.</p>
         </div>
         {facetOptions.map((f) => (
           <div class="field">
@@ -260,7 +261,13 @@ const facetOptions = facets.map((f) => {
     writeUrl(s);
   }
 
+  let lastChips = '';
   function renderChips(s: Record<string, string>) {
+    // Não recria os botões se nada mudou: um "change" disparado pelo blur da
+    // busca no meio de um clique apagaria o botão clicado.
+    const sig = JSON.stringify(PARAMS.filter((p) => p !== 'ordem').map((p) => s[p] ?? ''));
+    if (sig === lastChips) return;
+    lastChips = sig;
     chips.replaceChildren();
     for (const p of PARAMS) {
       if (p === 'ordem' || !s[p]) continue;
