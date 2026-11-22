@@ -176,7 +176,7 @@ Resumo; os detalhes e as alternativas estão nos [ADRs](docs/adr/README.md).
   ferramentas de qualidade (astro check, Playwright, axe, Lighthouse).
 - **Sem rastreadores, cookies, fontes remotas ou scripts de terceiros**
   (ADR 0008). Links externos usam `rel="noopener noreferrer external"`.
-- **Facetas na URL** com uma única URL canônica, `/explorar/` (ADR 0006).
+- **Facetas na URL** com uma única URL canônica, a página inicial (`/`) (ADR 0006).
 
 ## SEO e compartilhamento
 

@@ -8,10 +8,10 @@ Poucos registros, nenhum serviço pago, conteúdo indexável sem JS e URLs de
 filtro copiáveis, mas não indexáveis.
 
 ## Decisão
-Todos os registros publicados estão no HTML de `/explorar/`, com atributos
+Todos os registros publicados estão no HTML da página inicial, `/`, com atributos
 `data-*`. O script filtra e ordena no próprio DOM: busca sem acento, facetas
 combináveis, parâmetros em ordem fixa na URL e `replaceState`. Só existe uma
-URL canônica, `/explorar/`.
+URL canônica, `/`. O endereço anterior, `/explorar/`, redireciona para o início e preserva os parâmetros de busca.
 
 ## Alternativas consideradas
 - **Pagefind**: busca estática excelente para muitos documentos. Reavaliar

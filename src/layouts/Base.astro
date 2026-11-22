@@ -18,7 +18,7 @@ interface Props {
   ogImageHeight?: number;
   /** Dados estruturados schema.org (JSON-LD), fiéis ao conteúdo da página. */
   jsonLd?: Record<string, unknown> | Record<string, unknown>[];
-  current?: 'inicio' | 'explorar' | 'comparar' | 'sobre' | 'metodologia';
+  current?: 'inicio' | 'comparar' | 'sobre' | 'metodologia';
 }
 
 const {
@@ -40,7 +40,6 @@ const imageUrl = new URL(ogImage.startsWith('/') ? sitePath(ogImage) : ogImage, 
 const robots = noindex || !isIndexable ? 'noindex, nofollow' : 'index, follow';
 
 const nav = [
-  { key: 'explorar', href: '/explorar/', label: 'Explorar' },
   { key: 'comparar', href: '/comparar/', label: 'Comparar' },
   { key: 'sobre', href: '/sobre/', label: 'Sobre' },
 ] as const;

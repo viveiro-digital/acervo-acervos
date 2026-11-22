@@ -73,8 +73,7 @@ const jsonLd = [
     '@type': 'BreadcrumbList',
     itemListElement: [
       { '@type': 'ListItem', position: 1, name: 'Início', item: new URL(sitePath('/'), Astro.site).href },
-      { '@type': 'ListItem', position: 2, name: 'Explorar', item: new URL(sitePath('/explorar/'), Astro.site).href },
-      { '@type': 'ListItem', position: 3, name: r.name, item: canonical },
+      { '@type': 'ListItem', position: 2, name: r.name, item: canonical },
     ],
   },
 ];
@@ -95,7 +94,7 @@ const jsonLd = [
 ) : (
 <Base title={r.name} description={description} ogType="article" jsonLd={jsonLd}>
   <article class="wrap record" data-record={r.id}>
-    <a class="record-back" href={sitePath('/explorar/')}>Todos os acervos</a>
+    <a class="record-back" href={sitePath('/')}>Todos os acervos</a>
     <header class="record-head">
       <div class="record-heading">
         <p class="meta muted">{place}</p>

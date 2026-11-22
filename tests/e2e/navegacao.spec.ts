@@ -1,14 +1,17 @@
 import { test, expect } from '@playwright/test';
 
-test('explorar: filtros refletem na URL e escondem itens', async ({ page }) => {
-  await page.goto('/explorar/?pais=AR');
+test('início: filtros refletem na URL e escondem itens', async ({ page }) => {
+  await page.goto('/');
+  await page.getByRole('button', { name: 'Filtros', exact: true }).click();
+  await page.locator('#f-pais').selectOption('AR');
+  await expect(page).toHaveURL(/\/\?pais=AR$/);
   const visiveis = page.locator('#lista > li:visible');
   await expect(visiveis).toHaveCount(1);
   await expect(page.locator('#contagem')).toContainText('1 de');
 });
 
-test('explorar: busca ignora acentos', async ({ page }) => {
-  await page.goto('/explorar/');
+test('início: busca ignora acentos', async ({ page }) => {
+  await page.goto('/');
   await page.fill('#q', 'amapa');
   await expect(page).toHaveURL(/q=amapa/);
   const resultados = page.locator('#lista > li:visible');
@@ -17,14 +20,14 @@ test('explorar: busca ignora acentos', async ({ page }) => {
   await expect(resultados.last()).toHaveAttribute('data-id', 'biblioteca-de-zines');
 });
 
-test('explorar: remover chip limpa o filtro', async ({ page }) => {
-  await page.goto('/explorar/?q=cartaz&acesso=abre-direto');
+test('início: remover chip limpa o filtro', async ({ page }) => {
+  await page.goto('/?q=cartaz&acesso=abre-direto');
   await page.locator('#chips button').first().click();
-  await expect(page).toHaveURL(/\/explorar\/\?acesso=abre-direto$/);
+  await expect(page).toHaveURL(/\/\?acesso=abre-direto$/);
 });
 
 test('painel: abre com URL canônica, navega e fecha com Esc e voltar', async ({ page }) => {
-  await page.goto('/explorar/?pais=BR');
+  await page.goto('/?pais=BR');
   await page.locator('a[data-open="irohin"]').click();
   await expect(page.locator('#painel')).toHaveAttribute('open', '');
   await expect(page).toHaveURL(/\/acervos\/irohin\/$/);
@@ -33,7 +36,7 @@ test('painel: abre com URL canônica, navega e fecha com Esc e voltar', async ({
   await expect(page).toHaveURL(/\/acervos\/museu-kuahi\/$/);
   await page.keyboard.press('Escape');
   await expect(page.locator('#painel')).not.toHaveAttribute('open', '');
-  await expect(page).toHaveURL(/\/explorar\/\?pais=BR$/);
+  await expect(page).toHaveURL(/\/\?pais=BR$/);
   await page.goForward();
   await expect(page.locator('#painel')).toHaveAttribute('open', '');
   await page.goBack();
@@ -55,22 +58,28 @@ test('comparar: no máximo 4 registros', async ({ page }) => {
 
 test.describe('sem JavaScript', () => {
   test.use({ javaScriptEnabled: false });
-  test('explorar lista tudo e o link abre a página do registro', async ({ page }) => {
-    await page.goto('/explorar/?pais=AR');
+  test('início lista tudo e o link abre a página do registro', async ({ page }) => {
+    await page.goto('/?pais=AR');
     await expect(page.locator('#lista > li')).toHaveCount(12);
     await page.locator('a[data-open="casca"]').click();
     await expect(page).toHaveURL(/\/acervos\/casca\/$/);
   });
 });
 
-test('explorar: consulta em espanhol encontra seção com relevância', async ({ page }) => {
-  await page.goto('/explorar/?q=carteles+politicos');
+test('início: consulta em espanhol encontra seção com relevância', async ({ page }) => {
+  await page.goto('/?q=carteles+politicos');
   await expect(page.locator('#lista > li:visible').first()).toHaveAttribute('data-id', 'diseno-nacional');
 });
 
-test('explorar: busca o conteúdo catalogado e tolera erro de digitação', async ({ page }) => {
-  await page.goto('/explorar/?q=Carlos+Moura');
+test('início: busca o conteúdo catalogado e tolera erro de digitação', async ({ page }) => {
+  await page.goto('/?q=Carlos+Moura');
   await expect(page.locator('#lista > li:visible').first()).toHaveAttribute('data-id', 'irohin');
   await page.fill('#q', 'bibliotcea de zines');
   await expect(page.locator('#lista > li:visible').first()).toHaveAttribute('data-id', 'biblioteca-de-zines');
+});
+
+test('o endereço antigo preserva a busca e os filtros no catálogo inicial', async ({ page }) => {
+  await page.goto('/explorar/?q=carteles+politicos&pais=CL');
+  await expect(page).toHaveURL(/\/\?q=carteles\+politicos&pais=CL$/);
+  await expect(page.locator('#lista > li:visible').first()).toHaveAttribute('data-id', 'diseno-nacional');
 });

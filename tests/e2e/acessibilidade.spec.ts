@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 
 const paginas = [
-  '/', '/explorar/', '/comparar/?ids=casca,irohin', '/sobre/', '/metodologia/', '/contribuir/',
+  '/', '/comparar/?ids=casca,irohin', '/sobre/', '/metodologia/', '/contribuir/',
   '/acervos/casca/', '/acervos/diseno-nacional/', '/acervos/irohin/', '/acervos/museu-kuahi/',
 ];
 
@@ -17,7 +17,7 @@ for (const p of paginas) {
 }
 
 test('axe no painel aberto', async ({ page }) => {
-  await page.goto('/explorar/');
+  await page.goto('/');
   await page.locator('a[data-open="casca"]').click();
   await expect(page.locator('#painel-titulo')).toBeVisible();
   const r = await new AxeBuilder({ page }).include('#painel').analyze();

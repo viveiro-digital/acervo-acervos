@@ -7,7 +7,6 @@ export const GET: APIRoute = async ({ site }) => {
   const records = await getPublished();
   const pages: { path: string; lastmod?: string }[] = [
     { path: sitePath('/') },
-    { path: sitePath('/explorar/') },
     { path: sitePath('/sobre/') },
     { path: sitePath('/metodologia/') },
     { path: sitePath('/contribuir/') },

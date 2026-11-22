@@ -4,10 +4,14 @@ import Base from '../layouts/Base.astro';
 import CollectionCover from '../components/CollectionCover.astro';
 import { siteConfig } from '../site.config';
 import collectionPreviews from '../data/collection-previews.json';
-import { collectionSubtitles } from '../data/collection-views';
-import { countries, label } from '../data/vocabulario';
+import { collectionSubtitles, collectionViews } from '../data/collection-views';
+import * as V from '../data/vocabulario';
 import {
   getPublished,
+  facetCounts,
+  periodBuckets,
+  periodKeys,
+  searchFields,
   recordPath,
 } from '../lib/acervos';
 
@@ -24,6 +28,43 @@ const shortNames: Record<string, string> = {
 
 const previews: Partial<Record<string, { page: string }>> = collectionPreviews;
 
+type Facet = {
+  param: string;
+  legend: string;
+  vocab: Record<string, string>;
+  pick: (r: (typeof published)[number]) => string[];
+  note?: string;
+};
+
+const periodVocab = Object.fromEntries(periodBuckets.map((b) => [b.key, b.label]));
+
+const facets: Facet[] = [
+  { param: 'pais', legend: 'País / região', vocab: V.countries, pick: (r) => r.country },
+  { param: 'tema', legend: 'Tema', vocab: V.themes, pick: (r) => r.themes },
+  { param: 'tipo', legend: 'Tipo de acervo', vocab: V.collectionTypes, pick: (r) => r.collection_types },
+  { param: 'formato', legend: 'Formato', vocab: V.formats, pick: (r) => r.formats },
+  { param: 'lingua', legend: 'Língua', vocab: V.languages, pick: (r) => r.languages },
+  { param: 'periodo', legend: 'Período do conteúdo', vocab: periodVocab, pick: (r) => periodKeys(r) },
+  { param: 'acesso', legend: 'Regime de acesso', vocab: V.accessLevels, pick: (r) => [r.access_level] },
+  { param: 'status', legend: 'Verificação', vocab: V.contentStatuses, pick: (r) => [r.content_status] },
+  {
+    param: 'relacao',
+    legend: 'Relação comunitária',
+    vocab: V.communityEvidenceKinds,
+    pick: (r) => [r.community_evidence.kind],
+    note: 'Segundo a evidência publicada — não é avaliação de governança.',
+  },
+  { param: 'host', legend: 'Quem mantém', vocab: V.stewardshipTypes, pick: (r) => [r.stewardship_or_host.type] },
+];
+
+const facetOptions = facets.map((f) => {
+  const counts = facetCounts(published, f.pick);
+  const options = Object.keys(f.vocab)
+    .filter((k) => counts.has(k))
+    .map((k) => ({ key: k, label: f.vocab[k], count: counts.get(k)! }));
+  return { ...f, options };
+});
+
 const site = new URL(sitePath('/'), Astro.site).href;
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -34,7 +75,7 @@ const jsonLd = {
   inLanguage: 'pt-BR',
   potentialAction: {
     '@type': 'SearchAction',
-    target: { '@type': 'EntryPoint', urlTemplate: `${site}explorar/?q={search_term_string}` },
+    target: { '@type': 'EntryPoint', urlTemplate: `${site}?q={search_term_string}` },
     'query-input': 'required name=search_term_string',
   },
 };
@@ -45,35 +86,81 @@ const jsonLd = {
       <div class="masthead">
         <h1>{siteConfig.name}</h1>
         <nav aria-label="Principal">
-          <a href={sitePath('/explorar/')}>Explorar</a>
           <a href={sitePath('/comparar/')}>Comparar</a>
           <a href={sitePath('/sobre/')}>Sobre</a>
         </nav>
       </div>
-      <div class="intro-row">
-        <p>{siteConfig.subtitle}</p>
-        <form class="search" action={sitePath('/explorar/')} method="get" role="search">
-          <label for="q-home" class="visually-hidden">Buscar no catálogo</label>
-          <input id="q-home" name="q" type="search" placeholder="Nome, tema ou lugar" />
-          <button class="btn" type="submit">Buscar</button>
-        </form>
-      </div>
+      <p class="intro-subtitle">{siteConfig.subtitle}</p>
     </header>
 
-    <ul class="collection-grid" aria-label="Coleções digitais">
+    <form id="filtros" class="filters" action={sitePath('/')} method="get" role="search" aria-label="Buscar e filtrar acervos">
+      <div class="catalog-toolbar">
+        <div class="search">
+          <label for="q" class="visually-hidden">Buscar no catálogo</label>
+          <input id="q" name="q" type="search" placeholder="Buscar acervos" autocomplete="off" />
+          <button class="btn" type="submit">Buscar</button>
+        </div>
+        <button id="mais-filtros" class="btn" type="button" aria-controls="campos-filtros" aria-expanded="false" hidden>
+          Filtros <span id="n-filtros" class="meta"></span>
+        </button>
+      </div>
+      <div id="campos-filtros" class="filter-panel" hidden>
+        <div class="filter-fields">
+          <div class="field">
+            <label for="ordem" class="kicker">Ordenar por</label>
+            <select id="ordem" name="ordem">
+              <option value="">Padrão</option>
+              <option value="nome">Nome (A–Z)</option>
+              <option value="atualizacao">Atualização mais recente</option>
+              <option value="inclusao">Inclusão mais recente</option>
+              <option value="relevancia">Correspondência com a busca</option>
+            </select>
+            <p class="meta muted hint">Com busca, mostramos primeiro os resultados mais próximos.</p>
+          </div>
+          {facetOptions.map((f) => (
+            <div class="field">
+              <label for={`f-${f.param}`} class="kicker">{f.legend}</label>
+              <select id={`f-${f.param}`} name={f.param} data-facet={f.param}>
+                <option value="">Todos</option>
+                {f.options.map((o) => (
+                  <option value={o.key}>{o.label} ({o.count})</option>
+                ))}
+              </select>
+              {f.note && <p class="meta muted hint">{f.note}</p>}
+            </div>
+          ))}
+        </div>
+        <a class="reset-filters" href={sitePath('/')} id="limpar">Limpar filtros</a>
+      </div>
+      <noscript><p class="meta muted">Ative o JavaScript para buscar ou filtrar os acervos.</p></noscript>
+    </form>
+
+    <div id="chips" class="chips" aria-label="Filtros ativos"></div>
+    <p id="contagem" role="status" aria-live="polite" class="visually-hidden">{published.length} acervos</p>
+    <p id="vazio" class="callout" hidden>Nenhum acervo encontrado. Tente usar menos palavras ou limpar um filtro.</p>
+    <ul id="lista" class="collection-grid" aria-label="Coleções digitais">
       {sorted.map((record, i) => {
         const title = shortNames[record.id] ?? record.name;
         const preview = previews[record.id];
         return (
-          <li class="tile" data-collection={record.id}>
+          <li
+            class="tile"
+            data-collection={record.id}
+            data-id={record.id}
+            data-name={record.name}
+            data-updated={record.updated_at}
+            data-created={record.created_at}
+            data-search={JSON.stringify(searchFields(record, collectionViews[record.id]?.map(([label]) => label) ?? []))}
+            {...Object.fromEntries(facets.map((f) => [`data-${f.param}`, f.pick(record).join(' ')]))}
+          >
             <a href={preview?.page ?? record.digital_collection_url} class="collection" rel="noopener noreferrer external">
               <span class="visually-hidden">Abrir coleção {title}</span>
               <CollectionCover id={record.id} name={title} eager={i < 3} priority={i === 0} />
             </a>
-            <h2 class="collection-tile-title"><a href={recordPath(record.id)}>{title}</a></h2>
+            <h2 class="collection-tile-title"><a href={recordPath(record.id)} data-open={record.id}>{title}</a></h2>
             <p class="tile-subtitle">{collectionSubtitles[record.id] ?? record.description.pt}</p>
             <p class="tile-location">
-              {record.country.map((country) => label(countries, country)).join(', ')}
+              {record.country.map((country) => V.label(V.countries, country)).join(', ')}
               {record.id === 'diseno-nacional' && <span> · Captura CC BY-NC</span>}
             </p>
           </li>
@@ -81,20 +168,34 @@ const jsonLd = {
       })}
     </ul>
   </div>
+  <dialog id="painel" class="panel" aria-labelledby="painel-titulo">
+    <div class="panel-bar">
+      <button type="button" class="btn" data-panel="prev" aria-label="Registro anterior nos resultados">←</button>
+      <span class="meta" id="painel-pos" aria-live="polite"></span>
+      <button type="button" class="btn" data-panel="next" aria-label="Próximo registro nos resultados">→</button>
+      <a class="meta panel-page" id="painel-link" href={sitePath('/')}>Página do acervo</a>
+      <button type="button" class="btn" data-panel="close">Fechar<span class="visually-hidden"> painel</span></button>
+    </div>
+    <div id="painel-corpo" class="panel-body"></div>
+  </dialog>
 </Base>
+
+<script>
+  import '../lib/catalog-browser';
+</script>
 
 <style>
   .intro {
-    padding-block: clamp(1.4rem, 4vw, 3.4rem) clamp(1.8rem, 4vw, 3rem);
+    padding-block: clamp(1.35rem, 4vw, 3.4rem) clamp(1.35rem, 3vw, 2.5rem);
   }
   .masthead {
     display: flex;
     justify-content: space-between;
-    align-items: baseline;
+    align-items: flex-end;
     flex-wrap: wrap;
     gap: 0.25rem 2rem;
   }
-  nav { display: flex; gap: 1rem; font-size: 0.9rem; margin-bottom: 0.85rem; }
+  nav { display: flex; gap: 1rem; font-size: 0.9rem; padding-bottom: 0.45rem; }
   nav a { text-decoration: none; }
   nav a:hover { text-decoration: underline; }
   h1 {
@@ -102,18 +203,34 @@ const jsonLd = {
     font-size: clamp(2.75rem, 1.1rem + 7.2vw, 8rem);
     font-weight: 400;
     letter-spacing: -0.065em;
-    margin-bottom: 0.16em;
+    margin: 0;
   }
-  .intro-row {
+  .intro-subtitle { margin: 0.65rem 0 0; color: var(--muted); }
+  .filters { margin-bottom: 1.4rem; }
+  .catalog-toolbar {
     display: flex;
-    align-items: center;
     flex-wrap: wrap;
     justify-content: space-between;
-    gap: 0.8rem 1.5rem;
+    align-items: center;
+    gap: 0.6rem 1rem;
+    border-block: 1px solid var(--rule);
+    padding-block: 0.7rem;
   }
-  .intro p { margin: 0; color: var(--muted); }
-  .search { display: flex; flex: 0 1 21rem; gap: 0.35rem; }
+  .search { display: flex; flex: 0 1 26rem; min-width: 0; gap: 0.35rem; }
   .search input { flex: 1; min-width: 0; }
+  .catalog-toolbar .btn, .search input { min-height: 2.75rem; }
+  .filter-panel { border-bottom: 1px solid var(--rule); padding-block: 0.8rem; }
+  .filter-fields {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr));
+    gap: 0.7rem 1rem;
+  }
+  .field { display: grid; align-content: start; gap: 0.2rem; min-width: 0; }
+  .field select { width: 100%; }
+  .hint { margin: 0; }
+  .reset-filters { display: inline-block; padding-top: 0.7rem; }
+  .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 0.85rem; }
+  .chips:empty { display: none; }
 
   .collection { display: block; text-decoration: none; }
   .collection:hover :global(.collection-cover) { outline: 1px solid var(--muted); outline-offset: -1px; }
@@ -128,7 +245,59 @@ const jsonLd = {
     font-size: 0.82rem;
     margin: 0.35rem 0 0;
   }
+  @supports (grid-template-rows: subgrid) {
+    #lista { row-gap: 0; }
+    .tile {
+      display: grid;
+      grid-row: span 4;
+      grid-template-rows: subgrid;
+      padding-bottom: clamp(1.5rem, 3vw, 2.4rem);
+    }
+    .tile[hidden] { display: none; }
+  }
   @media (max-width: 34rem) {
-    .masthead nav { order: 1; margin-block: 0.1rem 0.6rem; }
+    .masthead nav { padding-bottom: 0; }
+    .search { flex: 1 1 13rem; }
+  }
+  /* Painel contextual */
+  .panel {
+    border: 0;
+    padding: 0;
+    margin: 0 0 0 auto;
+    width: min(100vw, 62rem);
+    max-width: 100vw;
+    height: 100dvh;
+    max-height: 100dvh;
+    background: var(--paper);
+    color: var(--ink);
+    box-shadow: -1px 0 0 var(--rule);
+  }
+  .panel::backdrop {
+    background: rgb(0 0 0 / 0.13);
+  }
+  .panel-bar {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem 0.8rem;
+    padding: 0.6rem 1rem;
+    background: var(--paper);
+    border-bottom: 1px solid var(--rule);
+  }
+  .panel-bar [data-panel='close'] {
+    margin-left: auto;
+  }
+  .panel-bar button:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+  .panel-body {
+    padding: 1.2rem 1rem 3rem;
+  }
+  .panel-body :global(.record) {
+    width: 100%;
   }
 </style>
