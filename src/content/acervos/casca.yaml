@@ -9,8 +9,8 @@ self_description:
   source_url: https://casca-archive.org/pt-br
 description:
   pt: >-
-    Arquivo digital de design gráfico e cultura visual do Nordeste, com busca por
-    artista, título e assunto, coleções temáticas e ficha individual por item.
+    Cordéis, capas de livro e cartazes do Nordeste brasileiro. Navegue pelas
+    coleções ou busque por artista, título e assunto.
 initiative_url: https://casca-archive.org/pt-br
 digital_collection_url: https://casca-archive.org/items/browse?collection=32
 sample_content_url: https://casca-archive.org/items/show/7647
@@ -153,3 +153,6 @@ change_log:
     to: verificado no site
     reason: Catalogação conforme ISDIAH (5.3.7 acervo, 5.3.8 instrumentos de pesquisa); ver docs/CATALOGACAO.md.
     source: https://casca-archive.org/api/items
+  - date: "2026-11-22"
+    field: description.pt
+    reason: "Texto revisto para apresentar o que há na coleção e como explorar."

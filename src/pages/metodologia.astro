@@ -1,15 +1,13 @@
 ---
 import Base from '../layouts/Base.astro';
-import Status from '../components/Status.astro';
 import ExtLink from '../components/ExtLink.astro';
 import { getCollection } from 'astro:content';
-import * as V from '../data/vocabulario';
-import { getAll, formatDate } from '../lib/acervos';
+import { getAll } from '../lib/acervos';
+import { siteConfig } from '../site.config';
 
 const all = await getAll();
 const pendentes = all.filter((r) => r.record_status === 'rascunho');
 const fora = (await getCollection('foraDoCatalogo')).map((e) => e.data);
-const statuses = Object.keys(V.contentStatuses) as (keyof typeof V.contentStatuses)[];
 ---
 <Base
   title="Metodologia"
@@ -23,168 +21,59 @@ const statuses = Object.keys(V.contentStatuses) as (keyof typeof V.contentStatus
     </header>
 
     <details id="posicao" class="method-section">
-      <summary id="h-posicao">Posição curatorial</summary>
-      <p>
-        O ponto de partida é o <cite>Guia dos Arquivos que não Existem: acervos digitais
-        contra-hegemônicos</cite>, organizado por Giselle Beiguelman (FAU-USP, 2026). Na
-        introdução, o Guia propõe entender o arquivo menos como depósito e mais como aquilo que
-        pode ser descrito e interrogado, e resume essa ética em três verbos:
-        <strong>fazer aparecer, fazer ler e fazer relacionar</strong> (Beiguelman, 2026, p. 6–9).
-      </p>
-      <dl class="fields">
-        <dt>Fazer aparecer</dt>
-        <dd>
-          Registrar iniciativas que existem e publicam conteúdo, inclusive fora de sites
-          próprios (Instagram, Google Drive), sem inventar registros para preencher lacunas. As
-          lacunas ficam visíveis: em cada registro, em "O que ainda não sabemos", e nesta página,
-          em "Pendentes".
-        </dd>
-        <dt>Fazer ler</dt>
-        <dd>
-          Cada registro aponta para uma amostra específica, um item que se pode abrir, e diz
-          o que foi visto nela. A descrição da iniciativa fica separada da nossa, e os termos
-          originais são preservados ao lado do vocabulário de busca.
-        </dd>
-        <dt>Fazer relacionar</dt>
-        <dd>
-          Filtros combináveis, comparação lado a lado e relações entre registros com o motivo do
-          vínculo explícito (mesmo país, tema ou tipo de acervo), sem sugerir influência ou
-          causalidade.
-        </dd>
-      </dl>
-      <p>
-        O Guia é usado aqui como lente crítica, não como fonte de categorias universais. Esta
-        plataforma não é centro de autoridade: aponta para a iniciativa de origem e mantém
-        contexto, autoria, procedência e condições de acesso junto ao link.
-      </p>
+      <summary id="h-posicao">O que reunimos</summary>
+      <p>O catálogo reúne coleções digitais ligadas ao Brasil e à América Latina. O <cite>Guia dos Arquivos que não Existem</cite> inspirou a seleção e os caminhos entre acervos.</p>
     </details>
 
     <details id="metodo" class="method-section">
-      <summary id="h-metodo">Critérios e verificação</summary>
-      <h3>Entra no catálogo publicado quando</h3>
-      <ul>
-        <li>há conteúdo digital substantivo e navegável, ligado ao Brasil ou à América Latina (inclusive diásporas e iniciativas transnacionais);</li>
-        <li>existe uma <strong>amostra específica</strong>, um item, zine, cartaz, documento ou ficha, que foi aberta e descrita;</li>
-        <li>o registro diz quem mantém o acervo, qual é a relação documentada com comunidades (ou que ela é desconhecida) e quais são as condições de acesso e de direitos.</li>
-      </ul>
-      <h3>Não entra (ou fica como pendente) quando</h3>
-      <ul>
-        <li>só há notícia, página "Sobre", vitrine sem itens, projeto futuro ou perfil social sem conteúdo substantivo;</li>
-        <li>o conteúdo está atrás de cadastro e ninguém da curadoria o consultou ainda;</li>
-        <li>não foi possível abrir uma amostra.</li>
-      </ul>
-      <p>
-        Não é preciso ser independente ou comunitário para entrar. É preciso relevância digital
-        e uma descrição honesta da relação com comunidades e instituições.
-      </p>
-      <h3>Como uma verificação é feita</h3>
-      <p>
-        A página da amostra é aberta em um navegador e o que carregou é anotado: imagem
-        (com dimensões), PDF, player ou só metadados. Registramos data, método e fonte de cada
-        afirmação importante e diferenciamos o que a iniciativa <em>declara</em>, o que a
-        curadoria <em>observou</em> e o que é <em>interpretação</em> nossa. Não baixamos nem
-        copiamos obras.
-      </p>
-      <p class="callout">
-        <strong>Nesta versão</strong>, a primeira rodada de verificações (21 de novembro de
-        2026) foi feita por um agente de IA sob orientação da curadoria. Por isso todos os
-        registros estão marcados para <strong>revisão humana</strong>, que é obrigatória antes
-        de considerar uma verificação concluída.
-      </p>
+      <summary id="h-metodo">Como verificamos</summary>
+      <p>Abrimos uma amostra de cada coleção e registramos o que estava acessível, a fonte e a data. A primeira rodada usou um agente de IA sob orientação da curadoria e segue em revisão humana.</p>
     </details>
 
     <details id="estados" class="method-section">
-      <summary id="h-estados">Estados de verificação</summary>
-      <dl class="fields">
-        {statuses.map((s) => (
-          <>
-            <dt><Status status={s} /></dt>
-            <dd>{V.contentStatusHelp[s]}</dd>
-          </>
-        ))}
-      </dl>
-      <p>
-        Uma falha temporária não torna um acervo "inativo". Registros não são apagados: mudam de
-        estado e guardam o histórico, com data e motivo.
-      </p>
+      <summary id="h-estados">O que dá para acessar</summary>
+      <p>Algumas fontes mostram a obra inteira. Outras oferecem uma miniatura, uma descrição ou pedem cadastro. As condições de acesso ficam na ficha do acervo.</p>
     </details>
 
     <details id="imagens" class="method-section">
-      <summary id="h-imagens">Imagens</summary>
-      <p>As prévias usam imagens sociais, imagens de coleção ou capturas das páginas de origem.</p>
-      <p>Nas notas de cada acervo, imagens de obras exibidas têm crédito e licença da fonte. Elas são mostradas na proporção original e têm texto alternativo.</p>
+      <summary id="h-imagens">De onde vêm as imagens</summary>
+      <p>As prévias vêm das páginas de origem: imagens de compartilhamento, imagens da coleção ou capturas do catálogo. Quando as notas mostram uma obra, a imagem vem acompanhada de crédito e licença.</p>
     </details>
 
     <details id="descricao" class="method-section">
-      <summary id="h-descricao">Descrição e preservação</summary>
-      <ul>
-        <li>Cada amostra diz em que nível de descrição está, nos termos da norma arquivística ISAD(G): item, dossiê, série ou fundo, ou uma página que reúne vários itens. O registro indica se o nível foi declarado pela fonte ou atribuído pela curadoria.</li>
-        <li>A ficha segue a ISDIAH, norma do Conselho Internacional de Arquivos para descrever instituições com acervos. Por isso registra, quando encontramos, o tamanho do acervo (dizendo se foi declarado pela fonte ou contado por nós), o software que o publica e se há acesso por máquina, como OAI-PMH ou API.</li>
-        <li>Preservamos o catálogo, não os acervos descritos: fichas em texto aberto, histórico de mudanças, identificadores que nunca são reutilizados e exportação em Dublin Core. As imagens guardadas têm checksum conferido a cada mudança.</li>
-        <li>Quando uma ficha cita pessoas, usamos só o que a própria iniciativa tornou público e só o necessário para descrever o acervo. Correções e pedidos de remoção podem ser feitos pelo canal público indicado em cada registro.</li>
-        <li>O registro das referências usadas (NDSA Levels, DPC RAM, ISAD(G), Dublin Core) e da autoavaliação está no repositório, em <code>docs/PRESERVACAO.md</code>.</li>
-      </ul>
+      <summary id="h-descricao">Dados do catálogo</summary>
+      <p>As fichas registram fontes, datas de consulta e mudanças. O repositório publica os dados e os critérios de catalogação e preservação.</p>
+      {siteConfig.repoUrl && <p><ExtLink href={siteConfig.repoUrl + '/blob/main/docs/CATALOGACAO.md'}>Ver os critérios de catalogação</ExtLink></p>}
     </details>
 
     <details id="linguagem" class="method-section">
-      <summary id="h-linguagem">Linguagem e cuidado</summary>
-      <ul>
-        <li>"Comunitário", "independente", "dissidente", "contra-hegemônico" e "decolonial" não são sinônimos. Só usamos um desses termos quando há evidência para ele.</li>
-        <li>Quem mantém o acervo e a comunidade representada nele são campos separados. Uma instituição não vira "comunitária" porque guarda conteúdo de uma comunidade.</li>
-        <li>Não atribuímos etiquetas de conhecimento tradicional (como TK Labels) em nome de povos. Quando a fonte publica um protocolo, ele é citado.</li>
-        <li>Material sensível, sagrado, pessoal ou restrito não é reproduzido aqui, mesmo quando tem URL pública. Nesses casos, escolhemos amostras que não exponham pessoas ou objetos rituais.</li>
-        <li>Digitalização, acesso público, permissão de reuso e preservação de longo prazo são dimensões diferentes, e nenhuma é presumida.</li>
-        <li>Quando alguém da curadoria tem vínculo com uma iniciativa, isso aparece no registro, e o registro não é destacado na página inicial.</li>
-      </ul>
+      <summary id="h-linguagem">Cuidados na descrição</summary>
+      <p>Usamos os termos e protocolos publicados pelas iniciativas. Quem mantém uma coleção e quem está representado nela são informações distintas.</p>
     </details>
 
     <details id="pendentes" class="method-section">
-      <summary id="h-pendentes">Pendentes e fora do catálogo</summary>
-      <h3>Em revisão (não publicados)</h3>
+      <summary id="h-pendentes">Coleções em revisão</summary>
+      <h3>Em revisão</h3>
       <ul class="plain">
-        {pendentes.map((r) => (
-          <li>
-            <strong>{r.name}</strong> — <Status status={r.content_status} />
-            <br /><span class="meta">{r.review_reason}</span>
-            <br /><ExtLink href={r.initiative_url}>{r.initiative_url}</ExtLink>
-          </li>
-        ))}
+        {pendentes.map((r) => <li><ExtLink href={r.initiative_url}>{r.name}</ExtLink></li>)}
       </ul>
-      <h3>Verificados e deixados de fora</h3>
+      <h3>Fora do catálogo</h3>
       <ul class="plain">
-        {fora.map((f) => (
-          <li>
-            <strong>{f.name}</strong> <span class="meta">(verificado em {formatDate(f.checked_at)})</span>
-            <br />{f.reason}
-            {f.revisit && <><br /><span class="meta muted">{f.revisit}</span></>}
-          </li>
-        ))}
+        {fora.map((f) => <li><ExtLink href={f.url}>{f.name}</ExtLink></li>)}
       </ul>
     </details>
 
     <details id="limitacoes" class="method-section">
-      <summary id="h-limitacoes">Limitações</summary>
-      <ul>
-        <li>O catálogo é pequeno e parcial: reflete as fontes e o tempo desta primeira rodada, não o campo inteiro.</li>
-        <li>Verificar uma amostra não garante que o resto do acervo esteja acessível.</li>
-        <li>Links e mídias mudam. A data de cada verificação vale apenas para aquele dia.</li>
-        <li>Este site preserva seus próprios dados (arquivos versionados e exportáveis), mas não preserva os acervos de origem e não garante a continuidade deles.</li>
-        <li>A interface está em português. A estrutura de dados aceita textos em espanhol e inglês, ainda não preenchidos.</li>
-      </ul>
+      <summary id="h-limitacoes">Limites do catálogo</summary>
+      <p>A busca cobre as fichas publicadas aqui. A página de cada iniciativa é o lugar para consultar toda a coleção e confirmar o que está acessível hoje.</p>
     </details>
 
     <details id="referencias" class="method-section">
       <summary id="h-referencias">Referências</summary>
-      <p>
-        BEIGUELMAN, Giselle (org.). <cite>Guia dos Arquivos que não Existem: acervos digitais
-        contra-hegemônicos</cite>. São Paulo: FAU-USP, 2026. 131 p. e-ISBN 978-85-8089-187-4.
-        DOI: <ExtLink href="https://doi.org/10.11606/9788580891874">10.11606/9788580891874</ExtLink>.
-        Obra de acesso aberto (Creative Commons).
-      </p>
-      <p>
-        Página do projeto Acervos Digitais e Pesquisa (FAU-USP):
-        <ExtLink href="https://www.acervosdigitais.fau.usp.br/">acervosdigitais.fau.usp.br</ExtLink>.
-      </p>
+      <ul class="plain">
+        <li><ExtLink href="https://doi.org/10.11606/9788580891874">Guia dos Arquivos que não Existem</ExtLink> (Giselle Beiguelman, org., FAU-USP, 2026)</li>
+        <li><ExtLink href="https://www.acervosdigitais.fau.usp.br/">Acervos Digitais e Pesquisa, FAU-USP</ExtLink></li>
+      </ul>
     </details>
   </div>
 </Base>

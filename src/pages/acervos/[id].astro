@@ -1,7 +1,6 @@
 ---
 import { sitePath } from '../../lib/site-path';
 import Base from '../../layouts/Base.astro';
-import Status from '../../components/Status.astro';
 import ExtLink from '../../components/ExtLink.astro';
 import MediaPlate from '../../components/MediaPlate.astro';
 import CollectionCover from '../../components/CollectionCover.astro';
@@ -9,9 +8,7 @@ import { collectionViews } from '../../data/collection-views';
 import { siteConfig } from '../../site.config';
 import * as V from '../../data/vocabulario';
 import {
-  getPublished, related, formatDate, recordPath, type Acervo,
-  descriptionControl, levelOfDetail, levelOfDetailLabels, missingForFull,
-  extentBasisLabels, machineAccessLabels, machineStatusLabels,
+  getPublished, formatDate, recordPath, type Acervo,
 } from '../../lib/acervos';
 
 export async function getStaticPaths() {
@@ -29,17 +26,11 @@ interface Props {
   redirectTo: string | null;
 }
 const { record: r, redirectTo } = Astro.props;
-const all = await getPublished();
-const rel = related(r, all);
 const place = [r.city, r.region, ...r.country.map((c) => V.label(V.countries, c))].filter(Boolean).join(', ');
 const description = r.description.pt;
 const sections = (collectionViews[r.id] ?? []).filter(([, url]) => url !== r.digital_collection_url);
-const accessNote = r.access_channel
-  ? r.access_channel.limitations
-  : r.access_requirements;
+const accessNote = r.access_requirements;
 const canonical = new URL(recordPath(r.id), Astro.site).href;
-const detail = levelOfDetail(r);
-const missing = missingForFull(r);
 const lead = [...r.media].sort((x, y) => x.order - y.order)[0];
 const jsonLd = [
   {
@@ -87,10 +78,6 @@ const jsonLd = [
     ],
   },
 ];
-const levelLabel: Record<string, string> = {
-  fundo: 'Fundo', serie: 'Série', dossie: 'Dossiê', item: 'Item',
-  'pagina-agregada': 'Página que reúne vários itens', 'nao-se-aplica': 'Não se aplica (amostra é uma página de coleção)',
-};
 ---
 {redirectTo ? (
   <html lang="pt-BR">
@@ -138,249 +125,24 @@ const levelLabel: Record<string, string> = {
 
     <details class="record-notes">
       <summary>Notas e fontes</summary>
-      {r.initiative_url !== r.digital_collection_url && <p><ExtLink href={r.initiative_url}>Site da iniciativa</ExtLink></p>}
-    <div class="cols">
-      <div class="main">
-        <section class="sample" aria-labelledby="amostra">
-          <h2 id="amostra">Sobre a amostra</h2>
-          <h3>{r.sample.title}</h3>
-          {lead && <MediaPlate record={r} variant="detail" />}
-          <p>{r.sample.observed}</p>
-          <dl class="fields">
-            <dt>Nível de descrição</dt>
-            <dd>{levelLabel[r.sample.level_of_description.value]} <span class="muted">({r.sample.level_of_description.declared_by_source ? 'segundo a fonte' : 'atribuído pela curadoria'})</span></dd>
-            {r.sample.creator && (<><dt>Autoria (fonte)</dt><dd>{r.sample.creator}</dd></>)}
-            {r.sample.date && (<><dt>Data (fonte)</dt><dd>{r.sample.date}</dd></>)}
-            <dt>O que foi confirmado</dt>
-            <dd>
-              {r.sample.confirmed_media.length
-                ? r.sample.confirmed_media.map((m) => V.label(V.formats, m)).join(', ')
-                : 'Nenhuma mídia confirmada.'}
-            </dd>
-            <dt>Descrição da imagem</dt>
-            <dd>
-              {r.sample.alt_from_source
-                ? <>“{r.sample.alt_from_source}” <span class="meta muted">(texto alternativo da fonte)</span></>
-                : 'Descrição ainda não fornecida pela fonte.'}
-            </dd>
-            {r.sample.rights_text && (<><dt>Direitos (amostra)</dt><dd>{r.sample.rights_text}</dd></>)}
-          </dl>
-          <p class="open-sample"><ExtLink href={r.sample_content_url}>Abrir a amostra na fonte</ExtLink></p>
-        </section>
-
-        <section aria-labelledby="porque">
-          <h2 id="porque">Por que esta iniciativa está aqui?</h2>
-          <p>{r.curatorial_reason.pt}</p>
-          {r.self_description && (
-            <blockquote class="self" lang={r.self_description.lang}>
-              <p>{r.self_description.text}</p>
-              <footer class="meta">
-                Autodescrição ({V.label(V.languages, r.self_description.lang)}) —{' '}
-                <ExtLink href={r.self_description.source_url} label="fonte da autodescrição">fonte</ExtLink>
-              </footer>
-            </blockquote>
-          )}
-        </section>
-
-        <section aria-labelledby="quem">
-          <h2 id="quem">Organização do acervo</h2>
-          <dl class="fields">
-            <dt>Mantém / hospeda</dt>
-            <dd>
-              <strong>{V.label(V.stewardshipTypes, r.stewardship_or_host.type)}</strong>
-              {r.stewardship_or_host.name && <> — {r.stewardship_or_host.name}</>}
-              <br />{r.stewardship_or_host.note}
-              {r.stewardship_or_host.source_url && <> <ExtLink href={r.stewardship_or_host.source_url} label="fonte sobre quem mantém">fonte</ExtLink></>}
-            </dd>
-            <dt>Relação comunitária</dt>
-            <dd>
-              <strong>{V.label(V.communityEvidenceKinds, r.community_evidence.kind)}</strong>
-              <br />{r.community_evidence.note}
-              {r.community_evidence.source_url && <> <ExtLink href={r.community_evidence.source_url} label="fonte sobre a relação comunitária">fonte</ExtLink></>}
-            </dd>
-            {r.provenance_note && (<><dt>Procedência</dt><dd>{r.provenance_note}</dd></>)}
-          </dl>
-          <p class="meta muted">
-            Quem mantém o acervo e a comunidade representada nele são informações diferentes,
-            registradas separadamente.
-          </p>
-        </section>
-
-        <section aria-labelledby="acesso">
-          <h2 id="acesso">Acesso, direitos e cuidados</h2>
-          <dl class="fields">
-            <dt>Regime de acesso</dt>
-            <dd>{V.label(V.accessLevels, r.access_level)}{r.access_requirements && <> — {r.access_requirements}</>}</dd>
-            {r.access_notes && (<><dt>Notas de acesso</dt><dd>{r.access_notes}</dd></>)}
-            <dt>Direitos e reuso</dt>
-            <dd>
-              {r.rights_and_reuse.statement === 'desconhecido'
-                ? 'Desconhecido: a fonte não informa ou não localizamos.'
-                : r.rights_and_reuse.statement}
-              {r.rights_and_reuse.source_url && <> <ExtLink href={r.rights_and_reuse.source_url} label="fonte sobre direitos e reuso">fonte</ExtLink></>}
-            </dd>
-            {r.community_protocol && (<><dt>Protocolo comunitário</dt><dd>{r.community_protocol}</dd></>)}
-            {r.sensitive_content_note && (<><dt>Conteúdo sensível</dt><dd>{r.sensitive_content_note}</dd></>)}
-            {r.removal_or_contact_url && (
-              <><dt>Contato da iniciativa</dt><dd><ExtLink href={r.removal_or_contact_url}>{r.removal_or_contact_url.replace(/^mailto:/, '')}</ExtLink></dd></>
-            )}
-          </dl>
-          <p class="meta muted">
-            Estar digitalizado, ter acesso público, permitir reuso e estar preservado a longo prazo
-            são coisas diferentes. Este registro só afirma o que a fonte declara.
-          </p>
-        </section>
-
-        {(r.platform || r.machine_access.length > 0 || r.holdings_extent.length > 0) && (
-          <section aria-labelledby="publicacao">
-            <h2 id="publicacao">Como o acervo é publicado</h2>
-            <dl class="fields">
-              {r.holdings_extent.length > 0 && (
-                <>
-                  <dt>Extensão</dt>
-                  <dd>
-                    <ul class="plain">
-                      {r.holdings_extent.map((e) => (
-                        <li>
-                          {e.statement} <span class="muted">({e.scope}; {extentBasisLabels[e.basis]} em{' '}
-                          <time datetime={e.accessed_at}>{formatDate(e.accessed_at)}</time>,{' '}
-                          <ExtLink href={e.source_url} label={`fonte da extensão: ${e.scope}`}>fonte</ExtLink>)</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </dd>
-                </>
-              )}
-              {r.platform && (
-                <>
-                  <dt>Plataforma</dt>
-                  <dd>
-                    {r.platform.software}
-                    {r.platform.note && <><br /><span class="muted">{r.platform.note}</span></>}
-                  </dd>
-                </>
-              )}
-              {r.machine_access.length > 0 && (
-                <>
-                  <dt>Acesso por máquina</dt>
-                  <dd>
-                    <ul class="plain">
-                      {r.machine_access.map((m) => (
-                        <li>
-                          <ExtLink href={m.url}>{machineAccessLabels[m.kind]}</ExtLink>{' '}
-                          <span class="muted">— {machineStatusLabels[m.status]} em <time datetime={m.checked_at}>{formatDate(m.checked_at)}</time>{m.note && <>. {m.note}</>}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </dd>
-                </>
-              )}
-            </dl>
-            <p class="meta muted">
-              Extensões declaradas e contagens nossas não são comparáveis entre si: cada fonte conta
-              de um jeito (itens, páginas, documentos, posts).
-            </p>
-          </section>
-        )}
-
-        {r.relationship_disclosure && (
-          <section class="callout callout--warn" aria-labelledby="vinculo">
-            <h2 id="vinculo">Vínculo da curadoria</h2>
-            <p>{r.relationship_disclosure}</p>
-          </section>
-        )}
-
-        <section aria-labelledby="evidencias">
-          <h2 id="evidencias">Fontes consultadas</h2>
-          <ol class="evidence">
-            {r.evidence.map((e, i) => (
-              <li>
-                <p>{e.claim}</p>
-                <p class="meta">
-                  {V.label(V.evidenceKinds, e.kind)} · certeza {V.label(V.certaintyLevels, e.certainty).toLowerCase()} ·
-                  consultado em <time datetime={e.accessed_at}>{formatDate(e.accessed_at)}</time> ·{' '}
-                  <ExtLink href={e.source_url} label={`fonte ${i + 1}: ${e.claim}`}>fonte</ExtLink>
-                </p>
-                {e.note && <p class="meta muted">{e.note}</p>}
-              </li>
-            ))}
-          </ol>
-          {r.gaps.length > 0 && (
-            <>
-              <h3>O que ainda não sabemos</h3>
-              <ul>{r.gaps.map((g) => <li>{g}</li>)}</ul>
-            </>
-          )}
-        </section>
-      </div>
-
-      <aside class="side" aria-label="Ficha">
-        <div class="box">
-          <p class="kicker">Verificação</p>
-          <Status status={r.content_status} help />
-          <dl class="fields compact">
-            <dt>Última verificação</dt>
-            <dd><time datetime={r.last_verified_at}>{formatDate(r.last_verified_at)}</time></dd>
-            <dt>Link</dt>
-            <dd>{V.label(V.linkStatuses, r.link_status)}</dd>
-            <dt>Como</dt>
-            <dd>{r.verification_method}</dd>
-          </dl>
-          {r.review_flag && (
-            <p class="meta flag">Em revisão: {r.review_reason}</p>
-          )}
-        </div>
-        <div class="box">
-          <p class="kicker">Ficha</p>
-          <dl class="fields compact">
-            <dt>Lugar</dt><dd>{place}{r.territory_note && <><br /><span class="muted">{r.territory_note}</span></>}</dd>
-            <dt>Alcance</dt><dd>{V.label(V.geographicScopes, r.geographic_scope)}</dd>
-            <dt>Período</dt><dd>{r.date_range.label}</dd>
-            <dt>Línguas</dt><dd>{r.languages.map((l) => V.label(V.languages, l)).join(', ')}</dd>
-            <dt>Tipos de acervo</dt><dd>{r.collection_types.map((t) => V.label(V.collectionTypes, t)).join(', ')}</dd>
-            {r.collection_types_original.length > 0 && (<><dt>Termos da fonte</dt><dd lang="und">{r.collection_types_original.join('; ')}</dd></>)}
-            <dt>Temas</dt><dd>{r.themes.map((t) => V.label(V.themes, t)).join(', ') || '—'}</dd>
-            {r.themes_original.length > 0 && (<><dt>Etiquetas originais</dt><dd lang="und">{r.themes_original.join('; ')}</dd></>)}
-            <dt>Formatos</dt><dd>{r.formats.map((f) => V.label(V.formats, f)).join(', ')}</dd>
-            {r.design_dimensions.length > 0 && (<><dt>Design</dt><dd>{r.design_dimensions.map((d) => V.label(V.designDimensions, d)).join(', ')}</dd></>)}
-          </dl>
-        </div>
-        <p><a class="btn" href={sitePath(`/comparar/?ids=${r.id}`)}>Comparar com outros</a></p>
-      </aside>
-    </div>
-
-    {rel.length > 0 && (
-      <section aria-labelledby="relacoes">
-        <h2 id="relacoes">Outros acervos</h2>
+      <div class="record-notes-body">
+        {lead && <MediaPlate record={r} variant="detail" />}
+        {r.community_protocol && <p>{r.community_protocol}</p>}
+        {r.relationship_disclosure && <p>{r.relationship_disclosure}</p>}
+        <h2>Fontes consultadas</h2>
+        <p>Consulta em <time datetime={r.last_verified_at}>{formatDate(r.last_verified_at)}</time>.</p>
         <ul class="record-links">
-          {rel.map(({ record }) => <li><a href={recordPath(record.id)}>{record.name}</a></li>)}
+          <li><ExtLink href={r.initiative_url}>Site da iniciativa</ExtLink></li>
+          {r.sample_content_url !== r.initiative_url && (
+            <li><ExtLink href={r.sample_content_url}>{r.sample.title}</ExtLink></li>
+          )}
+          {r.rights_and_reuse.source_url && r.rights_and_reuse.statement !== 'desconhecido' &&
+            r.rights_and_reuse.source_url !== r.sample_content_url && r.rights_and_reuse.source_url !== r.initiative_url && (
+              <li><ExtLink href={r.rights_and_reuse.source_url}>Condições de uso na fonte</ExtLink></li>
+            )}
+          {siteConfig.repoUrl && <li><ExtLink href={`${siteConfig.repoUrl}/blob/main/src/content/acervos/${r.id}.yaml`}>Ficha e referências no repositório</ExtLink></li>}
         </ul>
-      </section>
-    )}
-
-    <section aria-labelledby="historico" class="history">
-      <h2 id="historico">Histórico do registro</h2>
-      <ol class="meta">
-        {r.change_log.map((c) => (
-          <li>
-            <time datetime={c.date}>{formatDate(c.date)}</time> — {c.field === '*' ? 'registro' : c.field}:
-            {c.from != null && <> de “{c.from}”</>}{c.to != null && <> para “{c.to}”</>}. {c.reason}
-          </li>
-        ))}
-      </ol>
-      <h3>Controle da descrição</h3>
-      <dl class="fields compact meta">
-        <dt>Nível de detalhe</dt>
-        <dd>{levelOfDetailLabels[detail]}{missing.length > 0 && <span class="muted"> (falta: {missing.join(', ')})</span>}</dd>
-        <dt>Regras</dt><dd>{descriptionControl.rules}</dd>
-        <dt>Idioma da descrição</dt><dd>{descriptionControl.language}</dd>
-        <dt>Fontes</dt><dd>{r.evidence.length} evidência(s) com data de consulta, listadas acima</dd>
-      </dl>
-      <p class="meta muted">
-        Incluído em {formatDate(r.created_at)} · atualizado em {formatDate(r.updated_at)} ·{' '}
-        <a href={sitePath('/contribuir/')}>corrigir ou contestar esta descrição</a>
-      </p>
-    </section>
+      </div>
     </details>
   </article>
 </Base>

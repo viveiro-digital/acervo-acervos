@@ -3,7 +3,7 @@ export const siteConfig = {
   name: 'Acervo Acervos',
   subtitle: 'Explore o que iniciativas e arquivos compartilham online.',
   description:
-    'Curadoria em construção de iniciativas e arquivos do Brasil e da América Latina que compartilham conteúdo digital consultável, com evidência, condições de acesso e lacunas de cada registro.',
+    'Explore coleções digitais do Brasil e da América Latina, de zines e cartazes a fotografias e documentos.',
   locale: 'pt-BR',
   /**
    * Canal público para sugestões, correções e pedidos de remoção.

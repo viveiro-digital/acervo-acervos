@@ -9,10 +9,8 @@ self_description:
   source_url: https://irohin.org.br/acervo/
 description:
   pt: >-
-    Acervo digital de documentação afro-brasileira em Tainacan: jornal Ìrohìn
-    (1996–2008), acervo iconográfico com cartazes, bótons e panfletos do
-    movimento negro, fotografias da Marcha Zumbi dos Palmares de 1995 e
-    documentos da Marcha das Mulheres Negras de 2015 (em desenvolvimento).
+    Edições do jornal Ìrohìn, cartazes e panfletos do movimento negro e
+    fotografias da Marcha Zumbi dos Palmares de 1995.
 initiative_url: https://irohin.org.br/
 digital_collection_url: https://irohin.org.br/acervo/colecoes/
 sample_content_url: https://irohin.org.br/acervo/acervo-grafico/ir20190281-pdf/
@@ -108,3 +106,6 @@ change_log:
     to: verificado no site
     reason: Catalogação conforme ISDIAH (5.3.7 acervo, 5.3.8 instrumentos de pesquisa); ver docs/CATALOGACAO.md.
     source: https://irohin.org.br/wp-json/tainacan/v2/oai?verb=Identify
+  - date: "2026-11-22"
+    field: description.pt
+    reason: "Texto revisto para apresentar o que há na coleção e como explorar."

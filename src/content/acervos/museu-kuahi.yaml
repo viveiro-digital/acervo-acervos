@@ -9,8 +9,8 @@ self_description:
   source_url: https://museukuahi.com.br/
 description:
   pt: >-
-    Museu em Oiapoque (Amapá) com acervo etnográfico, arqueológico e audiovisual
-    publicado em Tainacan, além de um dicionário Kheuól Karipuna listado no site.
+    Objetos, fotografias e vídeos das coleções do Museu Kuahí, em Oiapoque, no
+    Amapá. O site também reúne um dicionário Kheuól Karipuna.
 initiative_url: https://museukuahi.com.br/
 digital_collection_url: https://museukuahi.com.br/acervo-etnografico/
 sample_content_url: https://museukuahi.com.br/kuahi-teste/rede-de-dormir/
@@ -144,3 +144,6 @@ change_log:
     to: verificado no site
     reason: Catalogação conforme ISDIAH (5.3.7 acervo, 5.3.8 instrumentos de pesquisa); ver docs/CATALOGACAO.md.
     source: https://museukuahi.com.br/wp-json/tainacan/v2/oai?verb=Identify
+  - date: "2026-11-22"
+    field: description.pt
+    reason: "Texto revisto para apresentar o que há na coleção e como explorar."

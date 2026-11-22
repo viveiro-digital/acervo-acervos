@@ -2,38 +2,27 @@
 import { sitePath } from '../lib/site-path';
 import Base from '../layouts/Base.astro';
 import CollectionCover from '../components/CollectionCover.astro';
-import Status from '../components/Status.astro';
+import ExtLink from '../components/ExtLink.astro';
 import * as V from '../data/vocabulario';
-import { getPublished, formatDate, recordPath } from '../lib/acervos';
+import { getPublished, recordPath } from '../lib/acervos';
 
 const records = await getPublished();
 
-const rows: { label: string; detail?: boolean; cell: (r: (typeof records)[number]) => string }[] = [
-  { label: 'Território', cell: (r) => [r.city, r.region, ...r.country.map((c) => V.label(V.countries, c))].filter(Boolean).join(', ') },
-  { detail: true, label: 'Alcance', cell: (r) => V.label(V.geographicScopes, r.geographic_scope) },
-  { label: 'Temas', cell: (r) => r.themes.map((t) => V.label(V.themes, t)).join(', ') || '—' },
-  { label: 'Tipos de acervo', cell: (r) => r.collection_types.map((t) => V.label(V.collectionTypes, t)).join(', ') },
-  { label: 'Formatos', cell: (r) => r.formats.map((f) => V.label(V.formats, f)).join(', ') },
-  { label: 'Período do conteúdo', cell: (r) => r.date_range.label },
-  { detail: true, label: 'Quem mantém', cell: (r) => `${V.label(V.stewardshipTypes, r.stewardship_or_host.type)}${r.stewardship_or_host.name ? ` — ${r.stewardship_or_host.name}` : ''}` },
-  { detail: true, label: 'Relação comunitária', cell: (r) => V.label(V.communityEvidenceKinds, r.community_evidence.kind) },
+const rows: { label: string; cell: (r: (typeof records)[number]) => string }[] = [
+  { label: 'O que tem', cell: (r) => r.description.pt },
+  { label: 'Lugar', cell: (r) => [r.city, r.region, ...r.country.map((c) => V.label(V.countries, c))].filter(Boolean).join(', ') },
+  { label: 'Período', cell: (r) => r.date_range.label },
   { label: 'Acesso', cell: (r) => V.label(V.accessLevels, r.access_level) },
-  { detail: true, label: 'Direitos', cell: (r) => (r.rights_and_reuse.statement === 'desconhecido' ? 'Desconhecido' : r.rights_and_reuse.statement) },
-  { detail: true, label: 'Amostra', cell: (r) => `${r.sample.title} — ${r.sample.confirmed_media.map((m) => V.label(V.formats, m)).join(', ') || 'sem mídia confirmada'}` },
-  { detail: true, label: 'Fontes', cell: (r) => `${r.evidence.length} afirmação(ões) com fonte` },
-  { detail: true, label: 'Motivo da inclusão', cell: (r) => r.curatorial_reason.pt },
-  { detail: true, label: 'Lacunas', cell: (r) => r.gaps.join(' · ') || '—' },
 ];
 ---
 <Base
   title="Comparar"
-  description="Compare de 2 a 4 registros lado a lado: território, temas, acesso, verificação, evidências e lacunas. Sem ranking."
+  description="Veja o que cada coleção reúne e abra o acervo de origem."
   current="comparar"
 >
   <div class="wrap">
     <header>
       <h1>Comparar</h1>
-      <p>Escolha até quatro acervos para explorar lado a lado.</p>
     </header>
 
     <form id="escolha" class="pick" action={sitePath('/comparar/')} method="get">
@@ -74,26 +63,20 @@ const rows: { label: string; detail?: boolean; cell: (r: (typeof records)[number
           </tr>
         </thead>
         <tbody>
-          <tr data-detail>
-            <th scope="row">Verificação</th>
-            {records.map((r) => (
-              <td data-col={r.id}>
-                <Status status={r.content_status} /><br />
-                <span class="meta">{formatDate(r.last_verified_at)}</span>
-              </td>
-            ))}
-          </tr>
           {rows.map((row) => (
-            <tr data-detail={row.detail || undefined}>
+            <tr>
               <th scope="row">{row.label}</th>
               {records.map((r) => <td data-col={r.id}>{row.cell(r)}</td>)}
             </tr>
           ))}
+          <tr>
+            <th scope="row">Coleção</th>
+            {records.map((r) => <td data-col={r.id}><ExtLink href={r.digital_collection_url}>Explorar a coleção</ExtLink></td>)}
+          </tr>
         </tbody>
       </table>
     </div>
-    <button id="compare-details" class="btn" type="button" aria-expanded="false" aria-controls="tabela" hidden>Mais detalhes</button>
-    <p id="vazio" class="callout" hidden>Selecione pelo menos dois acervos para comparar.</p>
+    <p id="vazio" class="callout" hidden>Escolha de 2 a 4 acervos.</p>
   </div>
 </Base>
 
@@ -104,15 +87,6 @@ const rows: { label: string; detail?: boolean; cell: (r: (typeof records)[number
   const table = document.getElementById('tabela') as HTMLTableElement;
   const empty = document.getElementById('vazio')!;
   const aviso = document.getElementById('aviso')!;
-  const details = document.getElementById('compare-details') as HTMLButtonElement;
-  const extraRows = table.querySelectorAll<HTMLTableRowElement>('[data-detail]');
-  function showDetails(open: boolean) {
-    details.setAttribute('aria-expanded', String(open));
-    details.textContent = open ? 'Menos detalhes' : 'Mais detalhes';
-    for (const row of extraRows) row.hidden = !open;
-  }
-  showDetails(false);
-  details.addEventListener('click', () => showDetails(details.getAttribute('aria-expanded') === 'false'));
   const valid = new Set(boxes.map((b) => b.value));
 
   function fromUrl(): string[] {
@@ -128,7 +102,6 @@ const rows: { label: string; detail?: boolean; cell: (r: (typeof records)[number
     const show = ids.length >= 2;
     table.closest('.table-wrap')!.toggleAttribute('hidden', !show);
     empty.hidden = show;
-    details.hidden = !show;
     for (const cell of table.querySelectorAll<HTMLElement>('[data-col]')) {
       cell.hidden = !ids.includes(cell.dataset.col!);
     }
@@ -140,7 +113,7 @@ const rows: { label: string; detail?: boolean; cell: (r: (typeof records)[number
       }
     }
     aviso.textContent =
-      ids.length >= MAX ? `Limite de ${MAX} registros atingido.` : `${ids.length} selecionado(s).`;
+      ids.length ? `${ids.length} de ${MAX} acervos` : '';
     const qs = ids.length ? `?ids=${ids.join(',')}` : '';
     history.replaceState(null, '', location.pathname + qs);
   }
@@ -160,7 +133,6 @@ const rows: { label: string; detail?: boolean; cell: (r: (typeof records)[number
   thead :global(.collection-cover) { aspect-ratio: 3 / 2; margin-bottom: 0.6rem; }
   .picker summary { cursor: pointer; width: fit-content; padding-block: 0.55rem; }
   .picker fieldset { padding-block: 0.65rem; }
-  #compare-details { margin-top: 1rem; }
   .pick-list {
     list-style: none;
     padding: 0;

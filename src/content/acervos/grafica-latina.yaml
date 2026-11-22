@@ -8,9 +8,8 @@ self_description:
   source_url: https://graficalatina.com/
 description:
   pt: >-
-    Arquivo digital e itinerante de design gráfico latino-americano, organizado em
-    microsites temáticos e por autor (cartaz anticolonial, cartaz cultural,
-    cinema, solidariedade e outros), com textos de contexto.
+    Design gráfico latino-americano em exposições online sobre cartazes de
+    cinema, cultura, solidariedade e lutas anticoloniais.
 initiative_url: https://graficalatina.com/
 digital_collection_url: https://graficalatina.com/
 sample_content_url: https://cartelanticolonial.graficalatina.com/
@@ -97,3 +96,6 @@ change_log:
     to: verificado no site
     reason: Catalogação conforme ISDIAH (5.3.7 acervo, 5.3.8 instrumentos de pesquisa); ver docs/CATALOGACAO.md.
     source: verificação no navegador
+  - date: "2026-11-22"
+    field: description.pt
+    reason: "Texto revisto para apresentar o que há na coleção e como explorar."

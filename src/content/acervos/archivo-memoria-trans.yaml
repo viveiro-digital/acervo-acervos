@@ -9,10 +9,8 @@ self_description:
   source_url: https://archivotrans.ar/index.php/acerca
 description:
   pt: >-
-    Arquivo de memória trans argentina com catálogo público em AtoM (fundos,
-    séries, autoridades), além de publicações e vídeos. Reúne fotografias,
-    cartas, documentos pessoais e recortes de imprensa do início do século XX
-    aos anos 1990.
+    Fotografias, cartas e recortes de imprensa sobre a vida de pessoas trans na
+    Argentina. O catálogo permite navegar por fundos e séries.
 initiative_url: https://archivotrans.ar/
 digital_collection_url: https://atom.archivotrans.ar/
 sample_content_url: https://atom.archivotrans.ar/index.php/anotaciones-personales
@@ -135,3 +133,6 @@ change_log:
     to: verificado no site
     reason: Catalogação conforme ISDIAH (5.3.7 acervo, 5.3.8 instrumentos de pesquisa); ver docs/CATALOGACAO.md.
     source: https://atom.archivotrans.ar/
+  - date: "2026-11-22"
+    field: description.pt
+    reason: "Texto revisto para apresentar o que há na coleção e como explorar."

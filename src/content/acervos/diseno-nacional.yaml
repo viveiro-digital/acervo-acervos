@@ -9,9 +9,8 @@ self_description:
   source_url: https://www.disenonacional.cl/
 description:
   pt: >-
-    Arquivo e banco de imagens de gráfica e produtos chilenos de 1840 a 2000,
-    organizado em seis áreas (cartazes, editorial, publicidade, marcas,
-    simbologia, produtos) e navegável por década, setor e arquivo de origem.
+    Cartazes, publicidade e design editorial do Chile, de 1840 a 2000. Explore
+    por década, setor ou arquivo de origem.
 initiative_url: https://www.disenonacional.cl/
 digital_collection_url: https://www.disenonacional.cl/carteles/carteles-politicos/
 sample_content_url: https://www.disenonacional.cl/todo-hombre-tiene-derecho-a-ser-persona-2/
@@ -136,3 +135,6 @@ change_log:
     to: verificado no site
     reason: Catalogação conforme ISDIAH (5.3.7 acervo, 5.3.8 instrumentos de pesquisa); ver docs/CATALOGACAO.md.
     source: https://www.disenonacional.cl/wp-json/wp/v2/posts
+  - date: "2026-11-22"
+    field: description.pt
+    reason: "Texto revisto para apresentar o que há na coleção e como explorar."

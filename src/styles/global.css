@@ -597,48 +597,13 @@ legend {
 .record-notes[open] > summary {
   margin-bottom: 1.35rem;
 }
-.record .cols {
-  display: grid;
-  gap: var(--gap);
-}
-.record .main > section,
-.record .box {
-  margin-bottom: 1.6rem;
-}
-.record .sample figure {
-  margin-block: 0 1rem;
-}
-.record .open-sample {
-  margin-top: 0.85rem;
-}
-.record .fields.compact {
-  grid-template-columns: 1fr;
-  gap: 0.15rem;
-  margin-top: 0.8rem;
-}
-.record .fields.compact dd {
-  margin-bottom: 0.5rem;
-}
-.record .evidence {
-  padding-left: 1.2rem;
-}
-.record .evidence li {
-  margin-bottom: 0.85rem;
-}
-.record .evidence p {
-  margin-bottom: 0.2rem;
-}
-.record .history {
-  border-top: 1px solid var(--rule);
-  padding-top: 1.1rem;
-}
+.record-notes-body { max-width: 43rem; }
+.record-notes-body .plate { margin-bottom: 1.1rem; }
+.record-notes-body h2 { font-size: var(--step-1); }
 @media (min-width: 55rem) {
   .record-head {
     grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr);
     align-items: center;
-  }
-  .record .cols {
-    grid-template-columns: minmax(0, 1fr) minmax(13rem, 24%);
   }
 }
 html.panel-open {

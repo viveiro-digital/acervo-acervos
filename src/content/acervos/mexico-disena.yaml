@@ -8,9 +8,8 @@ self_description:
   source_url: https://mexicodisena.com.mx/publicaciones/artes-de-mexico-primera-epoca/
 description:
   pt: >-
-    Arquivo de design editorial mexicano estruturado em fichas que relacionam
-    publicações, pessoas, editoras e funções (direção de arte, design
-    editorial, tipografia), com contexto e fontes citadas.
+    Revistas, livros e outros impressos do México, com fichas que ligam cada
+    publicação às pessoas e editoras que a fizeram.
 initiative_url: https://mexicodisena.com.mx/
 digital_collection_url: https://mexicodisena.com.mx/archivo/
 sample_content_url: https://mexicodisena.com.mx/publicaciones/artes-de-mexico-primera-epoca/
@@ -105,3 +104,6 @@ change_log:
     to: verificado no site
     reason: Catalogação conforme ISDIAH (5.3.7 acervo, 5.3.8 instrumentos de pesquisa); ver docs/CATALOGACAO.md.
     source: https://mexicodisena.com.mx/wp-json/wp/v2/publicacion
+  - date: "2026-11-22"
+    field: description.pt
+    reason: "Texto revisto para apresentar o que há na coleção e como explorar."

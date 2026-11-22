@@ -5,9 +5,9 @@ alternative_names: [Emaranhados do Xingu]
 initiative_type: projeto-de-pesquisa
 description:
   pt: >-
-    Interface experimental que conecta vídeos, diagramas, desenhos, fotografias e
-    palavras-chave em narrativas não lineares sobre cultura material do povo
-    Kuikuro, do Alto Xingu, e sobre coleções etnográficas em museus.
+    Vídeos, desenhos e fotografias sobre a cultura material Kuikuro, no Alto
+    Xingu. Siga as conexões do mapa para explorar temas como pesca, esteiras e
+    buriti.
 initiative_url: https://uclab-potsdam.github.io/xingu-entangled/
 digital_collection_url: https://uclab-potsdam.github.io/xingu-entangled/
 sample_content_url: https://uclab-potsdam.github.io/xingu-entangled/#/graph/28c47119-1798-4f58-95ea-b25d4e7045f2
@@ -102,3 +102,6 @@ change_log:
     to: verificado no site
     reason: Catalogação conforme ISDIAH (5.3.7 acervo, 5.3.8 instrumentos de pesquisa); ver docs/CATALOGACAO.md.
     source: verificação no navegador
+  - date: "2026-11-22"
+    field: description.pt
+    reason: "Texto revisto para apresentar o que há na coleção e como explorar."
