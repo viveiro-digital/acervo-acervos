@@ -8,6 +8,7 @@ export const GET: APIRoute = async ({ site }) => {
     { path: '/' },
     { path: '/explorar/' },
     { path: '/sobre/' },
+    { path: '/metodologia/' },
     { path: '/contribuir/' },
     ...records.map((r) => ({ path: recordPath(r.id), lastmod: r.updated_at })),
   ];

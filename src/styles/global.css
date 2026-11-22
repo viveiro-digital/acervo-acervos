@@ -148,8 +148,8 @@ p {
 }
 
 .site-header {
-  border-bottom: 2px solid var(--rule);
-  padding-block: 0.8rem;
+  border-bottom: 1px solid var(--rule);
+  padding-block: 0.7rem;
 }
 .site-header .wrap {
   display: flex;
@@ -165,11 +165,10 @@ p {
   display: flex;
   flex-wrap: wrap;
   gap: 0.2rem 1.2rem;
-  font-family: var(--f-display);
-  font-stretch: condensed;
-  font-size: var(--step-1);
+  font-family: var(--f-mono);
+  font-size: var(--step--1);
   text-transform: uppercase;
-  letter-spacing: 0.03em;
+  letter-spacing: 0.06em;
 }
 .site-nav a {
   text-decoration: none;
@@ -185,14 +184,9 @@ main {
 }
 
 .site-footer {
-  border-top: 2px solid var(--rule);
-  padding-block: 1.5rem 3rem;
+  border-top: 1px solid var(--rule);
+  padding-block: 1.2rem 2rem;
   font-size: var(--step--1);
-}
-.site-footer .wrap {
-  display: grid;
-  gap: 1rem;
-  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
 }
 
 /* ── Marca ───────────────────────────────────────────────── */
@@ -550,4 +544,118 @@ legend {
   a.ext::after {
     content: ' (' attr(href) ')';
   }
+}
+
+/* ── Página do registro (também usada no painel do explorar) ── */
+
+  .record-head {
+    display: grid;
+    gap: 1.5rem 2.5rem;
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 2rem;
+    margin-bottom: 2rem;
+  }
+  @media (min-width: 60rem) {
+    .record-head.has-media {
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+      align-items: start;
+    }
+    .record-head.no-media {
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+      align-items: start;
+    }
+    .record .head-text {
+      position: sticky;
+      top: 1rem;
+    }
+  }
+  @media (min-width: 60rem) {
+    .record-head.has-media.wide {
+      grid-template-columns: 1fr;
+    }
+    .record-head.wide .head-text {
+      position: static;
+    }
+  }
+  .record-head.no-media .head-media {
+    order: 2;
+  }
+  .record .lede {
+    font-size: var(--step-1);
+    line-height: 1.4;
+  }
+  .record .cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin: 1rem 0;
+  }
+  .record .cols {
+    display: grid;
+    gap: 2.5rem;
+  }
+  @media (min-width: 60rem) {
+    .record .cols {
+      grid-template-columns: minmax(0, 1fr) 20rem;
+    }
+    .record .side {
+      position: sticky;
+      top: 1rem;
+      align-self: start;
+    }
+  }
+  .record .main > section {
+    margin-bottom: 2.5rem;
+  }
+  .record .sample {
+    border: 2px solid var(--ink);
+    padding: 1.2rem 1.4rem;
+    background: #fffdf8;
+  }
+  .record .open-sample {
+    margin-top: 1rem;
+  }
+  .record .box {
+    border-top: 2px solid var(--rule);
+    padding-top: 0.8rem;
+    margin-bottom: 1.5rem;
+  }
+  .record .fields.compact {
+    grid-template-columns: 1fr;
+    gap: 0.1rem;
+    margin-top: 0.8rem;
+  }
+  .record .fields.compact dd {
+    margin-bottom: 0.5rem;
+  }
+  .record .flag {
+    color: var(--red);
+    border-left: 3px solid var(--red);
+    padding-left: 0.6rem;
+  }
+  .record .evidence {
+    padding-left: 1.2rem;
+  }
+  .record .evidence li {
+    margin-bottom: 0.9rem;
+  }
+  .record .evidence p {
+    margin-bottom: 0.2rem;
+  }
+  .relations,
+  .record .history {
+    border-top: 2px solid var(--rule);
+    padding-top: 1rem;
+    margin-top: 2rem;
+  }
+  .record .rel-list {
+    padding-left: 1.2rem;
+  }
+
+
+html.panel-open {
+  overflow: hidden;
+}
+.record .sample {
+  border: 1px solid var(--ink);
 }

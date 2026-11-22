@@ -2,6 +2,9 @@
 import Base from '../../layouts/Base.astro';
 import Status from '../../components/Status.astro';
 import ExtLink from '../../components/ExtLink.astro';
+import MediaPlate from '../../components/MediaPlate.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import { siteConfig } from '../../site.config';
 import * as V from '../../data/vocabulario';
 import { getPublished, related, formatDate, recordPath, type Acervo } from '../../lib/acervos';
 
@@ -24,6 +27,56 @@ const all = await getPublished();
 const rel = related(r, all);
 const place = [r.city, r.region, ...r.country.map((c) => V.label(V.countries, c))].filter(Boolean).join(', ');
 const description = `${r.description.pt} Amostra verificada: ${r.sample.title}.`;
+const canonical = new URL(recordPath(r.id), Astro.site).href;
+const lead = [...r.media].sort((x, y) => x.order - y.order)[0];
+// Imagens largas (panorâmicas) ocupam a largura toda em vez de uma coluna.
+const wide = lead ? lead.local_asset.width / lead.local_asset.height > 1.4 : false;
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    '@id': canonical,
+    url: canonical,
+    name: `${r.name} — ${siteConfig.name}`,
+    description: r.description.pt,
+    inLanguage: 'pt-BR',
+    dateModified: r.updated_at,
+    datePublished: r.created_at,
+    isPartOf: { '@type': 'WebSite', name: siteConfig.name, url: new URL('/', Astro.site).href },
+    // A página descreve uma coleção digital mantida por terceiros.
+    about: {
+      '@type': 'Collection',
+      name: r.preferred_name ?? r.name,
+      alternateName: r.alternative_names.length ? r.alternative_names : undefined,
+      url: r.digital_collection_url,
+      sameAs: r.initiative_url,
+      inLanguage: r.languages,
+      spatialCoverage: r.country.filter((c) => c !== 'LATAM').map((c) => ({ '@type': 'Country', name: V.label(V.countries, c) })),
+      keywords: r.themes.map((t) => V.label(V.themes, t)).join(', ') || undefined,
+    },
+    primaryImageOfPage: lead
+      ? {
+          '@type': 'ImageObject',
+          contentUrl: new URL(lead.local_asset.src, Astro.site).href,
+          caption: lead.caption,
+          creditText: lead.credit,
+          license: lead.license_url,
+          acquireLicensePage: lead.page_url,
+          width: lead.local_asset.width,
+          height: lead.local_asset.height,
+        }
+      : undefined,
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Início', item: new URL('/', Astro.site).href },
+      { '@type': 'ListItem', position: 2, name: 'Explorar', item: new URL('/explorar/', Astro.site).href },
+      { '@type': 'ListItem', position: 3, name: r.name, item: canonical },
+    ],
+  },
+];
 ---
 {redirectTo ? (
   <html lang="pt-BR">
@@ -39,26 +92,38 @@ const description = `${r.description.pt} Amostra verificada: ${r.sample.title}.`
     </body>
   </html>
 ) : (
-<Base title={r.name} description={description} ogType="article">
-  <article class="wrap record">
-    <header class="record-head">
-      <p class="kicker">
-        {V.label(V.initiativeTypes, r.initiative_type)} · {place}
-      </p>
-      <h1>{r.name}</h1>
-      {r.alternative_names.length > 0 && (
-        <p class="meta muted">Também: {r.alternative_names.join(' · ')}</p>
-      )}
-      <p class="lede">{r.description.pt}</p>
-      <div class="cta">
-        <ExtLink href={r.initiative_url} class="btn">Site da iniciativa</ExtLink>
-        <ExtLink href={r.digital_collection_url} class="btn btn--primary">Explorar a coleção</ExtLink>
+<Base title={r.name} description={description} ogType="article" jsonLd={jsonLd}>
+  <div class="wrap">
+    <Breadcrumbs items={[{ label: 'Início', href: '/' }, { label: 'Explorar', href: '/explorar/' }, { label: r.name }]} />
+  </div>
+  <article class="wrap record" data-record={r.id}>
+    <header class={`record-head ${lead ? 'has-media' : 'no-media'}${wide ? ' wide' : ''}`}>
+      <div class="head-media">
+        <MediaPlate record={r} variant="detail" eager />
       </div>
-      {r.access_channel && (
-        <p class="margin-note">
-          Canal de acesso: <strong>{r.access_channel.platform}</strong>. {r.access_channel.limitations}
+      <div class="head-text">
+        <p class="kicker">
+          {V.label(V.initiativeTypes, r.initiative_type)} · {place}
         </p>
-      )}
+        <h1 data-record-title>{r.name}</h1>
+        {r.alternative_names.length > 0 && (
+          <p class="meta muted">Também: {r.alternative_names.join(' · ')}</p>
+        )}
+        <p class="lede">{r.description.pt}</p>
+        <div class="cta">
+          <ExtLink href={r.sample_content_url} class="btn btn--primary">Abrir a amostra na fonte</ExtLink>
+          <ExtLink href={r.digital_collection_url} class="btn">Explorar a coleção</ExtLink>
+          <ExtLink href={r.initiative_url} class="btn">Site da iniciativa</ExtLink>
+        </div>
+        <p class="meta">
+          <Status status={r.content_status} /> · verificado em <time datetime={r.last_verified_at}>{formatDate(r.last_verified_at)}</time>
+        </p>
+        {r.access_channel && (
+          <p class="margin-note">
+            Canal de acesso: <strong>{r.access_channel.platform}</strong>. {r.access_channel.limitations}
+          </p>
+        )}
+      </div>
     </header>
 
     <div class="cols">
@@ -84,7 +149,7 @@ const description = `${r.description.pt} Amostra verificada: ${r.sample.title}.`
             </dd>
             {r.sample.rights_text && (<><dt>Direitos (amostra)</dt><dd>{r.sample.rights_text}</dd></>)}
           </dl>
-          <p class="open-sample"><ExtLink href={r.sample_content_url} class="btn btn--primary">Abrir a amostra na fonte</ExtLink></p>
+          <p class="open-sample"><ExtLink href={r.sample_content_url}>Abrir a amostra na fonte</ExtLink></p>
           <p class="meta muted">
             Acervo Acervos não reproduz a obra; ela continua na página da iniciativa.
           </p>
@@ -252,82 +317,3 @@ const description = `${r.description.pt} Amostra verificada: ${r.sample.title}.`
   </article>
 </Base>
 )}
-
-<style>
-  .record-head {
-    border-bottom: 2px solid var(--rule);
-    padding-bottom: 1.5rem;
-    margin-bottom: 2rem;
-  }
-  .lede {
-    font-size: var(--step-1);
-    line-height: 1.4;
-  }
-  .cta {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.6rem;
-    margin: 1rem 0;
-  }
-  .cols {
-    display: grid;
-    gap: 2.5rem;
-  }
-  @media (min-width: 60rem) {
-    .cols {
-      grid-template-columns: minmax(0, 1fr) 20rem;
-    }
-    .side {
-      position: sticky;
-      top: 1rem;
-      align-self: start;
-    }
-  }
-  .main > section {
-    margin-bottom: 2.5rem;
-  }
-  .sample {
-    border: 2px solid var(--ink);
-    padding: 1.2rem 1.4rem;
-    background: #fffdf8;
-  }
-  .open-sample {
-    margin-top: 1rem;
-  }
-  .box {
-    border-top: 2px solid var(--rule);
-    padding-top: 0.8rem;
-    margin-bottom: 1.5rem;
-  }
-  .fields.compact {
-    grid-template-columns: 1fr;
-    gap: 0.1rem;
-    margin-top: 0.8rem;
-  }
-  .fields.compact dd {
-    margin-bottom: 0.5rem;
-  }
-  .flag {
-    color: var(--red);
-    border-left: 3px solid var(--red);
-    padding-left: 0.6rem;
-  }
-  .evidence {
-    padding-left: 1.2rem;
-  }
-  .evidence li {
-    margin-bottom: 0.9rem;
-  }
-  .evidence p {
-    margin-bottom: 0.2rem;
-  }
-  .relations,
-  .history {
-    border-top: 2px solid var(--rule);
-    padding-top: 1rem;
-    margin-top: 2rem;
-  }
-  .rel-list {
-    padding-left: 1.2rem;
-  }
-</style>

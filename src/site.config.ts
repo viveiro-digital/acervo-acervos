@@ -7,13 +7,23 @@ export const siteConfig = {
   locale: 'pt-BR',
   /**
    * Canal público para sugestões, correções e pedidos de remoção.
-   * Deixe null enquanto não houver canal publicado: o site então diz
-   * isso explicitamente, em vez de apontar para um endereço inexistente.
-   * Ex.: 'https://github.com/<org>/acervo-acervos/issues/new/choose'
+   * Decidido em 21/11/2026: issues do repositório no GitHub do Viveiro
+   * Digital. O endereço passa a funcionar quando o repositório for publicado
+   * em github.com/viveiro-digital/acervo-acervos (ver PENDENTES.md).
    */
-  contactUrl: null as string | null,
-  /** Repositório público do código e dos dados (opcional). */
-  repoUrl: null as string | null,
+  contactUrl: 'https://github.com/viveiro-digital/acervo-acervos/issues' as string | null,
+  /** Código-fonte e dados (mesma ressalva acima). */
+  repoUrl: 'https://github.com/viveiro-digital/acervo-acervos' as string | null,
+  /**
+   * Viveiro Digital. Não há site público verificado; o prompt pede o
+   * repositório de documentação como referência provisória. Troque aqui
+   * quando houver endereço institucional confirmado.
+   */
+  viveiro: {
+    name: 'Viveiro Digital',
+    url: 'https://github.com/viveiro-digital/docs',
+    provisional: true,
+  },
 };
 
 const deployEnv = import.meta.env.DEPLOY_ENV ?? process.env.DEPLOY_ENV;

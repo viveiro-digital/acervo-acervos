@@ -6,7 +6,7 @@ import { siteConfig } from '../site.config';
 <Base
   title="Contribuir"
   description="Como sugerir uma iniciativa, corrigir uma descrição ou pedir a remoção de um registro em Acervo Acervos."
-  current="contribuir"
+  current="sobre"
 >
   <div class="wrap narrow">
     <p class="kicker">Participar</p>
@@ -18,7 +18,7 @@ import { siteConfig } from '../site.config';
     </p>
 
     {siteConfig.contactUrl ? (
-      <p><ExtLink href={siteConfig.contactUrl} class="btn btn--primary">Abrir sugestão ou correção</ExtLink></p>
+      <p><ExtLink href={siteConfig.contactUrl} class="btn btn--primary">Abrir sugestão ou correção no GitHub</ExtLink></p>
     ) : (
       <p class="callout callout--warn">
         O canal público de contato ainda não foi publicado nesta versão de desenvolvimento.
