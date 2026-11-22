@@ -4,6 +4,8 @@ import Base from '../layouts/Base.astro';
 import CollectionCover from '../components/CollectionCover.astro';
 import { siteConfig } from '../site.config';
 import collectionPreviews from '../data/collection-previews.json';
+import { collectionSubtitles } from '../data/collection-views';
+import { countries, label } from '../data/vocabulario';
 import {
   getPublished,
   recordPath,
@@ -69,9 +71,11 @@ const jsonLd = {
               <CollectionCover id={record.id} name={title} eager={i < 3} priority={i === 0} />
             </a>
             <h2 class="collection-tile-title"><a href={recordPath(record.id)}>{title}</a></h2>
-            {record.id === 'diseno-nacional' && (
-              <p class="credit">Captura: Diseño Nacional (CC BY-NC)</p>
-            )}
+            <p class="tile-subtitle">{collectionSubtitles[record.id] ?? record.description.pt}</p>
+            <p class="tile-location">
+              {record.country.map((country) => label(countries, country)).join(', ')}
+              {record.id === 'diseno-nacional' && <span> · Captura CC BY-NC</span>}
+            </p>
           </li>
         );
       })}
@@ -114,12 +118,15 @@ const jsonLd = {
   .collection { display: block; text-decoration: none; }
   .collection:hover :global(.collection-cover) { outline: 1px solid var(--muted); outline-offset: -1px; }
   h2 a { display: inline-block; min-height: 24px; }
-  .credit {
-    display: block;
+  .tile-subtitle {
+    font-size: 0.95rem;
+    line-height: 1.45;
+    margin: 0.35rem 0 0;
+  }
+  .tile-location {
     color: var(--muted);
-    font-size: 0.8rem;
-    width: fit-content;
-    margin: 0.22rem 0 0;
+    font-size: 0.82rem;
+    margin: 0.35rem 0 0;
   }
   @media (max-width: 34rem) {
     .masthead nav { order: 1; margin-block: 0.1rem 0.6rem; }

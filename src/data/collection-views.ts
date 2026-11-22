@@ -35,3 +35,18 @@ export const collectionViews: Partial<Record<string, CollectionLink[]>> = {
     ['Acervo arqueológico', 'https://museukuahi.com.br/acervoarqueologico/'],
   ],
 };
+
+export const collectionSubtitles: Partial<Record<string, string>> = {
+  'acervo-da-laje': 'Arte do Subúrbio Ferroviário de Salvador.',
+  'archivo-memoria-trans': 'Fotografias, cartas e recortes sobre a memória trans.',
+  'biblioteca-de-zines': 'Zines independentes para ler online.',
+  'cartel-mexico': 'Cartazes mexicanos em portfólios e coleções.',
+  casca: 'Cordéis, capas e cartazes do Nordeste brasileiro.',
+  'diseno-nacional': 'Cartazes, publicidade e design editorial, 1840–2000.',
+  'grafica-latina': 'Exposições online de design gráfico latino-americano.',
+  irohin: 'Jornais, cartazes e fotografias do movimento negro.',
+  'mexico-disena': 'Revistas, livros e as pessoas que os fizeram.',
+  'museu-kuahi': 'Objetos, fotografias e vídeos das coleções do museu.',
+  'tipomap-latam': 'Fontes, designers e fundidoras por país.',
+  'xingu-entangled': 'Um mapa interativo da cultura material Kuikuro.',
+};

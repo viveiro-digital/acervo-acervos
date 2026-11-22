@@ -544,23 +544,39 @@ legend {
   font-size: 0.9rem;
 }
 .record-head {
-  display: grid;
-  gap: var(--gap);
-  align-items: start;
-  margin-bottom: clamp(1.5rem, 3vw, 2.5rem);
+  margin-bottom: clamp(1.8rem, 4vw, 3.5rem);
 }
-.record-head p:first-child {
-  margin-bottom: 0.55rem;
+.record-heading {
+  margin-bottom: clamp(1rem, 2.4vw, 1.6rem);
 }
-.record-head .lede {
-  max-width: 38ch;
+.record-heading p { margin-bottom: 0.45rem; }
+.record-heading [data-record-title],
+.record-heading #painel-titulo { margin-bottom: 0; }
+.record-hero .collection-cover {
+  background: #f3f2ef;
+  height: clamp(13rem, 38vw, 28rem);
+  aspect-ratio: auto;
+  overflow: hidden;
 }
-.record .cta {
+.record-hero .collection-cover img {
+  min-height: 0;
+  padding: clamp(0.35rem, 1.25vw, 1rem);
+}
+.record-intro {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.55rem;
-  margin: 1.15rem 0;
+  align-items: start;
+  justify-content: space-between;
+  gap: 0.85rem 2rem;
+  padding-top: clamp(1rem, 2.35vw, 1.65rem);
 }
+.record-intro p { margin: 0; }
+.record-intro .lede {
+  font-size: var(--step-1);
+  line-height: 1.4;
+  max-width: 47ch;
+}
+.record-intro .meta { margin-top: 0.5rem; }
 .record-discovery {
   display: grid;
   gap: 1.35rem var(--gap);
@@ -600,12 +616,6 @@ legend {
 .record-notes-body { max-width: 43rem; }
 .record-notes-body .plate { margin-bottom: 1.1rem; }
 .record-notes-body h2 { font-size: var(--step-1); }
-@media (min-width: 55rem) {
-  .record-head {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr);
-    align-items: center;
-  }
-}
 html.panel-open {
   overflow: hidden;
 }

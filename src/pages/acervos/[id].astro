@@ -97,16 +97,20 @@ const jsonLd = [
   <article class="wrap record" data-record={r.id}>
     <a class="record-back" href={sitePath('/explorar/')}>Todos os acervos</a>
     <header class="record-head">
-      <div class="head-text">
+      <div class="record-heading">
         <p class="meta muted">{place}</p>
         <h1 data-record-title>{r.name}</h1>
-        <p class="lede">{r.description.pt}</p>
-        <div class="cta">
-          <ExtLink href={r.digital_collection_url} class="btn btn--primary">Explorar a coleção</ExtLink>
-        </div>
-        {accessNote && <p class="meta muted">{accessNote}</p>}
       </div>
-      <CollectionCover id={r.id} name={r.name} eager />
+      <div class="record-hero">
+        <CollectionCover id={r.id} name={r.name} eager priority />
+      </div>
+      <div class="record-intro">
+        <div>
+          <p class="lede">{r.description.pt}</p>
+          {accessNote && <p class="meta muted">{accessNote}</p>}
+        </div>
+        <ExtLink href={r.digital_collection_url} class="btn btn--primary">Explorar a coleção</ExtLink>
+      </div>
     </header>
 
     {(sections.length > 0 || r.sample_content_url !== r.digital_collection_url) && (
