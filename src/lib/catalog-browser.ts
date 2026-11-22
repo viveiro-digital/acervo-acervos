@@ -1,4 +1,3 @@
-import { sitePath } from './site-path';
 import { prepareSearch, queryTerms, rankSearch } from './search';
 
 const PARAMS = ['q', 'ordem', 'pais', 'tema', 'tipo', 'formato', 'lingua', 'periodo', 'acesso', 'status', 'relacao', 'host'];
@@ -37,7 +36,6 @@ function state() {
 }
 
 function writeUrl(s: Record<string, string>) {
-  if (history.state?.panel) return;
   const u = new URLSearchParams();
   // ordem determinística dos parâmetros
   for (const p of PARAMS) if (s[p]) u.set(p, s[p]);
@@ -149,125 +147,7 @@ document.getElementById('limpar')!.addEventListener('click', (e) => {
   }
   apply();
 });
-window.addEventListener('popstate', (e) => {
-  if (e.state?.panel) return; // tratado pelo painel
+window.addEventListener('popstate', () => {
   readUrl();
   apply();
-});
-
-
-// ── Painel contextual ───────────────────────────────────────────────
-// Aprimoramento progressivo: sem JS, o link abre a página canônica do
-// registro. Com JS, a mesma página é carregada num <dialog> nativo (foco
-// preso, Esc), a URL vira a do registro (link copiável; voltar fecha o
-// painel) e a lista mantém filtros e rolagem.
-const dialog = document.getElementById('painel') as HTMLDialogElement;
-const panelBody = document.getElementById('painel-corpo')!;
-const panelPos = document.getElementById('painel-pos')!;
-const panelLink = document.getElementById('painel-link') as HTMLAnchorElement;
-const prevBtn = dialog.querySelector('[data-panel="prev"]') as HTMLButtonElement;
-const nextBtn = dialog.querySelector('[data-panel="next"]') as HTMLButtonElement;
-const listTitle = document.title;
-const cache = new Map<string, string>();
-let currentId: string | null = null;
-let opener: HTMLElement | null = null;
-
-const visibleIds = () => Array.from(list.querySelectorAll<HTMLLIElement>(':scope > li:not([hidden])'), (li) => li.dataset.id!);
-
-async function fetchRecord(id: string): Promise<string> {
-  if (cache.has(id)) return cache.get(id)!;
-  const res = await fetch(sitePath(`/acervos/${id}/`));
-  if (!res.ok) throw new Error(String(res.status));
-  const doc = new DOMParser().parseFromString(await res.text(), 'text/html');
-  const art = doc.querySelector('article[data-record]');
-  if (!art) throw new Error('sem conteúdo');
-  const h1 = art.querySelector('h1');
-  if (h1) {
-    const h2 = doc.createElement('h2');
-    h2.innerHTML = h1.innerHTML;
-    h2.id = 'painel-titulo';
-    h2.tabIndex = -1;
-    h2.className = h1.className;
-    h1.replaceWith(h2);
-  }
-  const html = art.outerHTML;
-  cache.set(id, html);
-  return html;
-}
-
-async function openPanel(id: string, mode: 'push' | 'replace' | 'none') {
-  currentId = id;
-  const url = sitePath(`/acervos/${id}/`);
-  panelLink.href = url;
-  if (!dialog.open) {
-    document.documentElement.classList.add('panel-open');
-    dialog.showModal();
-  }
-  panelBody.setAttribute('aria-busy', 'true');
-  panelBody.innerHTML = '<p class="meta panel-loading">Carregando acervo…</p>';
-  if (mode === 'push') history.pushState({ panel: id }, '', url);
-  if (mode === 'replace') history.replaceState({ panel: id }, '', url);
-  const ids = visibleIds();
-  const pos = ids.indexOf(id);
-  panelPos.textContent = pos >= 0 ? `${pos + 1} de ${ids.length} nos resultados` : '';
-  prevBtn.disabled = pos <= 0;
-  nextBtn.disabled = pos < 0 || pos >= ids.length - 1;
-  try {
-    panelBody.innerHTML = await fetchRecord(id);
-    const title = panelBody.querySelector('#painel-titulo') as HTMLElement | null;
-    document.title = `${title?.textContent ?? id} — Coleção de Acervos Digitais`;
-    title?.focus();
-  } catch {
-    panelBody.innerHTML = `<p class="callout">A prévia está indisponível. <a href="${url}">Abrir a página do acervo</a>.</p>`;
-  } finally {
-    panelBody.removeAttribute('aria-busy');
-    panelBody.scrollTop = 0;
-  }
-}
-
-function requestClose() {
-  if (history.state?.panel) history.back();
-  else dialog.close();
-}
-
-dialog.addEventListener('close', () => {
-  document.documentElement.classList.remove('panel-open');
-  document.title = listTitle;
-  currentId = null;
-  opener?.focus();
-});
-dialog.addEventListener('cancel', (e) => {
-  e.preventDefault(); // Esc: fecha pelo histórico, para manter voltar/avançar coerentes
-  requestClose();
-});
-dialog.querySelector('[data-panel="close"]')!.addEventListener('click', requestClose);
-// clique no fundo escurecido fecha
-dialog.addEventListener('click', (e) => {
-  if (e.target === dialog) requestClose();
-});
-function step(delta: number) {
-  const ids = visibleIds();
-  const next = ids[ids.indexOf(currentId!) + delta];
-  if (next) {
-    opener = items.find((li) => li.dataset.id === next)?.querySelector('a[data-open]') ?? opener;
-    openPanel(next, 'replace');
-  }
-}
-prevBtn.addEventListener('click', () => step(-1));
-nextBtn.addEventListener('click', () => step(1));
-
-list.addEventListener('click', (e) => {
-  const a = (e.target as HTMLElement).closest('a[data-open]') as HTMLAnchorElement | null;
-  if (!a) return;
-  const me = e as MouseEvent;
-  if (me.button !== 0 || me.metaKey || me.ctrlKey || me.shiftKey || me.altKey) return; // nova aba etc.
-  if (typeof dialog.showModal !== 'function') return; // navegador sem <dialog>: segue o link
-  e.preventDefault();
-  opener = a;
-  openPanel(a.dataset.open!, 'push');
-});
-
-window.addEventListener('popstate', (e) => {
-  if (e.state?.panel) openPanel(e.state.panel, 'none');
-  else if (dialog.open) dialog.close();
 });

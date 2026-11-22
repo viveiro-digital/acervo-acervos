@@ -3,7 +3,7 @@
 Três coisas diferentes, que não devem ser confundidas:
 
 1. **Build e qualidade**: sinais gerados por comandos, localmente e no CI.
-2. **Site em produção**: hoje não há instrumentação (não há produção).
+2. **Site em produção**: o catálogo está no GitHub Pages. Não há coleta de métricas de visita configurada.
 3. **Telemetria da CLI do Astro**: dados de uso da ferramenta enviados ao time
    do Astro. Não monitora visitantes nem erros do site. Para desligar:
    `pnpm astro telemetry disable`.
@@ -15,7 +15,7 @@ Três coisas diferentes, que não devem ser confundidas:
 | Schema, consistência dos dados e checksums das imagens | `pnpm check:data` | terminal (erros com arquivo e campo) |
 | Tipos (`.astro` e `.ts`) | `pnpm check` | terminal |
 | Build | `pnpm build` | terminal; falha em erro de schema |
-| Navegação, painel, sem JS, imagens, SEO | `pnpm test:e2e` | terminal e `reports/playwright/` |
+| Navegação, sem JS, imagens, SEO | `pnpm test:e2e` | terminal e `reports/playwright/` |
 | Acessibilidade automática (axe, WCAG 2.2 AA) | `pnpm test:e2e` | idem |
 | Lighthouse (Performance, A11y, Boas práticas, SEO) | `pnpm build && pnpm preview` e, em outra aba, `pnpm audit:lighthouse` | `reports/lighthouse/` |
 | CI | GitHub Actions (`.github/workflows/ci.yml`) | aba Actions; artefato `relatorio-playwright` |
@@ -30,12 +30,12 @@ Para novos registros, acrescente uma seção datada em vez de sobrescrever.
 - **Checksum não confere**: a imagem em `src/assets/acervos/` mudou. Restaure
   pelo Git ou baixe de novo pela fonte e atualize `SHA256SUMS` de forma
   consciente, registrando no `change_log`.
-- **Teste de painel falhou**: rode `pnpm exec playwright test navegacao
+- **Teste de navegação falhou**: rode `pnpm exec playwright test navegacao
   --headed` e abra `reports/playwright/index.html`.
 - **Link externo morto**: não marque como inativo por uma falha só. Reabra
   depois e registre a evidência e a data antes de mudar o `content_status`.
 
-## Produção (quando houver)
+## Produção
 
 - **GitHub Pages**: não há métricas de tráfego. Os sinais são os testes
   sintéticos e a aba Actions.

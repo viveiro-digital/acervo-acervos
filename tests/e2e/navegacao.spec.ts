@@ -27,22 +27,24 @@ test('início: remover chip limpa o filtro', async ({ page }) => {
   await expect(page).toHaveURL(/\/\?acesso=abre-direto$/);
 });
 
-test('painel: abre com URL canônica, navega e fecha com Esc e voltar', async ({ page }) => {
+test('capa abre a ficha em página inteira e voltar restaura os filtros', async ({ page }) => {
   await page.goto('/?pais=BR');
-  await page.locator('a[data-open="irohin"]').click();
-  await expect(page.locator('#painel')).toHaveAttribute('open', '');
+  const cover = page.locator('[data-id="irohin"] .collection-cover');
+  await cover.scrollIntoViewIfNeeded();
+  const box = await cover.boundingBox();
+  await page.mouse.click(box!.x + box!.width / 2, box!.y + box!.height / 2);
   await expect(page).toHaveURL(/\/acervos\/irohin\/$/);
-  await expect(page.locator('#painel-titulo')).toBeFocused();
-  await page.locator('[data-panel="next"]').click();
-  await expect(page).toHaveURL(/\/acervos\/museu-da-mare\/$/);
-  await page.keyboard.press('Escape');
-  await expect(page.locator('#painel')).not.toHaveAttribute('open', '');
-  await expect(page).toHaveURL(/\/\?pais=BR$/);
-  await page.goForward();
-  await expect(page.locator('#painel')).toHaveAttribute('open', '');
+  await expect(page.locator('article h1')).toBeVisible();
   await page.goBack();
-  await expect(page.locator('#painel')).not.toHaveAttribute('open', '');
+  await expect(page).toHaveURL(/\/\?pais=BR$/);
   await expect(page.locator('#f-pais')).toHaveValue('BR');
+});
+
+test('ícone do card abre a fonte em nova aba', async ({ page }) => {
+  await page.goto('/');
+  const link = page.locator('[data-id="biblioteca-de-zines"] .tile-source');
+  await expect(link).toHaveAttribute('href', 'https://www.biblioteca-de-zines.com.br/zines');
+  await expect(link).toHaveAttribute('target', '_blank');
 });
 
 test('registro: URL direta funciona e tem h1 único', async ({ page }) => {
@@ -94,7 +96,7 @@ test('o endereço antigo preserva a busca e os filtros no catálogo inicial', as
   await expect(page.locator('#lista > li:visible').first()).toHaveAttribute('data-id', 'diseno-nacional');
 });
 
-test('buscar e abrir um acervo rapidamente mantém a busca ao fechar a prévia', async ({ page }) => {
+test('buscar e abrir um acervo rapidamente mantém a busca ao voltar ao catálogo', async ({ page }) => {
   await page.goto('/');
   await page.evaluate(() => {
     const form = document.getElementById('filtros') as HTMLFormElement;
@@ -104,8 +106,8 @@ test('buscar e abrir um acervo rapidamente mantém a busca ao fechar a prévia',
     form.requestSubmit();
     document.querySelector<HTMLAnchorElement>('a[data-open="diseno-nacional"]')!.click();
   });
-  await expect(page.locator('#painel-titulo')).toBeVisible();
+  await expect(page.locator('article h1')).toBeVisible();
   await expect(page).toHaveURL(/\/acervos\/diseno-nacional\/$/);
-  await page.keyboard.press('Escape');
+  await page.goBack();
   await expect(page).toHaveURL(/\/\?q=carteles\+politicos$/);
 });

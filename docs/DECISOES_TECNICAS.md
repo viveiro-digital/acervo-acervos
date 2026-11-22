@@ -10,7 +10,7 @@ de exportação ou documentação; **depois** = adiado; **não** = rejeitado.
 | --- | --- | --- | --- | --- | --- | --- |
 | Gerador do site | Astro 7.4.13, estático | Eleventy, Hugo, Next.js | R$ 0 | sem JS de terceiros | agora | [0001](adr/0001-site-estatico-astro.md) |
 | Validação de dados | Content Collections + Zod; `scripts/check-data.mjs` | JSON Schema avulso | R$ 0 | — | agora | [0003](adr/0003-dados-yaml-e-interoperabilidade.md) |
-| Navegação contextual | `<dialog>` + `pushState` sobre HTML canônico | `ClientRouter`, prefetch | R$ 0 | sem rastreio | agora | [0002](adr/0002-navegacao-painel-contextual.md) |
+| Navegação entre fichas | Links para as páginas dos acervos e para as fontes externas | Painel contextual | R$ 0 | sem rastreio | agora | [0002 (histórico)](adr/0002-navegacao-painel-contextual.md) |
 | Imagens | `astro:assets` (`<Picture>`, AVIF/WebP, dimensões) | hotlink, CDN de imagens paga | R$ 0 | sem requisições a terceiros | agora | [0004](adr/0004-imagens-e-licenciamento.md) |
 | Sitemap | endpoint próprio | `@astrojs/sitemap` | R$ 0 | — | agora | [0001](adr/0001-site-estatico-astro.md) |
 | Metadados web | JSON-LD schema.org (`WebPage`, `Collection`, `BreadcrumbList`, `WebSite`) | microdata | R$ 0 | — | agora | [0003](adr/0003-dados-yaml-e-interoperabilidade.md) |

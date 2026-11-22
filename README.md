@@ -6,7 +6,7 @@ Um catálogo de acervos do Brasil e da América Latina, com foco na memória com
 
 [**Passeie pelas coleções**](https://viveiro-digital.github.io/acervos-digitais-colecao/)
 
-Conhece um acervo que devia estar aqui? [Conta pra gente.](https://github.com/viveiro-digital/colecao-de-acervos-digitais/issues/new)
+Conhece um acervo que devia estar aqui? [Conta pra gente.](https://viveiro-digital.github.io/acervos-digitais-colecao/contribuir/)
 
 ## Rodar localmente
 

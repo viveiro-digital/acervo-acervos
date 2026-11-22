@@ -98,7 +98,7 @@ const jsonLd = [
           <p class="lede">{r.description.pt}</p>
           {accessNote && <p class="meta muted">{accessNote}</p>}
         </div>
-        <ExtLink href={r.digital_collection_url} class="btn btn--primary">Explorar a coleção</ExtLink>
+        <ExtLink href={r.digital_collection_url} class="btn btn--primary" newTab>Abrir acervo original ↗</ExtLink>
       </div>
     </header>
 
@@ -108,7 +108,7 @@ const jsonLd = [
           <img src={screenPath} alt={`Captura da coleção ${r.name}`} width={screen.width} height={screen.height} loading="lazy" decoding="async" />
         </a>
         <figcaption class="meta muted">
-          <ExtLink href={screen.page}>Ver esta página no acervo</ExtLink>
+          <ExtLink href={screen.page} newTab>Ver esta página no acervo</ExtLink>
         </figcaption>
       </figure>
     )}

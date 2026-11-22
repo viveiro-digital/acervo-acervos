@@ -1,13 +1,14 @@
 /** Configuração editorial do site. Edite aqui, não nos componentes. */
 export const siteConfig = {
   name: 'Coleção de Acervos Digitais',
-  subtitle: 'Acervos do Brasil e da América Latina, com foco na memória comunitária.',
+  subtitle: 'Explore acervos digitais e arquivos comunitários do Brasil e da América Latina.',
   description:
     'Um catálogo de acervos digitais do Brasil e da América Latina, de arquivos comunitários a coleções de pesquisa.',
   shareTitle: 'Acervos digitais',
-  shareDescription: 'Encontre coleções do Brasil e da América Latina e consulte o material na fonte.',
+  shareDescription: 'Coleções digitais do Brasil e da América Latina com material disponível para consulta online.',
   locale: 'pt-BR',
-  contactUrl: 'https://github.com/viveiro-digital/colecao-de-acervos-digitais/issues' as string | null,
+  contactUrl: 'https://docs.google.com/forms/d/e/1FAIpQLScd36uSvVGrMqDMPIS7kQ7NP8kD6Y-TvEVmO4k2Hz90jSF8bQ/viewform',
+  contactEmail: 'bibliotecadezines@gmail.com',
   repoUrl: 'https://github.com/viveiro-digital/colecao-de-acervos-digitais' as string | null,
   /**
    * Viveiro Digital. Não há site público verificado; o prompt pede o

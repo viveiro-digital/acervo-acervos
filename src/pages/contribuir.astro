@@ -10,18 +10,9 @@ import { siteConfig } from '../site.config';
 >
   <div class="wrap narrow">
     <h1>Contribuir</h1>
-    <p>
-      Recebemos sugestões de acervos, correções e pedidos de remoção pelo GitHub.
-    </p>
-
-    {siteConfig.contactUrl ? (
-      <p><ExtLink href={siteConfig.contactUrl} class="btn btn--primary">Escrever no GitHub</ExtLink></p>
-    ) : (
-      <p class="callout callout--warn">
-        O canal público de contato ainda não foi publicado nesta versão de desenvolvimento.
-        Quando existir, o link aparece aqui.
-      </p>
-    )}
+    <p>Use o formulário para sugerir um acervo, corrigir uma ficha ou pedir a remoção de uma entrada.</p>
+    <p><ExtLink href={siteConfig.contactUrl} class="btn btn--primary" newTab>Abrir formulário</ExtLink></p>
+    <p>Se preferir, escreva para <a href={`mailto:${siteConfig.contactEmail}`}>{siteConfig.contactEmail}</a>.</p>
 
     <h2>Sugerir um acervo</h2>
     <p>Mande o endereço da coleção, diga quem cuida dela e inclua um link para um item que a gente possa consultar online.</p>

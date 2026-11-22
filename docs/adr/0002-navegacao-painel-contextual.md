@@ -1,6 +1,6 @@
 # 0002 — Navegação contextual com painel `<dialog>` aprimorado progressivamente
 
-- **Status:** accepted
+- **Status:** substituído pela navegação em página inteira
 - **Data:** 2026-11-21
 
 ## Contexto e restrições

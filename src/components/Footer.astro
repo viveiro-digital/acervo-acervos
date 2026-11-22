@@ -13,7 +13,7 @@ const updated = lastUpdate(await getAll());
     <ul class="foot-links">
       <li><a href={sitePath('/sobre/')}>Sobre</a></li>
       <li><a href={sitePath('/metodologia/')}>Metodologia</a></li>
-      <li>{siteConfig.contactUrl ? <a href={siteConfig.contactUrl} rel="noopener noreferrer external">Corrigir ou sugerir</a> : <a href={sitePath('/sobre/#corrigir')}>Corrigir ou sugerir</a>}</li>
+      <li><a href={sitePath('/contribuir/')}>Contato</a></li>
       {siteConfig.repoUrl && <li><a href={siteConfig.repoUrl} rel="noopener noreferrer external">Código e dados</a></li>}
     </ul>
     <p class="meta muted foot-rights">

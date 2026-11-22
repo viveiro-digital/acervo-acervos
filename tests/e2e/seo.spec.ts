@@ -4,7 +4,7 @@ test('início: título e descrição de compartilhamento são breves e distintos
   const html = await (await request.get('/')).text();
   expect(html).toContain('<title>Coleção de Acervos Digitais</title>');
   expect(html).toContain('property="og:title" content="Acervos digitais"');
-  expect(html).toContain('property="og:description" content="Encontre coleções do Brasil e da América Latina e consulte o material na fonte."');
+  expect(html).toContain('property="og:description" content="Coleções digitais do Brasil e da América Latina com material disponível para consulta online."');
   expect(html).toContain('name="twitter:title" content="Acervos digitais"');
 });
 

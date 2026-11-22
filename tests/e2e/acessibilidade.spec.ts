@@ -16,11 +16,11 @@ for (const p of paginas) {
   });
 }
 
-test('axe no painel aberto', async ({ page }) => {
+test('axe após abrir uma ficha no catálogo', async ({ page }) => {
   await page.goto('/');
   await page.locator('a[data-open="casca"]').click();
-  await expect(page.locator('#painel-titulo')).toBeVisible();
-  const r = await new AxeBuilder({ page }).include('#painel').analyze();
+  await expect(page.locator('article h1')).toBeVisible();
+  const r = await new AxeBuilder({ page }).include('article').analyze();
   expect(r.violations).toEqual([]);
 });
 

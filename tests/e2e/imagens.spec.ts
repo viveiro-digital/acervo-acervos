@@ -16,7 +16,7 @@ test('as notas descrevem a amostra sem exibir a imagem da obra', async ({ page }
 test('a página abre com a capa da coleção e os detalhes ficam recolhidos', async ({ page }) => {
   await page.goto('/acervos/irohin/');
   await expect(page.locator('.record-head .collection-cover img')).toBeVisible();
-  await expect(page.getByRole('link', { name: 'Explorar a coleção' })).toBeVisible();
+  await expect(page.getByRole('link', { name: /Abrir acervo original/ })).toHaveAttribute('target', '_blank');
   await expect(page.getByRole('heading', { name: 'Fontes consultadas' })).toBeHidden();
   await page.getByText('Notas e fontes', { exact: true }).click();
   await expect(page.getByRole('heading', { name: 'Fontes consultadas' })).toBeVisible();
