@@ -4,6 +4,8 @@ export const siteConfig = {
   subtitle: 'Explore coleções digitais de arquivos comunitários do Brasil e da América Latina.',
   description:
     'Um catálogo voltado a arquivos comunitários do Brasil e da América Latina que compartilham acervos digitais, de zines e cartazes a fotografias e documentos.',
+  shareTitle: 'Arquivos comunitários',
+  shareDescription: 'Fanzines, fotografias e jornais do Brasil e da América Latina.',
   locale: 'pt-BR',
   contactUrl: 'https://github.com/viveiro-digital/colecao-de-acervos-digitais/issues' as string | null,
   repoUrl: 'https://github.com/viveiro-digital/colecao-de-acervos-digitais' as string | null,

@@ -19,7 +19,7 @@ const layers = await Promise.all(previews.map(async (file, index) => ({
     .png()
     .toBuffer(),
   left: 66 + index * 364,
-  top: 268,
+  top: 252,
 })));
 
 const src = fileURLToPath(new URL('../design/og-default.svg', import.meta.url));
