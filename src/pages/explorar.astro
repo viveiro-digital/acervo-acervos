@@ -75,6 +75,8 @@ const facetOptions = facets.map((f) => {
           <label for="q" class="kicker">Busca textual</label>
           <input id="q" name="q" type="search" placeholder="nome, tema, lugar…" autocomplete="off" />
         </div>
+        <details id="mais-filtros" class="more">
+          <summary class="btn">Filtros e ordenação <span id="n-filtros" class="meta"></span></summary>
         <div class="field">
           <label for="ordem" class="kicker">Ordenar por</label>
           <select id="ordem" name="ordem">
@@ -98,6 +100,7 @@ const facetOptions = facets.map((f) => {
             {f.note && <p class="meta muted hint">{f.note}</p>}
           </div>
         ))}
+        </details>
         <div class="actions">
           <button class="btn btn--primary" type="submit">Aplicar</button>
           <a class="btn" href="/explorar/" id="limpar">Limpar</a>
@@ -266,6 +269,8 @@ const facetOptions = facets.map((f) => {
     count.textContent = n === total ? `${total} registros publicados.` : `${n} de ${total} registros correspondem aos filtros.`;
     empty.hidden = n !== 0;
     renderChips(s);
+    const nAtivos = FACETS.filter((f) => s[f]).length;
+    document.getElementById('n-filtros')!.textContent = nAtivos ? `(${nAtivos} ativo${nAtivos > 1 ? 's' : ''})` : '';
     writeUrl(s);
   }
 
@@ -295,6 +300,9 @@ const facetOptions = facets.map((f) => {
       chips.appendChild(b);
     }
   }
+
+  const more = document.getElementById('mais-filtros') as HTMLDetailsElement;
+  if (window.matchMedia('(min-width: 60rem)').matches) more.open = true;
 
   readUrl();
   apply();
@@ -473,6 +481,22 @@ const facetOptions = facets.map((f) => {
   }
   .hint {
     margin: 0;
+  }
+  .more > summary {
+    list-style: none;
+    margin-bottom: 0.9rem;
+    width: 100%;
+    justify-content: space-between;
+  }
+  .more > summary::-webkit-details-marker {
+    display: none;
+  }
+  .more > summary::after {
+    content: '+';
+    font-family: var(--f-mono);
+  }
+  .more[open] > summary::after {
+    content: '−';
   }
   .actions {
     display: flex;
