@@ -1,5 +1,13 @@
 # Relatório de validação
 
+## Estado em 22/11/2026
+
+- Navegação, filtros e acessibilidade automática: 62 testes Playwright passaram em Chromium, com perfis de desktop e celular, após a troca do painel por páginas completas.
+- Após a integração do Analytics: `pnpm check` e build de produção passaram. O teste no site publicado confirmou o envio de visualização e clique no acervo.
+- Em produção, foi conferido que a capa abre a ficha, o ícone abre o acervo em outra aba e o formulário abre sem login. A confirmação de uma resposta no formulário e o teste com Safari e VoiceOver continuam pendentes.
+
+As seções abaixo registram as rodadas anteriores.
+
 ## Rodada 1 — 21/11/2026
 
 **Quem executou:** agente de IA, sem revisão humana dos resultados.

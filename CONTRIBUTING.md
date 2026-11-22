@@ -26,14 +26,14 @@ pnpm audit:lighthouse   # com `pnpm preview` rodando em outra aba
 
 1. Confira os critérios em [Metodologia](METODOLOGIA.md) e os campos em [Catalogação](docs/CATALOGACAO.md).
 2. Abra uma amostra específica e descreva só o que viu, com data e fonte.
-3. Imagem só com licença declarada pela fonte: guarde em `src/assets/acervos/`,
+3. Para imagens de itens registradas no campo `media`, confira a licença na fonte, guarde em `src/assets/acervos/`,
    acrescente a linha em `SHA256SUMS` (`shasum -a 256 arquivo`) e preencha
    todos os campos de `media`.
 4. Revisão: `pnpm review resolve <id> --motivo "..."`.
 
 ## Correções, direitos e remoção
 
-Pedidos de correção ou remoção chegam pelas issues do repositório. Remoção
+Pedidos de correção ou remoção chegam pelo [formulário de contato](https://viveiro-digital.github.io/acervos-digitais-colecao/contribuir/) ou por e-mail. A remoção
 pedida pela iniciativa tem prioridade: `record_status: arquivado` e motivo
 no `change_log`. O nome de quem pediu não vai para o registro público.
 

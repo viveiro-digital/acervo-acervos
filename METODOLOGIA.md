@@ -64,10 +64,13 @@ Para novas inclusões, a coleção deve ser mantida por uma comunidade, um colet
 
 Na rodada de 21/11/2026, as verificações foram feitas por um agente de IA, que
 abriu as páginas em navegador e conferiu dimensões das imagens e players pelo
-DOM. Por isso todos os registros têm `review_flag: true`: **a última revisão
-precisa ser humana**.
+DOM. As fichas que ainda precisam de revisão aparecem na [fila editorial](https://viveiro-digital.github.io/acervos-digitais-colecao/revisao/).
 
 ## Imagens
+
+Na página inicial, as capas usam imagens de compartilhamento ou capturas do site de origem. Todas as fichas publicadas têm uma captura adicional da coleção com link para a página de origem. As prévias ficam em `public/colecoes/`, com origem e dimensões registradas nos manifestos em `src/data/`. Uma prévia não declara licença de reuso da obra.
+
+Para imagens de itens documentadas no campo `media`:
 
 - Uma imagem só entra (`media`) quando a ficha da fonte declara licença ou
   permissão que autoriza exibir. Registre a licença como texto da fonte, o
@@ -81,8 +84,7 @@ precisa ser humana**.
   e marca `alt_source: curadoria`.
 - Material ritual, sagrado, pessoal ou de pessoas identificáveis não vira
   imagem aqui, mesmo com licença, sem protocolo da comunidade ou consentimento.
-- Sem imagem, `media_note` explica por quê, e o site mostra uma prancha
-  tipográfica.
+- Use `media_note` para registrar restrições ou explicar por que a ficha não inclui uma imagem de item.
 - Na entrada: registre `retrieved_at` e, se a fonte publicar, `source_checksum`;
   nomeie o arquivo na convenção (minúsculas, hífens, ≤ 64 caracteres) e rode
   `pnpm register`. Fluxo completo em `docs/PRESERVACAO.md`.

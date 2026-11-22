@@ -1,70 +1,32 @@
 # Pendências
 
-## O que precisa de você (técnico)
+Atualizado em 22/11/2026. O catálogo tem **18 fichas publicadas e 4 rascunhos**.
+A [fila de revisão](https://viveiro-digital.github.io/acervos-digitais-colecao/revisao/)
+é gerada a partir das fichas. Para consultar a mesma fila localmente, use
+`pnpm review list`.
 
-1. **`pnpm install`** no Mac, para o lockfile refletir `typescript >=5.9 <7`
-   (o `astro check` não suporta TS 7). Sem isso, o CI com `--frozen-lockfile`
-   falha.
-2. **`git restore .github`** (ou `git checkout -- .github`): o workflow de CI
-   está no commit, mas o macOS bloqueou a escrita dessa pasta pelas
-   ferramentas remotas.
-3. **`pnpm validate`**: roda a suíte `tests/e2e/` de verdade (o agente rodou
-   verificações equivalentes, mas não a suíte em si).
-4. **`pnpm build && pnpm preview`** e, em outra aba, **`pnpm audit:lighthouse`**:
-   anote os números em `docs/VALIDACAO.md`.
-5. Teste com **VoiceOver** (Safari): painel, filtros e uma página de registro.
-6. Catalogação (`docs/CATALOGACAO.md`): falta o identificador externo de
-   cada instituição (ISDIAH 5.6.2), por exemplo Wikidata ou ISIL. Só incluir
-   depois de conferir que o item corresponde à iniciativa.
-7. Preservação (detalhes em `docs/PRESERVACAO.md`): proteger `main`,
-   ter duas pessoas administradoras na organização (plano de sucessão),
-   anexar `pnpm export` a uma release e capturar o site no Internet Archive
-   quando ele estiver no ar.
+## Rascunhos
 
-# Registros não verificados ou pendentes
-
-Atualizado em 21/11/2026. A lista viva está em `/revisao/` (rodando `pnpm dev`)
-e em `pnpm review list`.
-
-## Todos os registros
-
-Todos os 16 registros têm `review_flag: true`, porque a primeira verificação foi
-feita por agente de IA e precisa de revisão humana. Prioridade alta:
-
-| Registro | Motivo |
+| Acervo | O que falta conferir |
 | --- | --- |
-| `biblioteca-de-zines` | Conflito de interesse declarado: a pessoa que mantém o projeto também contribui com a Biblioteca. Precisa de revisão independente antes de ser destacado. |
-| `museu-kuahi` | Confirmar quem mantém o museu e se há protocolo comunitário para objetos rituais publicados no acervo. |
-| `xingu-entangled` | O vídeo de introdução não carregou; ler créditos e parcerias (participação Kuikuro). |
+| Nova Cartografia Social da Amazônia | Quem decide sobre a curadoria e a manutenção da coleção digital. O conteúdo online já foi confirmado. |
+| Arquivo Lésbico Brasileiro | Consultar uma amostra após o cadastro, respeitando as condições de acesso. |
+| Armazém Memória | Abrir um documento com conteúdo visível no leitor e registrar a amostra. |
+| MUTHA | Abrir um item de uma das coleções e registrar o que está disponível. |
 
-## Rascunhos (não publicados)
+## Fichas publicadas com revisão prioritária
 
-| Registro | Situação | O que falta |
-| --- | --- | --- |
-| `nova-cartografia-social` | Conteúdo digital confirmado. | Verificar quem decide sobre a curadoria e a manutenção da coleção digital. |
-| `arquivo-lesbico-brasileiro` | Acervo em área restrita, com cadastro e reprodução vedada. | Alguém da curadoria se cadastrar e confirmar uma amostra, respeitando as regras. |
-| `armazem-memoria` | O leitor de documentos abriu, mas nenhuma página foi exibida. | Abrir um documento e registrar a amostra. |
-| `mutha` | Coleções listadas; nenhum item aberto. | Abrir uma coleção e registrar a amostra. |
+- **Biblioteca de Zines**. Outra pessoa precisa revisar a ficha, pois há participação da curadoria do catálogo na biblioteca.
+- **Museu Kuahí**. Confirmar quem mantém o museu e se há protocolo comunitário para o material ritual publicado.
+- **Xingu Entangled**. Conferir os créditos e a participação Kuikuro no projeto e verificar o vídeo de introdução.
 
-## Publicados com lacunas relevantes
+## Conferências técnicas
 
-- `tipomap-latam`: `catalogo_sem_midia_confirmada`; verificar se a Galería tem espécimes.
-- `acervo-da-laje`: sem ficha individual por obra identificada na galeria virtual.
-- `irohin`, `diseno-nacional`, `cartel-mexico`, `grafica-latina`, `mexico-disena`: mantenedor não identificado.
-- `archivo-memoria-trans`: originais digitais não públicos (cópia sob pedido); política de imagens de pessoas não lida.
+- Enviar uma resposta de teste pelo formulário e confirmar que ela aparece na caixa de respostas. A abertura do formulário sem login já foi verificada.
+- Testar navegação por teclado e VoiceOver no Safari. A suíte automatizada usa Chromium em desktop e celular.
+- Confirmar `archive_open` no relatório do GA4 e verificar `file_download` quando houver um link real de download no catálogo. As visualizações já aparecem no relatório.
 
-## Imagens
+## Catalogação e preservação
 
-Só 2 registros publicados têm imagem (CASCA, CC0; Diseño Nacional, CC BY-NC).
-Para os demais, o caminho é pedir autorização a cada iniciativa ou encontrar
-itens com licença declarada. Não use hotlink.
-
-## Fora do catálogo (verificados e não incluídos)
-
-- Centro de Documentação de Línguas e Culturas Indígenas: repositório anunciado para o futuro.
-- Queer Zine Archive Project: fora do recorte geográfico, até onde sabemos; não verificado.
-
-## Referências do planejamento ainda não verificadas
-
-Museu Afro Digital (UFBA), Casa Sueli Carneiro, MUMA (Museo de Mujeres
-Artistas), Arquigrafia e outras iniciativas latino-americanas citadas no Guia.
+- Registrar identificadores externos (por exemplo, Wikidata ou ISIL) quando corresponderem à instituição descrita. Ver [Catalogação](docs/CATALOGACAO.md).
+- Revisar a proteção da branch principal, a continuidade da administração e a publicação de uma exportação do catálogo. Ver [Preservação](docs/PRESERVACAO.md).

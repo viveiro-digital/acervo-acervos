@@ -52,6 +52,8 @@ e a personalização de anúncios estão desativados. Os cookies do catálogo du
 até o fim da sessão do navegador. Downloads feitos em outros sites ficam fora dos
 relatórios.
 
+Em 22/11/2026, `page_view` apareceu em Tempo real. O Google aceitou o clique de teste de `archive_open`, ainda sem confirmação no relatório. `file_download` foi testado com um arquivo simulado.
+
 ## O que não está coberto
 
 - Desempenho real de visitantes (RUM).
