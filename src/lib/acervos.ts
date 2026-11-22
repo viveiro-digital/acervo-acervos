@@ -85,6 +85,8 @@ export function searchText(r: Acervo): string {
       ...r.collection_types.map((t) => V.label(V.collectionTypes, t)),
       ...r.collection_types_original,
       r.sample.title,
+      r.platform?.software,
+      ...r.machine_access.map((m) => m.kind),
     ]
       .filter(Boolean)
       .join(' '),
@@ -144,3 +146,58 @@ export function facetCounts(
 export function recordPath(id: string): string {
   return `/acervos/${id}/`;
 }
+
+/**
+ * Controle da descrição (ISDIAH 5.6). Regras e idioma valem para todo o
+ * catálogo; o nível de detalhe (5.6.5) é calculado a partir dos campos
+ * preenchidos, para não depender de alguém lembrar de atualizá-lo.
+ */
+export const descriptionControl = {
+  rules:
+    'ISDIAH (CIA, 1ª ed., 2008), adaptada; nível da amostra pela ISAD(G) 2ª ed.; datas em ISO 8601 e EDTF; línguas em BCP 47; método em /metodologia/.',
+  language: 'Português (por-Latn)',
+} as const;
+
+export type LevelOfDetail = 'minimo' | 'parcial' | 'completo';
+export const levelOfDetailLabels: Record<LevelOfDetail, string> = {
+  minimo: 'Mínimo',
+  parcial: 'Parcial',
+  completo: 'Completo',
+};
+
+/** O que falta para a descrição ser "completa" no nosso recorte da ISDIAH. */
+export function missingForFull(r: Acervo): string[] {
+  const miss: string[] = [];
+  if (!r.platform) miss.push('plataforma');
+  if (r.holdings_extent.length === 0) miss.push('extensão do acervo');
+  if (!r.stewardship_or_host.name) miss.push('quem mantém');
+  if (r.rights_and_reuse.statement === 'desconhecido') miss.push('direitos e reuso');
+  if (r.date_range.start == null && r.date_range.end == null) miss.push('período');
+  if (r.evidence.length < 3) miss.push('ao menos três evidências');
+  return miss;
+}
+
+export function levelOfDetail(r: Acervo): LevelOfDetail {
+  // Mínimo ISDIAH (4.7): identificador, nome autorizado e localização.
+  const base = Boolean(r.id && r.name && r.country.length);
+  if (!base) return 'minimo';
+  return missingForFull(r).length === 0 ? 'completo' : 'parcial';
+}
+
+export const extentBasisLabels: Record<Acervo['holdings_extent'][number]['basis'], string> = {
+  'declarado-pela-fonte': 'declarado pela fonte',
+  'contado-via-api': 'contado por nós na API da fonte',
+  'contado-na-pagina': 'contado por nós na página da fonte',
+};
+export const machineAccessLabels: Record<Acervo['machine_access'][number]['kind'], string> = {
+  'oai-pmh': 'OAI-PMH',
+  'api-rest': 'API REST',
+  'exportacao-dublin-core': 'Exportação Dublin Core',
+  'exportacao-json': 'Exportação JSON',
+  sitemap: 'Sitemap',
+};
+export const machineStatusLabels: Record<Acervo['machine_access'][number]['status'], string> = {
+  'testado-com-registros': 'testado, devolve registros',
+  'testado-sem-registros': 'responde, mas sem registros públicos',
+  'oferecido-nao-testado': 'oferecido pelo site, não testado',
+};

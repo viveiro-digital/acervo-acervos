@@ -13,6 +13,16 @@ sample_content_url: https://www.docvirt.com/docreader.net/docmulti.aspx?bib=heme
 access_channel:
   platform: DocReader (docvirt) e Flickr
   limitations: Leitor externo; a página de documento não foi confirmada nesta verificação.
+platform:
+  software: WordPress (tema Divi)
+  evidence: meta-generator
+  checked_at: "2026-11-22"
+holdings_extent:
+  - statement: A página lista 30 conjuntos documentais, cada um com o número de páginas digitalizadas
+    scope: centros de referência indígena
+    basis: declarado-pela-fonte
+    source_url: https://armazemmemoria.com.br/centros-indigena/
+    accessed_at: "2026-11-22"
 country: [BR]
 geographic_scope: nacional
 languages: [pt]
@@ -65,10 +75,16 @@ review_reason: Abrir um documento no DocReader e registrar uma amostra específi
 review_priority: media
 record_status: rascunho
 created_at: "2026-11-21"
-updated_at: "2026-11-21"
+updated_at: "2026-11-22"
 change_log:
   - date: "2026-11-21"
     field: "*"
     to: criado
     reason: Registro criado como rascunho; amostra não confirmada.
     source: https://armazemmemoria.com.br/
+  - date: "2026-11-22"
+    field: platform, machine_access, holdings_extent
+    from: ausente
+    to: verificado no site
+    reason: Catalogação conforme ISDIAH (5.3.7 acervo, 5.3.8 instrumentos de pesquisa); ver docs/CATALOGACAO.md.
+    source: https://armazemmemoria.com.br/centros-indigena/

@@ -659,3 +659,12 @@ html.panel-open {
 .record .sample {
   border: 1px solid var(--ink);
 }
+
+ul.plain {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+ul.plain li + li {
+  margin-top: 0.35rem;
+}

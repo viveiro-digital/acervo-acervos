@@ -33,7 +33,7 @@ import {
   themes,
 } from './data/vocabulario';
 
-export const SCHEMA_VERSION = 3; // v3: nível de descrição da amostra; proveniência técnica da mídia
+export const SCHEMA_VERSION = 4; // v4: plataforma, acesso por máquina e extensão do acervo (ISDIAH 5.3.7/5.3.8)
 
 const isoDate = z
   .string()
@@ -126,6 +126,45 @@ const acervos = defineCollection({
           limitations: z.string(),
         })
         .optional(),
+      /**
+       * Software ou serviço que publica o acervo (ISDIAH 5.3.8, instrumentos
+       * de pesquisa). `evidence` diz como foi identificado.
+       */
+      platform: z
+        .object({
+          software: z.string(),
+          evidence: z.enum(['meta-generator', 'api-da-plataforma', 'caminhos-de-arquivos', 'canal-declarado']),
+          note: z.string().optional(),
+          checked_at: isoDate,
+        })
+        .optional(),
+      /** Pontos de acesso por máquina que testamos (OAI-PMH, API, exportações). */
+      machine_access: z
+        .array(
+          z.object({
+            kind: z.enum(['oai-pmh', 'api-rest', 'exportacao-dublin-core', 'exportacao-json', 'sitemap']),
+            url: url,
+            status: z.enum(['testado-com-registros', 'testado-sem-registros', 'oferecido-nao-testado']),
+            note: z.string().optional(),
+            checked_at: isoDate,
+          }),
+        )
+        .default([]),
+      /**
+       * Extensão do acervo (ISDIAH 5.3.7, ISAD(G) 3.1.5). Sempre com a base:
+       * declarada pela fonte ou contada por nós (via API ou na página).
+       */
+      holdings_extent: z
+        .array(
+          z.object({
+            statement: z.string(),
+            scope: z.string(),
+            basis: z.enum(['declarado-pela-fonte', 'contado-via-api', 'contado-na-pagina']),
+            source_url: url,
+            accessed_at: isoDate,
+          }),
+        )
+        .default([]),
       country: z.array(z.enum(keysOf(countries))).min(1),
       region: z.string().optional(),
       city: z.string().optional(),

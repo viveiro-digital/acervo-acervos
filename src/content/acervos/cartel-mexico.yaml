@@ -15,6 +15,11 @@ description:
 initiative_url: https://cartelmexico.org/
 digital_collection_url: https://cartelmexico.org/disenadores/
 sample_content_url: https://cartelmexico.org/disenadores/sergio-grande/
+platform:
+  software: WordPress 6.6
+  evidence: meta-generator
+  note: A API do WordPress responde, mas sem tipos de conteúdo próprios para cartazes.
+  checked_at: "2026-11-22"
 country: [MX]
 geographic_scope: nacional
 languages: [es]
@@ -81,10 +86,16 @@ review_reason: Primeira verificação feita por agente automatizado; falta revis
 review_priority: baixa
 record_status: publicado
 created_at: "2026-11-21"
-updated_at: "2026-11-21"
+updated_at: "2026-11-22"
 change_log:
   - date: "2026-11-21"
     field: "*"
     to: criado
     reason: Criação do registro após verificação da amostra.
     source: https://cartelmexico.org/disenadores/sergio-grande/
+  - date: "2026-11-22"
+    field: platform, machine_access, holdings_extent
+    from: ausente
+    to: verificado no site
+    reason: Catalogação conforme ISDIAH (5.3.7 acervo, 5.3.8 instrumentos de pesquisa); ver docs/CATALOGACAO.md.
+    source: verificação no navegador

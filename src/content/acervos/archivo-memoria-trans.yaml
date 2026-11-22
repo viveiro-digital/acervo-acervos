@@ -16,6 +16,17 @@ description:
 initiative_url: https://archivotrans.ar/
 digital_collection_url: https://atom.archivotrans.ar/
 sample_content_url: https://atom.archivotrans.ar/index.php/anotaciones-personales
+platform:
+  software: AtoM (Access to Memory)
+  evidence: caminhos-de-arquivos
+  note: Tema arDominionPlugin, do AtoM. OAI-PMH não respondeu nos caminhos padrão.
+  checked_at: "2026-11-22"
+holdings_extent:
+  - statement: "El Archivo contiene un acervo de más 15.000 documentos"
+    scope: acervo inteiro (físico e digital)
+    basis: declarado-pela-fonte
+    source_url: https://atom.archivotrans.ar/
+    accessed_at: "2026-11-22"
 country: [AR]
 geographic_scope: nacional
 territory_note: Fundado a partir do exílio; reúne companheiras que viviam em vários países, segundo o site.
@@ -118,3 +129,9 @@ change_log:
     to: "produtora referida sem nome"
     reason: Minimização de dados pessoais (LGPD art. 6º, III); o nome segue disponível na fonte.
     source: docs/PRESERVACAO.md
+  - date: "2026-11-22"
+    field: platform, machine_access, holdings_extent
+    from: ausente
+    to: verificado no site
+    reason: Catalogação conforme ISDIAH (5.3.7 acervo, 5.3.8 instrumentos de pesquisa); ver docs/CATALOGACAO.md.
+    source: https://atom.archivotrans.ar/

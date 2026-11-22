@@ -11,6 +11,11 @@ description:
 initiative_url: https://uclab-potsdam.github.io/xingu-entangled/
 digital_collection_url: https://uclab-potsdam.github.io/xingu-entangled/
 sample_content_url: https://uclab-potsdam.github.io/xingu-entangled/#/graph/28c47119-1798-4f58-95ea-b25d4e7045f2
+platform:
+  software: wanderer (UCLab Potsdam), em GitHub Pages
+  evidence: caminhos-de-arquivos
+  note: A aplicação é carregada de /wanderer/ no domínio github.io; navegação em grafo.
+  checked_at: "2026-11-22"
 country: [BR]
 region: Alto Xingu
 geographic_scope: transnacional
@@ -84,10 +89,16 @@ review_reason: Reabrir com mais tempo de carregamento para confirmar vídeos e l
 review_priority: alta
 record_status: publicado
 created_at: "2026-11-21"
-updated_at: "2026-11-21"
+updated_at: "2026-11-22"
 change_log:
   - date: "2026-11-21"
     field: "*"
     to: criado
     reason: Criação do registro; referência citada no Guia e no método do projeto.
     source: https://uclab-potsdam.github.io/xingu-entangled/
+  - date: "2026-11-22"
+    field: platform, machine_access, holdings_extent
+    from: ausente
+    to: verificado no site
+    reason: Catalogação conforme ISDIAH (5.3.7 acervo, 5.3.8 instrumentos de pesquisa); ver docs/CATALOGACAO.md.
+    source: verificação no navegador

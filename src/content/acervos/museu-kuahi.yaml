@@ -14,6 +14,28 @@ description:
 initiative_url: https://museukuahi.com.br/
 digital_collection_url: https://museukuahi.com.br/acervo-etnografico/
 sample_content_url: https://museukuahi.com.br/kuahi-teste/rede-de-dormir/
+platform:
+  software: WordPress + Tainacan
+  evidence: api-da-plataforma
+  note: Plugin Tainacan e tema Blocksy; API tainacan/v2 pública.
+  checked_at: "2026-11-22"
+machine_access:
+  - kind: oai-pmh
+    url: https://museukuahi.com.br/wp-json/tainacan/v2/oai?verb=Identify
+    status: testado-com-registros
+    note: ListIdentifiers (oai_dc) informa completeListSize 1541.
+    checked_at: "2026-11-22"
+  - kind: api-rest
+    url: https://museukuahi.com.br/wp-json/tainacan/v2/collections
+    status: testado-com-registros
+    note: Seis coleções públicas.
+    checked_at: "2026-11-22"
+holdings_extent:
+  - statement: 429 itens ("Exibindo itens 1 a 36 de 429")
+    scope: Acervo Etnográfico
+    basis: declarado-pela-fonte
+    source_url: https://museukuahi.com.br/acervo-etnografico/
+    accessed_at: "2026-11-22"
 country: [BR]
 region: Amapá
 city: Oiapoque
@@ -109,10 +131,16 @@ review_reason: >-
 review_priority: alta
 record_status: publicado
 created_at: "2026-11-21"
-updated_at: "2026-11-21"
+updated_at: "2026-11-22"
 change_log:
   - date: "2026-11-21"
     field: "*"
     to: criado
     reason: Criação do registro após verificação da amostra.
     source: https://museukuahi.com.br/kuahi-teste/rede-de-dormir/
+  - date: "2026-11-22"
+    field: platform, machine_access, holdings_extent
+    from: ausente
+    to: verificado no site
+    reason: Catalogação conforme ISDIAH (5.3.7 acervo, 5.3.8 instrumentos de pesquisa); ver docs/CATALOGACAO.md.
+    source: https://museukuahi.com.br/wp-json/tainacan/v2/oai?verb=Identify

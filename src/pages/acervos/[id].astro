@@ -6,7 +6,11 @@ import MediaPlate from '../../components/MediaPlate.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import { siteConfig } from '../../site.config';
 import * as V from '../../data/vocabulario';
-import { getPublished, related, formatDate, recordPath, type Acervo } from '../../lib/acervos';
+import {
+  getPublished, related, formatDate, recordPath, type Acervo,
+  descriptionControl, levelOfDetail, levelOfDetailLabels, missingForFull,
+  extentBasisLabels, machineAccessLabels, machineStatusLabels,
+} from '../../lib/acervos';
 
 export async function getStaticPaths() {
   const records = await getPublished();
@@ -28,6 +32,8 @@ const rel = related(r, all);
 const place = [r.city, r.region, ...r.country.map((c) => V.label(V.countries, c))].filter(Boolean).join(', ');
 const description = `${r.description.pt} Amostra verificada: ${r.sample.title}.`;
 const canonical = new URL(recordPath(r.id), Astro.site).href;
+const detail = levelOfDetail(r);
+const missing = missingForFull(r);
 const lead = [...r.media].sort((x, y) => x.order - y.order)[0];
 // Imagens largas (panorâmicas) ocupam a largura toda em vez de uma coluna.
 const wide = lead ? lead.local_asset.width / lead.local_asset.height > 1.4 : false;
@@ -224,6 +230,58 @@ const levelLabel: Record<string, string> = {
           </p>
         </section>
 
+        {(r.platform || r.machine_access.length > 0 || r.holdings_extent.length > 0) && (
+          <section aria-labelledby="publicacao">
+            <h2 id="publicacao">Como o acervo é publicado</h2>
+            <dl class="fields">
+              {r.holdings_extent.length > 0 && (
+                <>
+                  <dt>Extensão</dt>
+                  <dd>
+                    <ul class="plain">
+                      {r.holdings_extent.map((e) => (
+                        <li>
+                          {e.statement} <span class="muted">({e.scope}; {extentBasisLabels[e.basis]} em{' '}
+                          <time datetime={e.accessed_at}>{formatDate(e.accessed_at)}</time>,{' '}
+                          <ExtLink href={e.source_url} label={`fonte da extensão: ${e.scope}`}>fonte</ExtLink>)</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </dd>
+                </>
+              )}
+              {r.platform && (
+                <>
+                  <dt>Plataforma</dt>
+                  <dd>
+                    {r.platform.software}
+                    {r.platform.note && <><br /><span class="muted">{r.platform.note}</span></>}
+                  </dd>
+                </>
+              )}
+              {r.machine_access.length > 0 && (
+                <>
+                  <dt>Acesso por máquina</dt>
+                  <dd>
+                    <ul class="plain">
+                      {r.machine_access.map((m) => (
+                        <li>
+                          <ExtLink href={m.url}>{machineAccessLabels[m.kind]}</ExtLink>{' '}
+                          <span class="muted">— {machineStatusLabels[m.status]} em <time datetime={m.checked_at}>{formatDate(m.checked_at)}</time>{m.note && <>. {m.note}</>}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </dd>
+                </>
+              )}
+            </dl>
+            <p class="meta muted">
+              Extensões declaradas e contagens nossas não são comparáveis entre si: cada fonte conta
+              de um jeito (itens, páginas, documentos, posts).
+            </p>
+          </section>
+        )}
+
         {r.relationship_disclosure && (
           <section class="callout callout--warn" aria-labelledby="vinculo">
             <h2 id="vinculo">Vínculo da curadoria</h2>
@@ -315,6 +373,14 @@ const levelLabel: Record<string, string> = {
           </li>
         ))}
       </ol>
+      <h3>Controle da descrição</h3>
+      <dl class="fields compact meta">
+        <dt>Nível de detalhe</dt>
+        <dd>{levelOfDetailLabels[detail]}{missing.length > 0 && <span class="muted"> (falta: {missing.join(', ')})</span>}</dd>
+        <dt>Regras</dt><dd>{descriptionControl.rules}</dd>
+        <dt>Idioma da descrição</dt><dd>{descriptionControl.language}</dd>
+        <dt>Fontes</dt><dd>{r.evidence.length} evidência(s) com data de consulta, listadas acima</dd>
+      </dl>
       <p class="meta muted">
         Incluído em {formatDate(r.created_at)} · atualizado em {formatDate(r.updated_at)} ·{' '}
         <a href="/contribuir/">corrigir ou contestar esta descrição</a>

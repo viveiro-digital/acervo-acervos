@@ -143,6 +143,7 @@ const statuses = Object.keys(V.contentStatuses) as (keyof typeof V.contentStatus
       <h2 id="h-descricao">Descrição e preservação</h2>
       <ul>
         <li>Cada amostra diz em que nível de descrição está, nos termos da norma arquivística ISAD(G): item, dossiê, série ou fundo, ou uma página que reúne vários itens. O registro indica se o nível foi declarado pela fonte ou atribuído pela curadoria.</li>
+        <li>A ficha segue a ISDIAH, norma do Conselho Internacional de Arquivos para descrever instituições com acervos. Por isso registra, quando encontramos, o tamanho do acervo (dizendo se foi declarado pela fonte ou contado por nós), o software que o publica e se há acesso por máquina, como OAI-PMH ou API.</li>
         <li>Preservamos o catálogo, não os acervos descritos: fichas em texto aberto, histórico de mudanças, identificadores que nunca são reutilizados e exportação em Dublin Core. As imagens guardadas têm checksum conferido a cada mudança.</li>
         <li>Quando uma ficha cita pessoas, usamos só o que a própria iniciativa tornou público e só o necessário para descrever o acervo. Correções e pedidos de remoção podem ser feitos pelo canal público indicado em cada registro.</li>
         <li>O registro das referências usadas (NDSA Levels, DPC RAM, ISAD(G), Dublin Core) e da autoavaliação está no repositório, em <code>docs/PRESERVACAO.md</code>.</li>

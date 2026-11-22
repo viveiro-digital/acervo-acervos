@@ -16,6 +16,7 @@ Um ADR superado não é apagado: muda para `superseded` e aponta o sucessor.
 | [0008](0008-observabilidade-com-privacidade.md) | Observabilidade sem rastrear pessoas | accepted |
 | [0009](0009-ambiente-node-pnpm.md) | Node 26 LTS via nvm e pnpm 10 | accepted |
 | [0010](0010-padroes-de-preservacao-e-descricao.md) | Padrões de preservação e descrição (NDSA, DPC RAM, ISAD(G), DCMI) | accepted |
+| [0011](0011-catalogacao-isdiah.md) | Catalogação pela ISDIAH (extensão, plataforma, acesso por máquina, controle) | accepted |
 
 Não exigem ADR: CSS pontual, componentes de rotina, correções pequenas,
 revisão de texto e atualização curatorial.

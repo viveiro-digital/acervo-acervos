@@ -14,6 +14,11 @@ description:
 initiative_url: https://graficalatina.com/
 digital_collection_url: https://graficalatina.com/
 sample_content_url: https://cartelanticolonial.graficalatina.com/
+platform:
+  software: Readymag
+  evidence: meta-generator
+  note: Construtor de sites; não encontramos API, sitemap de itens nem exportação.
+  checked_at: "2026-11-22"
 country: [LATAM, PR]
 geographic_scope: transnacional
 territory_note: >-
@@ -79,10 +84,16 @@ review_reason: Primeira verificação feita por agente automatizado; falta revis
 review_priority: baixa
 record_status: publicado
 created_at: "2026-11-21"
-updated_at: "2026-11-21"
+updated_at: "2026-11-22"
 change_log:
   - date: "2026-11-21"
     field: "*"
     to: criado
     reason: Criação do registro após verificação da amostra.
     source: https://cartelanticolonial.graficalatina.com/
+  - date: "2026-11-22"
+    field: platform, machine_access, holdings_extent
+    from: ausente
+    to: verificado no site
+    reason: Catalogação conforme ISDIAH (5.3.7 acervo, 5.3.8 instrumentos de pesquisa); ver docs/CATALOGACAO.md.
+    source: verificação no navegador

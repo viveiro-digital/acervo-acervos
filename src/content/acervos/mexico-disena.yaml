@@ -14,6 +14,22 @@ description:
 initiative_url: https://mexicodisena.com.mx/
 digital_collection_url: https://mexicodisena.com.mx/archivo/
 sample_content_url: https://mexicodisena.com.mx/publicaciones/artes-de-mexico-primera-epoca/
+platform:
+  software: WordPress
+  evidence: api-da-plataforma
+  note: Tipos de conteúdo próprios na API (disenador, publicacion, coleccion, proyecto_diseno).
+  checked_at: "2026-11-22"
+machine_access:
+  - kind: api-rest
+    url: https://mexicodisena.com.mx/wp-json/wp/v2/publicacion
+    status: testado-com-registros
+    checked_at: "2026-11-22"
+holdings_extent:
+  - statement: 8 publicações, 4 pessoas, 3 coleções e sistemas, 2 projetos
+    scope: arquivo publicado no site
+    basis: contado-via-api
+    source_url: https://mexicodisena.com.mx/wp-json/wp/v2/types
+    accessed_at: "2026-11-22"
 country: [MX]
 geographic_scope: nacional
 languages: [es]
@@ -76,10 +92,16 @@ review_reason: Primeira verificação feita por agente automatizado; falta revis
 review_priority: baixa
 record_status: publicado
 created_at: "2026-11-21"
-updated_at: "2026-11-21"
+updated_at: "2026-11-22"
 change_log:
   - date: "2026-11-21"
     field: "*"
     to: criado
     reason: Criação do registro após verificação da amostra.
     source: https://mexicodisena.com.mx/publicaciones/artes-de-mexico-primera-epoca/
+  - date: "2026-11-22"
+    field: platform, machine_access, holdings_extent
+    from: ausente
+    to: verificado no site
+    reason: Catalogação conforme ISDIAH (5.3.7 acervo, 5.3.8 instrumentos de pesquisa); ver docs/CATALOGACAO.md.
+    source: https://mexicodisena.com.mx/wp-json/wp/v2/publicacion

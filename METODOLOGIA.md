@@ -88,6 +88,14 @@ precisa ser humana**.
   nomeie o arquivo na convenção (minúsculas, hífens, ≤ 64 caracteres) e rode
   `pnpm register`. Fluxo completo em `docs/PRESERVACAO.md`.
 
+## Catalogação (ISDIAH)
+
+A ficha segue a ISDIAH, norma do CIA para descrever instituições com acervos.
+Além do que já pedíamos, registre `platform` (software e como foi
+identificado), `machine_access` (OAI-PMH, API, exportações que responderam) e
+`holdings_extent` (tamanho do acervo, dizendo se foi declarado pela fonte ou
+contado por nós). Mapeamento completo e passo a passo em `docs/CATALOGACAO.md`.
+
 ## Nível de descrição da amostra
 
 `sample.level_of_description` usa os níveis da ISAD(G): `fundo`, `serie`,

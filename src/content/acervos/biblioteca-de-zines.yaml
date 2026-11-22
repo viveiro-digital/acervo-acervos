@@ -20,6 +20,22 @@ access_channel:
   limitations: >-
     Os PDFs são exibidos por um player do Google Drive; a leitura depende desse
     serviço externo continuar disponível e público.
+platform:
+  software: Next.js
+  evidence: caminhos-de-arquivos
+  note: Arquivos servidos de /_next/.
+  checked_at: "2026-11-22"
+machine_access:
+  - kind: sitemap
+    url: https://www.biblioteca-de-zines.com.br/sitemap.xml
+    status: testado-com-registros
+    checked_at: "2026-11-22"
+holdings_extent:
+  - statement: 364 páginas de zine no sitemap
+    scope: catálogo público
+    basis: contado-na-pagina
+    source_url: https://www.biblioteca-de-zines.com.br/sitemap.xml
+    accessed_at: "2026-11-22"
 country: [BR]
 geographic_scope: nacional
 territory_note: >-
@@ -100,10 +116,16 @@ review_reason: >-
 review_priority: alta
 record_status: publicado
 created_at: "2026-11-21"
-updated_at: "2026-11-21"
+updated_at: "2026-11-22"
 change_log:
   - date: "2026-11-21"
     field: "*"
     to: criado
     reason: Criação do registro após verificação da amostra.
     source: https://www.biblioteca-de-zines.com.br/zines/coletivo-ventos-do-norte-visagens-no-meio-do-mundo
+  - date: "2026-11-22"
+    field: platform, machine_access, holdings_extent
+    from: ausente
+    to: verificado no site
+    reason: Catalogação conforme ISDIAH (5.3.7 acervo, 5.3.8 instrumentos de pesquisa); ver docs/CATALOGACAO.md.
+    source: https://www.biblioteca-de-zines.com.br/sitemap.xml

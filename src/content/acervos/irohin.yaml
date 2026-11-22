@@ -16,6 +16,17 @@ description:
 initiative_url: https://irohin.org.br/
 digital_collection_url: https://irohin.org.br/acervo/colecoes/
 sample_content_url: https://irohin.org.br/acervo/acervo-grafico/ir20190281-pdf/
+platform:
+  software: WordPress + Tainacan
+  evidence: api-da-plataforma
+  note: O site declara WordPress (meta generator) e expõe a API tainacan/v2; a página de coleções usa os modos de visualização do Tainacan.
+  checked_at: "2026-11-22"
+machine_access:
+  - kind: oai-pmh
+    url: https://irohin.org.br/wp-json/tainacan/v2/oai?verb=Identify
+    status: testado-sem-registros
+    note: O provedor responde (repositório "Ìrohìn"), mas ListIdentifiers volta "noRecordsMatch" e a API pública não lista coleções.
+    checked_at: "2026-11-22"
 country: [BR]
 geographic_scope: nacional
 languages: [pt]
@@ -84,10 +95,16 @@ review_reason: Primeira verificação feita por agente automatizado; falta revis
 review_priority: media
 record_status: publicado
 created_at: "2026-11-21"
-updated_at: "2026-11-21"
+updated_at: "2026-11-22"
 change_log:
   - date: "2026-11-21"
     field: "*"
     to: criado
     reason: Criação do registro após verificação da amostra.
     source: https://irohin.org.br/acervo/acervo-grafico/ir20190281-pdf/
+  - date: "2026-11-22"
+    field: platform, machine_access, holdings_extent
+    from: ausente
+    to: verificado no site
+    reason: Catalogação conforme ISDIAH (5.3.7 acervo, 5.3.8 instrumentos de pesquisa); ver docs/CATALOGACAO.md.
+    source: https://irohin.org.br/wp-json/tainacan/v2/oai?verb=Identify

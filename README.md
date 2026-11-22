@@ -207,6 +207,8 @@ aponta para `SITE_URL`, não para o preview.
 - Autoavaliação NDSA Levels v2.1 e DPC RAM v3, política de acervo, convenção de
   nomes, mapeamento Dublin Core, LGPD, arquivabilidade e plano de sucessão:
   [`docs/PRESERVACAO.md`](docs/PRESERVACAO.md) e ADR 0010.
+- Catalogação pela ISDIAH, com mapeamento campo a campo:
+  [`docs/CATALOGACAO.md`](docs/CATALOGACAO.md) e ADR 0011.
 
 ## Limitações conhecidas
 

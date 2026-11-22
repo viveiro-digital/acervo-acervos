@@ -15,6 +15,16 @@ description:
 initiative_url: https://www.acervodalaje.com.br/
 digital_collection_url: https://www.acervodalaje.com.br/
 sample_content_url: https://www.acervodalaje.com.br/o-acervo
+platform:
+  software: Wix
+  evidence: meta-generator
+  checked_at: "2026-11-22"
+holdings_extent:
+  - statement: 300 obras arroladas em 2020 e 311 novos arrolamentos em 2021, de parte da coleção
+    scope: parte da coleção física, disponibilizada no site
+    basis: declarado-pela-fonte
+    source_url: https://www.acervodalaje.com.br/
+    accessed_at: "2026-11-22"
 country: [BR]
 region: Bahia
 city: Salvador
@@ -92,10 +102,16 @@ review_reason: Localizar na galeria virtual uma obra com ficha própria para ser
 review_priority: media
 record_status: publicado
 created_at: "2026-11-21"
-updated_at: "2026-11-21"
+updated_at: "2026-11-22"
 change_log:
   - date: "2026-11-21"
     field: "*"
     to: criado
     reason: Criação do registro após verificação da amostra.
     source: https://www.acervodalaje.com.br/o-acervo
+  - date: "2026-11-22"
+    field: platform, machine_access, holdings_extent
+    from: ausente
+    to: verificado no site
+    reason: Catalogação conforme ISDIAH (5.3.7 acervo, 5.3.8 instrumentos de pesquisa); ver docs/CATALOGACAO.md.
+    source: https://www.acervodalaje.com.br/

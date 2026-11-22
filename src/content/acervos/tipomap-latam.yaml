@@ -15,6 +15,17 @@ description:
 initiative_url: https://tipomap.lat/
 digital_collection_url: https://tipomap.lat/br/db_list
 sample_content_url: https://tipomap.lat/br/font/acarau-display
+platform:
+  software: sistema próprio
+  evidence: caminhos-de-arquivos
+  note: Sem meta generator; um único script próprio (/assets/js/main.js). Não encontramos API pública.
+  checked_at: "2026-11-22"
+holdings_extent:
+  - statement: "924 fichas encontradas en el nodo BR"
+    scope: nó Brasil
+    basis: declarado-pela-fonte
+    source_url: https://tipomap.lat/br/db_list
+    accessed_at: "2026-11-22"
 country: [LATAM, BR, MX]
 geographic_scope: transnacional
 languages: [es, pt, en]
@@ -80,10 +91,16 @@ review_reason: Verificar se a Galería oferece espécimes visuais por ficha.
 review_priority: media
 record_status: publicado
 created_at: "2026-11-21"
-updated_at: "2026-11-21"
+updated_at: "2026-11-22"
 change_log:
   - date: "2026-11-21"
     field: "*"
     to: criado
     reason: Criação do registro após verificação da amostra.
     source: https://tipomap.lat/br/font/acarau-display
+  - date: "2026-11-22"
+    field: platform, machine_access, holdings_extent
+    from: ausente
+    to: verificado no site
+    reason: Catalogação conforme ISDIAH (5.3.7 acervo, 5.3.8 instrumentos de pesquisa); ver docs/CATALOGACAO.md.
+    source: https://tipomap.lat/br/db_list

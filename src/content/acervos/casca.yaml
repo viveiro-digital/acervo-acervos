@@ -14,6 +14,33 @@ description:
 initiative_url: https://casca-archive.org/pt-br
 digital_collection_url: https://casca-archive.org/items/browse?collection=32
 sample_content_url: https://casca-archive.org/items/show/7647
+platform:
+  software: Omeka Classic 3.2
+  evidence: api-da-plataforma
+  note: A API pública (/api/site) informa omeka_version 3.2.
+  checked_at: "2026-11-22"
+machine_access:
+  - kind: api-rest
+    url: https://casca-archive.org/api/items
+    status: testado-com-registros
+    note: API REST do Omeka; /api/collections/32 informa 6.365 itens na coleção Cordel.
+    checked_at: "2026-11-22"
+  - kind: exportacao-dublin-core
+    url: https://casca-archive.org/items/browse?collection=32&output=dcmes-xml
+    status: oferecido-nao-testado
+    note: A página de navegação também oferece saídas Atom, JSON e omeka-xml.
+    checked_at: "2026-11-22"
+holdings_extent:
+  - statement: "8,185 items and counting"
+    scope: acervo inteiro
+    basis: declarado-pela-fonte
+    source_url: https://casca-archive.org/items/browse?collection=32
+    accessed_at: "2026-11-22"
+  - statement: 6.365 itens na coleção Cordel
+    scope: coleção Cordel (id 32)
+    basis: contado-via-api
+    source_url: https://casca-archive.org/api/collections/32
+    accessed_at: "2026-11-22"
 country: [BR]
 region: Nordeste
 geographic_scope: regional
@@ -112,7 +139,7 @@ review_reason: Primeira verificação feita por agente automatizado; falta revis
 review_priority: baixa
 record_status: publicado
 created_at: "2026-11-21"
-updated_at: "2026-11-21"
+updated_at: "2026-11-22"
 change_log:
   - date: "2026-11-21"
     field: "*"
@@ -120,3 +147,9 @@ change_log:
     to: criado
     reason: Criação do registro após verificação da amostra.
     source: https://casca-archive.org/items/show/7647
+  - date: "2026-11-22"
+    field: platform, machine_access, holdings_extent
+    from: ausente
+    to: verificado no site
+    reason: Catalogação conforme ISDIAH (5.3.7 acervo, 5.3.8 instrumentos de pesquisa); ver docs/CATALOGACAO.md.
+    source: https://casca-archive.org/api/items

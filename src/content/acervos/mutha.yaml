@@ -10,6 +10,22 @@ description:
 initiative_url: https://mutha.com.br/
 digital_collection_url: https://ah.mutha.com.br/acervo-digital/
 sample_content_url: https://ah.mutha.com.br/colecoes/
+platform:
+  software: WordPress + Tainacan
+  evidence: api-da-plataforma
+  note: Tema tainacan-interface.
+  checked_at: "2026-11-22"
+machine_access:
+  - kind: oai-pmh
+    url: https://ah.mutha.com.br/wp-json/tainacan/v2/oai?verb=Identify
+    status: testado-com-registros
+    note: ListIdentifiers (oai_dc) informa completeListSize 397.
+    checked_at: "2026-11-22"
+  - kind: api-rest
+    url: https://ah.mutha.com.br/wp-json/tainacan/v2/collections
+    status: testado-com-registros
+    note: 38 coleções públicas.
+    checked_at: "2026-11-22"
 country: [BR]
 geographic_scope: nacional
 languages: [pt, es, en]
@@ -63,10 +79,16 @@ review_reason: Abrir uma coleção e registrar uma amostra específica.
 review_priority: media
 record_status: rascunho
 created_at: "2026-11-21"
-updated_at: "2026-11-21"
+updated_at: "2026-11-22"
 change_log:
   - date: "2026-11-21"
     field: "*"
     to: criado
     reason: Registro criado como rascunho; amostra não confirmada.
     source: https://ah.mutha.com.br/
+  - date: "2026-11-22"
+    field: platform, machine_access, holdings_extent
+    from: ausente
+    to: verificado no site
+    reason: Catalogação conforme ISDIAH (5.3.7 acervo, 5.3.8 instrumentos de pesquisa); ver docs/CATALOGACAO.md.
+    source: https://ah.mutha.com.br/wp-json/tainacan/v2/oai?verb=Identify

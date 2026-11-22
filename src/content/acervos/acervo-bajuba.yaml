@@ -19,6 +19,10 @@ access_channel:
   limitations: >-
     Sem login, o perfil mostra poucos posts e pede cadastro; não há busca nem
     ordenação, e o conteúdo depende da plataforma.
+platform:
+  software: Instagram
+  evidence: canal-declarado
+  checked_at: "2026-11-22"
 country: [BR]
 geographic_scope: nacional
 languages: [pt]
@@ -79,10 +83,16 @@ review_reason: Encontrar post, destaque ou coleção que mostre itens do acervo;
 review_priority: alta
 record_status: rascunho
 created_at: "2026-11-21"
-updated_at: "2026-11-21"
+updated_at: "2026-11-22"
 change_log:
   - date: "2026-11-21"
     field: "*"
     to: criado
     reason: Registro criado como rascunho; conteúdo do acervo ainda não confirmado.
     source: https://www.instagram.com/acervobajuba/p/CoVhXEEvmoz/
+  - date: "2026-11-22"
+    field: platform, machine_access, holdings_extent
+    from: ausente
+    to: verificado no site
+    reason: Catalogação conforme ISDIAH (5.3.7 acervo, 5.3.8 instrumentos de pesquisa); ver docs/CATALOGACAO.md.
+    source: verificação no navegador

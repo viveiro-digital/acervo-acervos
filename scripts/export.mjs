@@ -20,13 +20,13 @@ const records = readdirSync(DIR)
   .map((f) => YAML.parse(readFileSync(join(DIR, f), 'utf8')));
 
 mkdirSync('export', { recursive: true });
-const json = JSON.stringify({ schema_version: 3, exported_at: new Date().toISOString(), records }, null, 2);
+const json = JSON.stringify({ schema_version: 4, exported_at: new Date().toISOString(), records }, null, 2);
 writeFileSync('export/acervos.json', json);
 
 const cols = [
   'id', 'name', 'record_status', 'content_status', 'initiative_type', 'country',
   'initiative_url', 'digital_collection_url', 'sample_content_url', 'access_level',
-  'stewardship_or_host.type', 'community_evidence.kind', 'last_verified_at', 'updated_at',
+  'stewardship_or_host.type', 'community_evidence.kind', 'platform.software', 'last_verified_at', 'updated_at',
 ];
 const get = (o, p) => p.split('.').reduce((a, k) => a?.[k], o);
 const cell = (v) => {
@@ -79,11 +79,14 @@ const dc = records
     'dcterms:rights': r.rights_and_reuse?.statement,
     'dcterms:accessRights': [ACCESS[r.access_level] ?? r.access_level, r.access_requirements].filter(Boolean).join('. ') || undefined,
     'dcterms:provenance': r.provenance_note,
+    'dcterms:extent': uniq((r.holdings_extent ?? []).map((e) => `${e.statement} (${e.scope}; ${e.basis}, ${e.accessed_at})`)),
     // Metadados sobre a nossa ficha (não sobre o acervo).
     ficha: {
       id: `acervo-acervos:${r.id}`,
       tipo_de_iniciativa: r.initiative_type,
       nivel_de_descricao_da_amostra: r.sample?.level_of_description?.value,
+      plataforma: r.platform?.software,
+      acesso_por_maquina: (r.machine_access ?? []).map((m) => ({ tipo: m.kind, url: m.url, status: m.status, verificado_em: m.checked_at })),
       criada_em: r.created_at,
       atualizada_em: r.updated_at,
       verificada_em: r.last_verified_at,

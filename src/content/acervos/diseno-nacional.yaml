@@ -15,6 +15,28 @@ description:
 initiative_url: https://www.disenonacional.cl/
 digital_collection_url: https://www.disenonacional.cl/carteles/carteles-politicos/
 sample_content_url: https://www.disenonacional.cl/todo-hombre-tiene-derecho-a-ser-persona-2/
+platform:
+  software: WordPress
+  evidence: caminhos-de-arquivos
+  note: Arquivos servidos de /slides/wp-content/, tema "albumes".
+  checked_at: "2026-11-22"
+machine_access:
+  - kind: api-rest
+    url: https://www.disenonacional.cl/wp-json/wp/v2/posts
+    status: testado-com-registros
+    note: API genérica do WordPress; cada peça do acervo é um post com categorias por década, coleção e tipo.
+    checked_at: "2026-11-22"
+holdings_extent:
+  - statement: 4.615 posts publicados
+    scope: site inteiro (inclui textos que não são peças)
+    basis: contado-via-api
+    source_url: https://www.disenonacional.cl/wp-json/wp/v2/posts?per_page=1
+    accessed_at: "2026-11-22"
+  - statement: 62 posts na categoria "Carteles Politicos"
+    scope: carteles políticos
+    basis: contado-via-api
+    source_url: https://www.disenonacional.cl/wp-json/wp/v2/categories?per_page=100
+    accessed_at: "2026-11-22"
 country: [CL]
 geographic_scope: nacional
 languages: [es]
@@ -87,7 +109,7 @@ access_level: abre-direto
 rights_and_reuse:
   statement: "Conteúdo declarado de uso público não comercial, Atribuição-NãoComercial (CC BY-NC), na ficha verificada."
   source_url: https://www.disenonacional.cl/todo-hombre-tiene-derecho-a-ser-persona-2/
-removal_or_contact_url: http://www.disenonacional.cl/contacto
+removal_or_contact_url: https://www.disenonacional.cl/contacto/
 gaps:
   - Mantenedor institucional não identificado.
   - Várias fichas parecem duplicadas (sufixos -2, -3… no endereço); não investigado.
@@ -101,10 +123,16 @@ review_reason: Primeira verificação feita por agente automatizado; falta revis
 review_priority: baixa
 record_status: publicado
 created_at: "2026-11-21"
-updated_at: "2026-11-21"
+updated_at: "2026-11-22"
 change_log:
   - date: "2026-11-21"
     field: "*"
     to: criado
     reason: Criação do registro após verificação da amostra.
     source: https://www.disenonacional.cl/todo-hombre-tiene-derecho-a-ser-persona-2/
+  - date: "2026-11-22"
+    field: platform, machine_access, holdings_extent
+    from: ausente
+    to: verificado no site
+    reason: Catalogação conforme ISDIAH (5.3.7 acervo, 5.3.8 instrumentos de pesquisa); ver docs/CATALOGACAO.md.
+    source: https://www.disenonacional.cl/wp-json/wp/v2/posts
