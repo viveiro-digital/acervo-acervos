@@ -14,7 +14,12 @@ const active = enabled && isIndexable && new URL(basePath, Astro.site).href === 
       window.dataLayer ??= [];
       function gtag() { window.dataLayer.push(arguments); }
 
+      const pageContext = {
+        page_location: location.origin + location.pathname,
+        page_referrer: document.referrer ? new URL(document.referrer).origin : '',
+      };
       gtag('js', new Date());
+      gtag('set', pageContext);
       gtag('config', id, {
         send_page_view: false,
         allow_google_signals: false,
@@ -22,10 +27,8 @@ const active = enabled && isIndexable && new URL(basePath, Astro.site).href === 
         cookie_expires: 0,
         cookie_prefix: 'acervos',
         cookie_path: basePath,
-        page_location: location.origin + location.pathname,
-        page_referrer: document.referrer ? new URL(document.referrer).origin : '',
       });
-      gtag('event', 'page_view');
+      gtag('event', 'page_view', pageContext);
 
       for (const event of ['click', 'auxclick']) {
         document.addEventListener(event, (click) => {
@@ -36,6 +39,7 @@ const active = enabled && isIndexable && new URL(basePath, Astro.site).href === 
           const destination = new URL(link.href);
           if (link.dataset.archiveSource) {
             gtag('event', 'archive_open', {
+              ...pageContext,
               archive_id: link.dataset.archiveSource,
               link_domain: destination.hostname,
             });
@@ -45,6 +49,7 @@ const active = enabled && isIndexable && new URL(basePath, Astro.site).href === 
             (link.hasAttribute('download') || /\.(pdf|zip|csv|json)$/i.test(destination.pathname))
           ) {
             gtag('event', 'file_download', {
+              ...pageContext,
               file_name: destination.pathname.split('/').pop(),
             });
           }
