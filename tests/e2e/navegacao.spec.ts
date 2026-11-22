@@ -83,3 +83,19 @@ test('o endereço antigo preserva a busca e os filtros no catálogo inicial', as
   await expect(page).toHaveURL(/\/\?q=carteles\+politicos&pais=CL$/);
   await expect(page.locator('#lista > li:visible').first()).toHaveAttribute('data-id', 'diseno-nacional');
 });
+
+test('buscar e abrir um acervo rapidamente mantém a busca ao fechar a prévia', async ({ page }) => {
+  await page.goto('/');
+  await page.evaluate(() => {
+    const form = document.getElementById('filtros') as HTMLFormElement;
+    const input = document.getElementById('q') as HTMLInputElement;
+    input.value = 'carteles politicos';
+    input.dispatchEvent(new Event('input', { bubbles: true }));
+    form.requestSubmit();
+    document.querySelector<HTMLAnchorElement>('a[data-open="diseno-nacional"]')!.click();
+  });
+  await expect(page.locator('#painel-titulo')).toBeVisible();
+  await expect(page).toHaveURL(/\/acervos\/diseno-nacional\/$/);
+  await page.keyboard.press('Escape');
+  await expect(page).toHaveURL(/\/\?q=carteles\+politicos$/);
+});

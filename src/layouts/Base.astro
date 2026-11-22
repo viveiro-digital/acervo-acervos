@@ -26,7 +26,7 @@ const {
   description = siteConfig.description,
   noindex = false,
   ogType = 'website',
-  ogImage = '/og-default.png?v=3',
+  ogImage = '/og-default.png?v=4',
   ogImageAlt = 'Acervo Acervos. Coleções digitais do Brasil e da América Latina, com prévias de Diseño Nacional, Ìrohìn e Museu Kuahí.',
   ogImageWidth = 1200,
   ogImageHeight = 630,
@@ -77,9 +77,9 @@ const nav = [
   </head>
   <body>
     <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
-    {current !== 'inicio' && <header class="site-header">
+    <header class="site-header">
       <div class="wrap">
-        <Wordmark size="small" href={sitePath('/')} />
+        {current !== 'inicio' && <Wordmark size="small" href={sitePath('/')} />}
         <nav class="site-nav" aria-label="Principal">
           <ul>
             {nav.map((n) => (
@@ -90,7 +90,7 @@ const nav = [
           </ul>
         </nav>
       </div>
-    </header>}
+    </header>
     <main id="conteudo" tabindex="-1">
       <slot />
     </main>

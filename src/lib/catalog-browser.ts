@@ -37,6 +37,7 @@ function state() {
 }
 
 function writeUrl(s: Record<string, string>) {
+  if (history.state?.panel) return;
   const u = new URLSearchParams();
   // ordem determinística dos parâmetros
   for (const p of PARAMS) if (s[p]) u.set(p, s[p]);
@@ -45,7 +46,10 @@ function writeUrl(s: Record<string, string>) {
   if (path !== location.pathname + location.search + location.hash) history.replaceState(null, '', path);
 }
 
+let searchTimer: number | undefined;
+
 function apply() {
+  clearTimeout(searchTimer);
   const s = state();
   const terms = queryTerms(s.q ?? '');
   const candidates = items.filter((item) =>
@@ -132,10 +136,9 @@ form.addEventListener('submit', (e) => {
   apply();
 });
 form.addEventListener('change', apply);
-let t: number | undefined;
 (form.elements.namedItem('q') as HTMLInputElement).addEventListener('input', () => {
-  clearTimeout(t);
-  t = window.setTimeout(apply, 200);
+  clearTimeout(searchTimer);
+  searchTimer = window.setTimeout(apply, 200);
 });
 document.getElementById('limpar')!.addEventListener('click', (e) => {
   e.preventDefault();

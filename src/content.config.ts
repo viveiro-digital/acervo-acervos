@@ -8,7 +8,7 @@
  *
  * Ao mudar este arquivo, atualize SCHEMA_VERSION e o README.
  */
-import { defineCollection, type SchemaContext } from 'astro:content';
+import { defineCollection } from 'astro:content';
 import { glob } from 'astro/loaders';
 import { z } from 'astro/zod';
 import {
@@ -33,7 +33,7 @@ import {
   themes,
 } from './data/vocabulario';
 
-export const SCHEMA_VERSION = 4; // v4: plataforma, acesso por máquina e extensão do acervo (ISDIAH 5.3.7/5.3.8)
+export const SCHEMA_VERSION = 5; // v5: arquivos de obras preservados como caminhos no repositório
 
 const isoDate = z
   .string()
@@ -68,37 +68,34 @@ const changeLogEntry = z.object({
 });
 
 /**
- * Mídia exibível. Só entra aqui imagem cuja fonte declara licença ou
- * permissão que autoriza a exibição. O arquivo fica em src/assets/acervos/
- * (baixado uma vez, com checksum em SHA256SUMS). Sem isso, o site usa o
- * fallback tipográfico — nunca uma imagem inventada ou gerada.
+ * Evidência de mídia preservada no repositório. O site abre a obra na fonte.
+ * A existência e o checksum do arquivo local são validados em check:data.
  */
-const mediaItem = (image: SchemaContext['image']) =>
-  z.object({
-    local_asset: image(),
-    /** URL do arquivo de imagem na fonte. */
-    source_url: url,
-    /** Página do item na fonte (onde a licença está declarada). */
-    page_url: url,
-    relation: z.enum(['amostra-verificada', 'item-do-acervo']),
-    credit: z.string(),
-    license_or_permission: z.string(),
-    license_url: url.optional(),
-    /** Texto alternativo e de onde ele vem. */
-    alt: z.string().min(1),
-    alt_source: z.enum(['fonte', 'curadoria']),
-    caption: z.string().optional(),
-    rights_checked_at: isoDate,
-    /** Data em que o arquivo foi obtido da fonte. */
-    retrieved_at: isoDate,
-    /** Checksum publicado pela fonte, se houver (para conferir no recebimento). */
-    source_checksum: z.string().optional(),
-    order: z.number().int().default(0),
-  });
+const mediaItem = z.object({
+  local_asset: z.string().min(1),
+  /** URL do arquivo de imagem na fonte. */
+  source_url: url,
+  /** Página do item na fonte (onde a licença está declarada). */
+  page_url: url,
+  relation: z.enum(['amostra-verificada', 'item-do-acervo']),
+  credit: z.string(),
+  license_or_permission: z.string(),
+  license_url: url.optional(),
+  /** Texto alternativo e de onde ele vem. */
+  alt: z.string().min(1),
+  alt_source: z.enum(['fonte', 'curadoria']),
+  caption: z.string().optional(),
+  rights_checked_at: isoDate,
+  /** Data em que o arquivo foi obtido da fonte. */
+  retrieved_at: isoDate,
+  /** Checksum publicado pela fonte, se houver (para conferir no recebimento). */
+  source_checksum: z.string().optional(),
+  order: z.number().int().default(0),
+});
 
 const acervos = defineCollection({
   loader: glob({ pattern: '**/*.yaml', base: './src/content/acervos' }),
-  schema: ({ image }) => z
+  schema: z
     .object({
       // ── Identidade e contexto ────────────────────────────────
       id: z.string().regex(/^[a-z0-9-]+$/, 'id: minúsculas, números e hífen'),
@@ -186,8 +183,8 @@ const acervos = defineCollection({
         source_note: z.string().optional(),
       }),
       design_dimensions: z.array(z.enum(keysOf(designDimensions))).default([]),
-      /** Imagens com direito de exibição confirmado (pode ficar vazio). */
-      media: z.array(mediaItem(image)).default([]),
+      /** Referências de imagem preservadas no repositório (pode ficar vazio). */
+      media: z.array(mediaItem).default([]),
       /** Por que não há imagem exibida (aparece no fallback tipográfico). */
       media_note: z.string().optional(),
 

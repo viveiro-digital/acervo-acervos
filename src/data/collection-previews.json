@@ -70,10 +70,9 @@
   "museu-kuahi": {
     "file": "museu-kuahi.jpg",
     "page": "https://museukuahi.com.br/acervo-etnografico/",
-    "image": "https://museukuahi.com.br/wp-content/uploads/2025/02/014-1024x574.jpg",
-    "kind": "collection-image",
-    "width": 1080,
-    "height": 605
+    "kind": "catalog-screenshot",
+    "width": 875,
+    "height": 577
   },
   "tipomap-latam": {
     "file": "tipomap-latam.jpg",

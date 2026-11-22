@@ -77,7 +77,7 @@ src/
   assets/acervos/            imagens com licença declarada + SHA256SUMS
   data/vocabulario.ts        vocabulários controlados e rótulos
   lib/acervos.ts             consultas, facetas, relações (sem UI)
-  components/                MediaPlate (imagem ou prancha tipográfica), Footer…
+  components/                CollectionCover (prévia do catálogo), Footer…
   layouts/Base.astro         head (SEO, OG, JSON-LD), header e footer
   pages/                     início, explorar (+ painel), registro, comparar,
                              sobre, metodologia, contribuir, revisão (noindex),
@@ -170,8 +170,9 @@ Resumo; os detalhes e as alternativas estão nos [ADRs](docs/adr/README.md).
   voltar/Esc coerentes (ADR 0002).
 - **YAML por registro**, schema validado no build e exportação DCMI Terms
   (ADR 0003).
-- **Imagens só com licença declarada pela fonte**, guardadas localmente com
-  checksum e processadas por `astro:assets` (ADR 0004).
+- **Prévias de coleção** na interface. Imagens de obras registradas no campo
+  `media` ficam no repositório, com checksum, e não entram no site (schema v5,
+  ADR 0004).
 - **Sem dependências de runtime além do Astro.** As devDependencies são as
   ferramentas de qualidade (astro check, Playwright, axe, Lighthouse).
 - **Sem rastreadores, cookies, fontes remotas ou scripts de terceiros**
@@ -214,8 +215,7 @@ aponta para `SITE_URL`, não para o preview.
 
 - Primeira rodada de verificações feita por agente de IA em 21/11/2026; **todos
   os registros estão marcados para revisão humana**.
-- Catálogo pequeno: 12 publicados, 4 rascunhos e 2 deixados de fora. Só 2
-  registros têm imagem licenciada; os outros mostram prancha tipográfica.
+- Catálogo pequeno: 12 publicados, 4 rascunhos e 2 deixados de fora. A interface usa prévias das coleções e remete às obras na fonte.
 - Interface só em português; os campos `es`/`en` existem, mas estão vazios.
 - O canal de correções e o link do código apontam para
   `github.com/viveiro-digital/acervo-acervos`, que só existe depois do push.

@@ -2,7 +2,6 @@
 import { sitePath } from '../../lib/site-path';
 import Base from '../../layouts/Base.astro';
 import ExtLink from '../../components/ExtLink.astro';
-import MediaPlate from '../../components/MediaPlate.astro';
 import CollectionCover from '../../components/CollectionCover.astro';
 import { collectionViews } from '../../data/collection-views';
 import { siteConfig } from '../../site.config';
@@ -31,7 +30,6 @@ const description = r.description.pt;
 const sections = (collectionViews[r.id] ?? []).filter(([, url]) => url !== r.digital_collection_url);
 const accessNote = r.access_requirements;
 const canonical = new URL(recordPath(r.id), Astro.site).href;
-const lead = [...r.media].sort((x, y) => x.order - y.order)[0];
 const jsonLd = [
   {
     '@context': 'https://schema.org',
@@ -55,18 +53,6 @@ const jsonLd = [
       spatialCoverage: r.country.filter((c) => c !== 'LATAM').map((c) => ({ '@type': 'Country', name: V.label(V.countries, c) })),
       keywords: r.themes.map((t) => V.label(V.themes, t)).join(', ') || undefined,
     },
-    primaryImageOfPage: lead
-      ? {
-          '@type': 'ImageObject',
-          contentUrl: new URL(lead.local_asset.src, Astro.site).href,
-          caption: lead.caption,
-          creditText: lead.credit,
-          license: lead.license_url,
-          acquireLicensePage: lead.page_url,
-          width: lead.local_asset.width,
-          height: lead.local_asset.height,
-        }
-      : undefined,
   },
   {
     '@context': 'https://schema.org',
@@ -129,11 +115,13 @@ const jsonLd = [
     <details class="record-notes">
       <summary>Notas e fontes</summary>
       <div class="record-notes-body">
-        {lead && <MediaPlate record={r} variant="detail" />}
+        <h2>O que conferimos</h2>
+        <p class="meta muted">Consulta em <time datetime={r.last_verified_at}>{formatDate(r.last_verified_at)}</time>.</p>
+        <p>{r.sample.observed}</p>
+        {r.platform && <p class="meta muted">Plataforma identificada: {r.platform.software}.</p>}
         {r.community_protocol && <p>{r.community_protocol}</p>}
         {r.relationship_disclosure && <p>{r.relationship_disclosure}</p>}
         <h2>Fontes consultadas</h2>
-        <p>Consulta em <time datetime={r.last_verified_at}>{formatDate(r.last_verified_at)}</time>.</p>
         <ul class="record-links">
           <li><ExtLink href={r.initiative_url}>Site da iniciativa</ExtLink></li>
           {r.sample_content_url !== r.initiative_url && (

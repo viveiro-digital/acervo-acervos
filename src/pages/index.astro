@@ -83,13 +83,7 @@ const jsonLd = {
 <Base current="inicio" jsonLd={jsonLd}>
   <div class="wrap">
     <header class="intro">
-      <div class="masthead">
-        <h1>{siteConfig.name}</h1>
-        <nav aria-label="Principal">
-          <a href={sitePath('/comparar/')}>Comparar</a>
-          <a href={sitePath('/sobre/')}>Sobre</a>
-        </nav>
-      </div>
+      <h1>{siteConfig.name}</h1>
       <p class="intro-subtitle">{siteConfig.subtitle}</p>
     </header>
 
@@ -186,18 +180,8 @@ const jsonLd = {
 
 <style>
   .intro {
-    padding-block: clamp(1.35rem, 4vw, 3.4rem) clamp(1.35rem, 3vw, 2.5rem);
+    padding-bottom: clamp(1.35rem, 3vw, 2.5rem);
   }
-  .masthead {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    flex-wrap: wrap;
-    gap: 0.25rem 2rem;
-  }
-  nav { display: flex; gap: 1rem; font-size: 0.9rem; padding-bottom: 0.45rem; }
-  nav a { text-decoration: none; }
-  nav a:hover { text-decoration: underline; }
   h1 {
     font-family: var(--f-title);
     font-size: clamp(2.75rem, 1.1rem + 7.2vw, 8rem);
@@ -256,7 +240,6 @@ const jsonLd = {
     .tile[hidden] { display: none; }
   }
   @media (max-width: 34rem) {
-    .masthead nav { padding-bottom: 0; }
     .search { flex: 1 1 13rem; }
   }
   /* Painel contextual */

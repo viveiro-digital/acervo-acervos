@@ -1,20 +1,15 @@
 import { test, expect } from '@playwright/test';
 
-test('imagens licenciadas: proporção preservada, alt, dimensões e crédito', async ({ page }) => {
+test('as notas descrevem a amostra sem exibir a imagem da obra', async ({ page }) => {
   for (const id of ['casca', 'diseno-nacional']) {
     await page.goto(`/acervos/${id}/`);
+    const cover = page.locator('.record-hero img');
+    await expect(cover).toBeVisible();
+    await expect(cover).toHaveAttribute('width', /\d+/);
     await page.getByText('Notas e fontes', { exact: true }).click();
-    const img = page.locator('.plate--image img').first();
-    await img.evaluate((image: HTMLImageElement) => { image.loading = 'eager'; return image.decode(); });
-    await expect(img).toHaveAttribute('alt', /.+/);
-    await expect(img).toHaveAttribute('width', /\d+/);
-    await expect(img).toHaveAttribute('height', /\d+/);
-    const ok = await img.evaluate((i: HTMLImageElement) => {
-      const r = i.getBoundingClientRect();
-      return Math.abs(r.width / r.height - i.naturalWidth / i.naturalHeight) < 0.02;
-    });
-    expect(ok).toBe(true);
-    await expect(page.locator('.plate--image figcaption')).toContainText(/CC/);
+    await expect(page.getByRole('heading', { name: 'O que conferimos' })).toBeVisible();
+    await expect(page.locator('.record-notes-body').getByText(/Ficha.*(imagem|cartaz)/i)).toBeVisible();
+    await expect(page.locator('.record-notes img')).toHaveCount(0);
   }
 });
 
