@@ -1,0 +1,19 @@
+---
+/**
+ * Marca tipográfica: "ACERVO" em tinta e "ACERVOS" reimpresso em vermelho,
+ * deslocado como um segundo passe de impressão. Texto vivo (acessível e
+ * pesquisável); versões em SVG para usos fora do site ficam em public/marca/.
+ */
+interface Props {
+  size?: 'small' | 'large';
+  href?: string;
+  as?: 'div' | 'h1';
+}
+const { size = 'small', href, as = 'div' } = Astro.props;
+const Tag = href ? 'a' : as;
+---
+<Tag class={`wordmark wordmark--${size}`} href={href}>
+  <span class="visually-hidden">Acervo Acervos</span>
+  <span class="w-a" aria-hidden="true">Acervo</span>
+  <span class="w-b" aria-hidden="true">Acervos</span>
+</Tag>

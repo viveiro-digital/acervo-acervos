@@ -1,0 +1,63 @@
+---
+/**
+ * Vista de revisão editorial (somente leitura).
+ * Não edita nada: a resolução é feita no arquivo YAML ou com
+ * `pnpm review resolve <id> --motivo "..."` (ver README › Revisão).
+ * Página fora do sitemap e com noindex.
+ */
+import Base from '../layouts/Base.astro';
+import Status from '../components/Status.astro';
+import ExtLink from '../components/ExtLink.astro';
+import * as V from '../data/vocabulario';
+import { getAll, formatDate, recordPath } from '../lib/acervos';
+
+const order = { alta: 0, media: 1, baixa: 2 } as const;
+const flagged = (await getAll())
+  .filter((r) => r.review_flag)
+  .sort(
+    (a, b) =>
+      order[a.review_priority ?? 'baixa'] - order[b.review_priority ?? 'baixa'] ||
+      a.name.localeCompare(b.name, 'pt'),
+  );
+---
+<Base title="Revisão editorial" noindex>
+  <div class="wrap">
+    <p class="kicker">Uso interno · fora do índice</p>
+    <h1>Revisão editorial</h1>
+    <p>
+      Registros sinalizados para revisão, por prioridade. Esta página só lê os dados. Para
+      resolver uma sinalização, edite o arquivo do registro ou rode:
+    </p>
+    <pre class="mono"><code>pnpm review resolve &lt;id&gt; --motivo "o que foi conferido" --fonte "url"</code></pre>
+    <p class="meta muted">
+      O comando marca <code>review_flag: false</code>, atualiza <code>updated_at</code> e
+      acrescenta uma entrada ao <code>change_log</code>. Revise o diff no Git antes de commitar.
+    </p>
+
+    <table>
+      <caption class="visually-hidden">Registros sinalizados</caption>
+      <thead>
+        <tr><th scope="col">Registro</th><th scope="col">Prioridade</th><th scope="col">Motivo</th><th scope="col">Estado</th><th scope="col">Arquivo</th></tr>
+      </thead>
+      <tbody>
+        {flagged.map((r) => (
+          <tr>
+            <td>
+              {r.record_status === 'publicado' ? <a href={recordPath(r.id)}>{r.name}</a> : <strong>{r.name}</strong>}
+              <br /><span class="meta muted">{V.label(V.recordStatuses, r.record_status)} · verificado em {formatDate(r.last_verified_at)}</span>
+              <br /><ExtLink href={r.sample_content_url}>amostra</ExtLink>
+            </td>
+            <td class="meta">{V.label(V.reviewPriorities, r.review_priority ?? 'baixa')}</td>
+            <td>{r.review_reason}</td>
+            <td><Status status={r.content_status} /></td>
+            <td class="meta"><code>src/content/acervos/{r.id}.yaml</code></td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+</Base>
+<style>
+  pre { background: var(--paper-2); padding: 0.8rem; overflow-x: auto; border-left: 4px solid var(--blue); }
+  table { margin-top: 1.5rem; }
+</style>

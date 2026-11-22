@@ -1,0 +1,6 @@
+---
+/** Link externo: abre na mesma aba por padrão (sem target), com rel seguro. */
+interface Props { href: string; class?: string; label?: string }
+const { href, class: cls = '', label } = Astro.props;
+---
+<a href={href} class={`ext ${cls}`} rel="noopener noreferrer external" aria-label={label}><slot /></a>

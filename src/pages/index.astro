@@ -1,0 +1,209 @@
+---
+import Base from '../layouts/Base.astro';
+import Wordmark from '../components/Wordmark.astro';
+import Status from '../components/Status.astro';
+import ExtLink from '../components/ExtLink.astro';
+import { siteConfig } from '../site.config';
+import * as V from '../data/vocabulario';
+import {
+  getAll,
+  getPublished,
+  isFeaturable,
+  lastUpdate,
+  formatDate,
+  facetCounts,
+  recordPath,
+} from '../lib/acervos';
+
+const all = await getAll();
+const published = await getPublished();
+const featured = published.filter(isFeaturable);
+const pendingCount = all.filter((r) => r.record_status === 'rascunho').length;
+const updated = lastUpdate(all);
+
+const byCountry = [...facetCounts(published, (r) => r.country)].sort((a, b) => b[1] - a[1]);
+const byTheme = [...facetCounts(published, (r) => r.themes)]
+  .sort((a, b) => b[1] - a[1])
+  .slice(0, 10);
+const byType = [...facetCounts(published, (r) => r.collection_types)]
+  .sort((a, b) => b[1] - a[1])
+  .slice(0, 10);
+---
+<Base current="inicio">
+  <div class="wrap home">
+    <section class="masthead" aria-labelledby="titulo">
+      <h1 id="titulo" class="visually-hidden">{siteConfig.name}</h1>
+      <Wordmark size="large" />
+      <p class="subtitle">{siteConfig.subtitle}</p>
+      <div class="intro">
+        <p>
+          Um índice de iniciativas e arquivos do Brasil e da América Latina que publicam conteúdo
+          digital que dá para abrir agora: zines, cartazes, documentos, objetos, fotografias.
+          Cada registro aponta para a fonte e diz o que foi visto, quando, e o que ainda não se
+          sabe.
+        </p>
+        <p class="margin-note">
+          O método parte de três gestos propostos no <cite>Guia dos Arquivos que não Existem</cite>{' '}(Beiguelman, org., FAU-USP, 2026): <strong>fazer aparecer, fazer ler e fazer
+          relacionar</strong>. <a href="/sobre/">Leia o método</a>.
+        </p>
+      </div>
+
+      <form class="search" action="/explorar/" method="get" role="search">
+        <label for="q-home" class="kicker">Buscar por nome, tema, lugar ou tipo de acervo</label>
+        <div class="search-row">
+          <input id="q-home" name="q" type="search" placeholder="ex.: cartaz, Amapá, memória trans" />
+          <button class="btn btn--primary" type="submit">Buscar</button>
+        </div>
+      </form>
+
+      <p class="meta muted status-line">
+        {`Curadoria em construção · atualizada em `}<time datetime={updated}>{formatDate(updated)}</time>
+        {` · ${published.length} registros publicados · ${pendingCount} em revisão`}
+      </p>
+    </section>
+
+    <section class="explore" aria-labelledby="percursos">
+      <h2 id="percursos">Percursos</h2>
+      <div class="explore-cols">
+        <div>
+          <h3 class="kicker">Território</h3>
+          <ul class="tags big">
+            {byCountry.map(([k]) => (
+              <li><a href={`/explorar/?pais=${k}`}>{V.label(V.countries, k)}</a></li>
+            ))}
+          </ul>
+        </div>
+        <div>
+          <h3 class="kicker">Temas</h3>
+          <ul class="tags big">
+            {byTheme.map(([k]) => (
+              <li><a href={`/explorar/?tema=${k}`}>{V.label(V.themes, k)}</a></li>
+            ))}
+          </ul>
+        </div>
+        <div>
+          <h3 class="kicker">Formas de acervo</h3>
+          <ul class="tags big">
+            {byType.map(([k]) => (
+              <li><a href={`/explorar/?tipo=${k}`}>{V.label(V.collectionTypes, k)}</a></li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="amostras">
+      <div class="section-head">
+        <h2 id="amostras">Amostras abertas</h2>
+        <p class="muted">
+          Itens específicos que abrimos e cujo conteúdo digital carregou na última verificação. O
+          texto é nosso; a obra continua na fonte.
+        </p>
+      </div>
+      <ol class="index">
+        {featured.map((r, i) => (
+          <li>
+            <span class="num">{String(i + 1).padStart(2, '0')}</span>
+            <div>
+              <p class="kicker">{r.country.map((c) => V.label(V.countries, c)).join(' · ')} — {V.label(V.initiativeTypes, r.initiative_type)}</p>
+              <h3><a href={recordPath(r.id)}>{r.sample.title}</a></h3>
+              <p>{r.sample.observed}</p>
+              <div class="line">
+                <ExtLink href={r.sample_content_url}>Abrir amostra em {r.preferred_name ?? r.name}</ExtLink>
+                <a href={recordPath(r.id)}>Ver registro</a>
+              </div>
+            </div>
+            <div class="aside">
+              <Status status={r.content_status} />
+              <p class="meta muted">Verificado em <time datetime={r.last_verified_at}>{formatDate(r.last_verified_at)}</time></p>
+              <p class="meta">{r.curatorial_reason.pt}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+      <p class="more"><a class="btn" href="/explorar/">Ver todos os registros publicados</a></p>
+    </section>
+
+    <aside class="callout reg" aria-labelledby="nao-e">
+      <h2 id="nao-e">O que este índice não é</h2>
+      <p>
+        Não é selo de qualidade, ranking ou diretório exaustivo, nem substitui os catálogos das
+        iniciativas. "Comunitário", "independente" e "contra-hegemônico" só aparecem quando há
+        evidência publicada. Ausências e dúvidas ficam registradas, não preenchidas.
+      </p>
+    </aside>
+  </div>
+</Base>
+
+<style>
+  .masthead {
+    padding-block: 1rem 2rem;
+    border-bottom: 2px solid var(--rule);
+    margin-bottom: 2.5rem;
+  }
+  .subtitle {
+    font-family: var(--f-display);
+    font-stretch: condensed;
+    font-size: var(--step-2);
+    line-height: 1.1;
+    max-width: 22ch;
+    margin: 0.4rem 0 1.5rem;
+  }
+  .intro {
+    display: grid;
+    gap: 1rem 2.5rem;
+  }
+  @media (min-width: 56rem) {
+    .intro {
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+      align-items: start;
+    }
+  }
+  .search {
+    margin-top: 1.5rem;
+    max-width: 44rem;
+  }
+  .search-row {
+    display: flex;
+    gap: 0.5rem;
+  }
+  .search-row input {
+    flex: 1;
+    min-width: 0;
+    font-size: var(--step-1);
+  }
+  .status-line {
+    margin-top: 1rem;
+  }
+  .explore {
+    margin-bottom: 3rem;
+  }
+  .explore-cols {
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  }
+  .tags.big li {
+    font-family: var(--f-display);
+    font-stretch: condensed;
+    font-size: var(--step-1);
+    border-bottom: 0;
+  }
+  .tags.big a {
+    text-decoration-color: var(--red);
+  }
+  .section-head {
+    display: grid;
+    gap: 0.5rem 2rem;
+    margin-bottom: 1rem;
+  }
+  @media (min-width: 56rem) {
+    .section-head {
+      grid-template-columns: auto 1fr;
+      align-items: end;
+    }
+  }
+  .more {
+    margin: 1.5rem 0 3rem;
+  }
+</style>

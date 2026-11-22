@@ -1,0 +1,358 @@
+---
+import Base from '../layouts/Base.astro';
+import Status from '../components/Status.astro';
+import ExtLink from '../components/ExtLink.astro';
+import * as V from '../data/vocabulario';
+import {
+  getPublished,
+  facetCounts,
+  periodBuckets,
+  periodKeys,
+  searchText,
+  normalize,
+  formatDate,
+  recordPath,
+} from '../lib/acervos';
+
+const records = await getPublished();
+
+type Facet = {
+  param: string;
+  legend: string;
+  vocab: Record<string, string>;
+  pick: (r: (typeof records)[number]) => string[];
+  note?: string;
+};
+
+const periodVocab = Object.fromEntries(periodBuckets.map((b) => [b.key, b.label]));
+
+const facets: Facet[] = [
+  { param: 'pais', legend: 'País / região', vocab: V.countries, pick: (r) => r.country },
+  { param: 'tema', legend: 'Tema', vocab: V.themes, pick: (r) => r.themes },
+  { param: 'tipo', legend: 'Tipo de acervo', vocab: V.collectionTypes, pick: (r) => r.collection_types },
+  { param: 'formato', legend: 'Formato', vocab: V.formats, pick: (r) => r.formats },
+  { param: 'lingua', legend: 'Língua', vocab: V.languages, pick: (r) => r.languages },
+  { param: 'periodo', legend: 'Período do conteúdo', vocab: periodVocab, pick: (r) => periodKeys(r) },
+  { param: 'acesso', legend: 'Regime de acesso', vocab: V.accessLevels, pick: (r) => [r.access_level] },
+  { param: 'status', legend: 'Verificação', vocab: V.contentStatuses, pick: (r) => [r.content_status] },
+  {
+    param: 'relacao',
+    legend: 'Relação comunitária',
+    vocab: V.communityEvidenceKinds,
+    pick: (r) => [r.community_evidence.kind],
+    note: 'Segundo a evidência publicada — não é avaliação de governança.',
+  },
+  { param: 'host', legend: 'Quem mantém', vocab: V.stewardshipTypes, pick: (r) => [r.stewardship_or_host.type] },
+];
+
+const facetOptions = facets.map((f) => {
+  const counts = facetCounts(records, f.pick);
+  const options = Object.keys(f.vocab)
+    .filter((k) => counts.has(k))
+    .map((k) => ({ key: k, label: f.vocab[k], count: counts.get(k)! }));
+  return { ...f, options };
+});
+---
+<Base
+  title="Explorar"
+  description="Filtre iniciativas e arquivos por território, tema, tipo de acervo, formato, língua, período, acesso e verificação."
+  current="explorar"
+>
+  <div class="wrap">
+    <header class="page-head">
+      <p class="kicker">Índice</p>
+      <h1>Explorar</h1>
+      <p>
+        Todos os registros publicados estão nesta página. Os filtros podem ser combinados e ficam
+        no endereço, então dá para copiar e compartilhar uma busca. Os filtros descrevem o que foi
+        verificado, não a qualidade das iniciativas.
+      </p>
+    </header>
+
+    <div class="layout">
+      <form id="filtros" class="filters" action="/explorar/" method="get" role="search" aria-label="Filtros do índice">
+        <div class="field">
+          <label for="q" class="kicker">Busca textual</label>
+          <input id="q" name="q" type="search" placeholder="nome, tema, lugar…" autocomplete="off" />
+        </div>
+        <div class="field">
+          <label for="ordem" class="kicker">Ordenar por</label>
+          <select id="ordem" name="ordem">
+            <option value="">Padrão (nome; correspondência quando há busca)</option>
+            <option value="nome">Nome (A–Z)</option>
+            <option value="atualizacao">Atualização mais recente</option>
+            <option value="inclusao">Inclusão mais recente</option>
+            <option value="relevancia">Correspondência com a busca</option>
+          </select>
+        </div>
+        {facetOptions.map((f) => (
+          <div class="field">
+            <label for={`f-${f.param}`} class="kicker">{f.legend}</label>
+            <select id={`f-${f.param}`} name={f.param} data-facet={f.param}>
+              <option value="">Todos</option>
+              {f.options.map((o) => (
+                <option value={o.key}>{o.label} ({o.count})</option>
+              ))}
+            </select>
+            {f.note && <p class="meta muted hint">{f.note}</p>}
+          </div>
+        ))}
+        <div class="actions">
+          <button class="btn btn--primary" type="submit">Aplicar</button>
+          <a class="btn" href="/explorar/" id="limpar">Limpar</a>
+        </div>
+        <noscript>
+          <p class="callout meta">
+            Os filtros precisam de JavaScript. Sem ele, a lista abaixo mostra todos os registros
+            publicados.
+          </p>
+        </noscript>
+      </form>
+
+      <section aria-labelledby="resultados-titulo">
+        <h2 id="resultados-titulo" class="visually-hidden">Resultados</h2>
+        <div id="chips" class="chips" aria-label="Filtros ativos"></div>
+        <p id="contagem" class="meta" role="status" aria-live="polite">
+          {records.length} registros publicados.
+        </p>
+        <p id="vazio" class="callout" hidden>
+          Nenhum registro corresponde a essa combinação. Isso não significa que a iniciativa não
+          exista — talvez ainda não tenha sido verificada. Remova um filtro acima ou{' '}
+          <a href="/contribuir/">sugira uma iniciativa</a>.
+        </p>
+
+        <ol class="index" id="lista">
+          {records.map((r, i) => (
+            <li
+              data-id={r.id}
+              data-name={r.name}
+              data-updated={r.updated_at}
+              data-created={r.created_at}
+              data-search={searchText(r)}
+              data-name-norm={normalize([r.name, r.preferred_name ?? '', ...r.alternative_names].join(' '))}
+              {...Object.fromEntries(facets.map((f) => [`data-${f.param}`, f.pick(r).join(' ')]))}
+            >
+              <span class="num">{String(i + 1).padStart(2, '0')}</span>
+              <div>
+                <p class="kicker">
+                  {r.country.map((c) => V.label(V.countries, c)).join(' · ')}
+                  {r.city && ` — ${r.city}`} · {V.label(V.initiativeTypes, r.initiative_type)}
+                </p>
+                <h3><a href={recordPath(r.id)}>{r.name}</a></h3>
+                <p>{r.description.pt}</p>
+                <ul class="tags" aria-label="Temas">
+                  {r.themes.map((t) => <li>{V.label(V.themes, t)}</li>)}
+                </ul>
+                <div class="line">
+                  <ExtLink href={r.sample_content_url}>Amostra: {r.sample.title}</ExtLink>
+                </div>
+              </div>
+              <div class="aside">
+                <Status status={r.content_status} />
+                <p class="meta">
+                  Acesso: {V.label(V.accessLevels, r.access_level)}<br />
+                  Mantém: {V.label(V.stewardshipTypes, r.stewardship_or_host.type)}<br />
+                  Verificado em <time datetime={r.last_verified_at}>{formatDate(r.last_verified_at)}</time>
+                </p>
+              </div>
+            </li>
+          ))}
+        </ol>
+        <p class="meta muted">
+          Registros em revisão (sem amostra confirmada) não aparecem aqui; estão listados em{' '}
+          <a href="/sobre/#pendentes">Sobre › Pendentes</a>.
+        </p>
+      </section>
+    </div>
+  </div>
+</Base>
+
+<script>
+  const PARAMS = ['q', 'ordem', 'pais', 'tema', 'tipo', 'formato', 'lingua', 'periodo', 'acesso', 'status', 'relacao', 'host'];
+  const FACETS = PARAMS.filter((p) => p !== 'q' && p !== 'ordem');
+
+  const form = document.getElementById('filtros') as HTMLFormElement;
+  const list = document.getElementById('lista') as HTMLOListElement;
+  const items = Array.from(list.querySelectorAll<HTMLLIElement>(':scope > li'));
+  const count = document.getElementById('contagem')!;
+  const empty = document.getElementById('vazio')!;
+  const chips = document.getElementById('chips')!;
+
+  const norm = (s: string) => s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().trim();
+
+  function readUrl() {
+    const u = new URLSearchParams(location.search);
+    for (const p of PARAMS) {
+      const el = form.elements.namedItem(p) as HTMLInputElement | HTMLSelectElement | null;
+      if (!el) continue;
+      const v = u.get(p) ?? '';
+      if (el instanceof HTMLSelectElement && v && !Array.from(el.options).some((o) => o.value === v)) {
+        el.value = '';
+      } else {
+        el.value = v;
+      }
+    }
+  }
+
+  function state() {
+    const s: Record<string, string> = {};
+    for (const p of PARAMS) {
+      const el = form.elements.namedItem(p) as HTMLInputElement | HTMLSelectElement | null;
+      if (el && el.value.trim()) s[p] = el.value.trim();
+    }
+    return s;
+  }
+
+  function writeUrl(s: Record<string, string>) {
+    const u = new URLSearchParams();
+    // ordem determinística dos parâmetros
+    for (const p of PARAMS) if (s[p]) u.set(p, s[p]);
+    const qs = u.toString();
+    history.replaceState(null, '', qs ? `?${qs}` : location.pathname);
+  }
+
+  function score(li: HTMLLIElement, terms: string[]) {
+    const all = li.dataset.search ?? '';
+    const name = li.dataset.nameNorm ?? '';
+    let sc = 0;
+    for (const t of terms) {
+      if (!all.includes(t)) return -1;
+      sc += name.includes(t) ? 3 : 1;
+    }
+    return sc;
+  }
+
+  function apply() {
+    const s = state();
+    const terms = s.q ? norm(s.q).split(/\s+/).filter(Boolean) : [];
+    const scored: [HTMLLIElement, number][] = [];
+    for (const li of items) {
+      let ok = true;
+      for (const f of FACETS) {
+        if (s[f] && !(li.dataset[f] ?? '').split(' ').includes(s[f])) ok = false;
+      }
+      const sc = terms.length ? score(li, terms) : 0;
+      if (sc < 0) ok = false;
+      li.hidden = !ok;
+      if (ok) scored.push([li, sc]);
+    }
+    const ordem = s.ordem ?? (s.q ? 'relevancia' : 'nome');
+    const byName = (a: HTMLLIElement, b: HTMLLIElement) => (a.dataset.name ?? '').localeCompare(b.dataset.name ?? '', 'pt');
+    const sorted = [...items].sort((a, b) => {
+      if (ordem === 'atualizacao') return (b.dataset.updated ?? '').localeCompare(a.dataset.updated ?? '') || byName(a, b);
+      if (ordem === 'inclusao') return (b.dataset.created ?? '').localeCompare(a.dataset.created ?? '') || byName(a, b);
+      if (ordem === 'relevancia') {
+        const sa = scored.find(([li]) => li === a)?.[1] ?? -1;
+        const sb = scored.find(([li]) => li === b)?.[1] ?? -1;
+        return sb - sa || byName(a, b);
+      }
+      return byName(a, b);
+    });
+    let n = 0;
+    for (const li of sorted) {
+      list.appendChild(li);
+      if (!li.hidden) li.querySelector('.num')!.textContent = String(++n).padStart(2, '0');
+    }
+    const total = items.length;
+    count.textContent = n === total ? `${total} registros publicados.` : `${n} de ${total} registros correspondem aos filtros.`;
+    empty.hidden = n !== 0;
+    renderChips(s);
+    writeUrl(s);
+  }
+
+  function renderChips(s: Record<string, string>) {
+    chips.replaceChildren();
+    for (const p of PARAMS) {
+      if (p === 'ordem' || !s[p]) continue;
+      const el = form.elements.namedItem(p) as HTMLInputElement | HTMLSelectElement;
+      const labelEl = form.querySelector(`label[for="${el.id}"]`);
+      const valueLabel = el instanceof HTMLSelectElement ? el.selectedOptions[0]?.textContent?.replace(/\s*\(\d+\)$/, '') : `“${s[p]}”`;
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'chip';
+      b.textContent = `${labelEl?.textContent ?? p}: ${valueLabel} ✕`;
+      b.setAttribute('aria-label', `Remover filtro ${labelEl?.textContent ?? p}: ${valueLabel}`);
+      b.addEventListener('click', () => {
+        el.value = '';
+        apply();
+        (form.elements.namedItem('q') as HTMLInputElement).focus();
+      });
+      chips.appendChild(b);
+    }
+  }
+
+  readUrl();
+  apply();
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    apply();
+  });
+  form.addEventListener('change', apply);
+  let t: number | undefined;
+  (form.elements.namedItem('q') as HTMLInputElement).addEventListener('input', () => {
+    clearTimeout(t);
+    t = window.setTimeout(apply, 200);
+  });
+  document.getElementById('limpar')!.addEventListener('click', (e) => {
+    e.preventDefault();
+    form.reset();
+    for (const p of PARAMS) {
+      const el = form.elements.namedItem(p) as HTMLInputElement | HTMLSelectElement | null;
+      if (el) el.value = '';
+    }
+    apply();
+  });
+  window.addEventListener('popstate', () => {
+    readUrl();
+    apply();
+  });
+</script>
+
+<style>
+  .page-head {
+    margin-bottom: 1.5rem;
+  }
+  .layout {
+    display: grid;
+    gap: 2rem;
+  }
+  @media (min-width: 60rem) {
+    .layout {
+      grid-template-columns: 17rem minmax(0, 1fr);
+      align-items: start;
+    }
+    .filters {
+      position: sticky;
+      top: 1rem;
+      max-height: calc(100vh - 2rem);
+      overflow: auto;
+      padding-right: 0.5rem;
+    }
+  }
+  .field {
+    margin-bottom: 0.9rem;
+    display: grid;
+    gap: 0.2rem;
+  }
+  .field select,
+  .field input {
+    width: 100%;
+  }
+  .hint {
+    margin: 0;
+  }
+  .actions {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+  }
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-bottom: 0.6rem;
+  }
+  .chips:empty {
+    display: none;
+  }
+</style>

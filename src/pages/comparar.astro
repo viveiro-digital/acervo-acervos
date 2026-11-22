@@ -1,0 +1,177 @@
+---
+import Base from '../layouts/Base.astro';
+import Status from '../components/Status.astro';
+import * as V from '../data/vocabulario';
+import { getPublished, formatDate, recordPath } from '../lib/acervos';
+
+const records = await getPublished();
+
+const rows: { label: string; cell: (r: (typeof records)[number]) => string }[] = [
+  { label: 'Território', cell: (r) => [r.city, r.region, ...r.country.map((c) => V.label(V.countries, c))].filter(Boolean).join(', ') },
+  { label: 'Alcance', cell: (r) => V.label(V.geographicScopes, r.geographic_scope) },
+  { label: 'Temas', cell: (r) => r.themes.map((t) => V.label(V.themes, t)).join(', ') || '—' },
+  { label: 'Tipos de acervo', cell: (r) => r.collection_types.map((t) => V.label(V.collectionTypes, t)).join(', ') },
+  { label: 'Formatos', cell: (r) => r.formats.map((f) => V.label(V.formats, f)).join(', ') },
+  { label: 'Período do conteúdo', cell: (r) => r.date_range.label },
+  { label: 'Quem mantém', cell: (r) => `${V.label(V.stewardshipTypes, r.stewardship_or_host.type)}${r.stewardship_or_host.name ? ` — ${r.stewardship_or_host.name}` : ''}` },
+  { label: 'Relação comunitária', cell: (r) => V.label(V.communityEvidenceKinds, r.community_evidence.kind) },
+  { label: 'Acesso', cell: (r) => V.label(V.accessLevels, r.access_level) },
+  { label: 'Direitos', cell: (r) => (r.rights_and_reuse.statement === 'desconhecido' ? 'Desconhecido' : r.rights_and_reuse.statement) },
+  { label: 'Amostra', cell: (r) => `${r.sample.title} — ${r.sample.confirmed_media.map((m) => V.label(V.formats, m)).join(', ') || 'sem mídia confirmada'}` },
+  { label: 'Fontes', cell: (r) => `${r.evidence.length} afirmação(ões) com fonte` },
+  { label: 'Motivo da inclusão', cell: (r) => r.curatorial_reason.pt },
+  { label: 'Lacunas', cell: (r) => r.gaps.join(' · ') || '—' },
+];
+---
+<Base
+  title="Comparar"
+  description="Compare de 2 a 4 registros lado a lado: território, temas, acesso, verificação, evidências e lacunas. Sem ranking."
+  current="comparar"
+>
+  <div class="wrap">
+    <header>
+      <p class="kicker">Lado a lado</p>
+      <h1>Comparar</h1>
+      <p>
+        Escolha de 2 a 4 registros para ver evidências e lacunas lado a lado. Não há nota nem
+        ranking: diferenças de escala, financiamento ou estrutura não medem valor cultural.
+      </p>
+    </header>
+
+    <form id="escolha" class="pick" action="/comparar/" method="get">
+      <fieldset>
+        <legend>Registros (máximo 4)</legend>
+        <ul class="pick-list">
+          {records.map((r) => (
+            <li>
+              <label><input type="checkbox" name="id" value={r.id} /> {r.name}</label>
+            </li>
+          ))}
+        </ul>
+      </fieldset>
+      <p id="aviso" class="meta" role="status" aria-live="polite"></p>
+      <noscript>
+        <p class="callout meta">
+          A seleção precisa de JavaScript. Sem ele, a tabela abaixo mostra todos os registros;
+          role horizontalmente para ver as colunas.
+        </p>
+      </noscript>
+    </form>
+
+    <div class="table-wrap" tabindex="0" role="region" aria-label="Tabela de comparação">
+      <table id="tabela">
+        <caption class="visually-hidden">Comparação de registros selecionados</caption>
+        <thead>
+          <tr>
+            <td></td>
+            {records.map((r) => (
+              <th scope="col" data-col={r.id}>
+                <a href={recordPath(r.id)}>{r.name}</a>
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">Verificação</th>
+            {records.map((r) => (
+              <td data-col={r.id}>
+                <Status status={r.content_status} /><br />
+                <span class="meta">{formatDate(r.last_verified_at)}</span>
+              </td>
+            ))}
+          </tr>
+          {rows.map((row) => (
+            <tr>
+              <th scope="row">{row.label}</th>
+              {records.map((r) => <td data-col={r.id}>{row.cell(r)}</td>)}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <p id="vazio" class="callout" hidden>Selecione pelo menos dois registros para comparar.</p>
+  </div>
+</Base>
+
+<script>
+  const MAX = 4;
+  const form = document.getElementById('escolha') as HTMLFormElement;
+  const boxes = Array.from(form.querySelectorAll<HTMLInputElement>('input[name="id"]'));
+  const table = document.getElementById('tabela') as HTMLTableElement;
+  const empty = document.getElementById('vazio')!;
+  const aviso = document.getElementById('aviso')!;
+  const valid = new Set(boxes.map((b) => b.value));
+
+  function fromUrl(): string[] {
+    const raw = new URLSearchParams(location.search).get('ids') ?? '';
+    return raw.split(',').filter((id) => valid.has(id)).slice(0, MAX);
+  }
+
+  function render(ids: string[]) {
+    for (const b of boxes) {
+      b.checked = ids.includes(b.value);
+      b.disabled = !b.checked && ids.length >= MAX;
+    }
+    const show = ids.length >= 2;
+    table.closest('.table-wrap')!.toggleAttribute('hidden', !show);
+    empty.hidden = show;
+    for (const cell of table.querySelectorAll<HTMLElement>('[data-col]')) {
+      cell.hidden = !ids.includes(cell.dataset.col!);
+    }
+    // ordem das colunas segue a ordem da seleção
+    for (const tr of table.rows) {
+      for (const id of ids) {
+        const c = tr.querySelector(`[data-col="${id}"]`);
+        if (c) tr.appendChild(c);
+      }
+    }
+    aviso.textContent =
+      ids.length >= MAX ? `Limite de ${MAX} registros atingido.` : `${ids.length} selecionado(s).`;
+    const qs = ids.length ? `?ids=${ids.join(',')}` : '';
+    history.replaceState(null, '', location.pathname + qs);
+  }
+
+  let current = fromUrl();
+  render(current);
+  form.addEventListener('change', (e) => {
+    const t = e.target as HTMLInputElement;
+    if (t.checked) current = [...current, t.value].slice(0, MAX);
+    else current = current.filter((id) => id !== t.value);
+    render(current);
+  });
+  form.addEventListener('submit', (e) => e.preventDefault());
+</script>
+
+<style>
+  .pick-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    columns: 16rem;
+    column-gap: 2rem;
+  }
+  .pick-list li {
+    break-inside: avoid;
+    padding: 0.2rem 0;
+  }
+  .pick-list input {
+    width: 1.1rem;
+    height: 1.1rem;
+    vertical-align: -0.15rem;
+  }
+  .table-wrap {
+    overflow-x: auto;
+    border-top: 2px solid var(--rule);
+    margin-top: 1rem;
+  }
+  .table-wrap table {
+    min-width: 40rem;
+  }
+  thead th {
+    font-family: var(--f-display);
+    font-stretch: condensed;
+    font-size: var(--step-1);
+    min-width: 13rem;
+  }
+</style>

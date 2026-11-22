@@ -1,0 +1,8 @@
+---
+import { contentStatuses, contentStatusHelp } from '../data/vocabulario';
+type S = keyof typeof contentStatuses;
+interface Props { status: S; help?: boolean }
+const { status, help = false } = Astro.props;
+---
+<span class={`status status--${status}`} title={contentStatusHelp[status]}>{contentStatuses[status]}</span>
+{help && <span class="meta muted"> — {contentStatusHelp[status]}</span>}

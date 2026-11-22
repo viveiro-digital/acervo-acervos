@@ -1,0 +1,224 @@
+---
+import Base from '../layouts/Base.astro';
+import Status from '../components/Status.astro';
+import ExtLink from '../components/ExtLink.astro';
+import { getCollection } from 'astro:content';
+import * as V from '../data/vocabulario';
+import { getAll, formatDate } from '../lib/acervos';
+
+const all = await getAll();
+const pendentes = all.filter((r) => r.record_status === 'rascunho');
+const fora = (await getCollection('foraDoCatalogo')).map((e) => e.data);
+const statuses = Object.keys(V.contentStatuses) as (keyof typeof V.contentStatuses)[];
+---
+<Base
+  title="Sobre e método"
+  description="Como Acervo Acervos escolhe, verifica e descreve iniciativas e arquivos digitais: critérios, estados de verificação, fontes e limitações."
+  current="sobre"
+>
+  <div class="wrap prose-wrap">
+    <header>
+      <p class="kicker">Sobre o projeto</p>
+      <h1>Sobre e método</h1>
+      <p class="lede">
+        Acervo Acervos é uma interface de descoberta: ajuda a encontrar iniciativas e arquivos
+        que publicam conteúdo digital consultável, com destaque para os independentes,
+        comunitários e ligados a memórias pouco presentes em acervos oficiais. Também inclui
+        acervos institucionais quando o conteúdo é relevante, sempre dizendo quem os mantém.
+      </p>
+    </header>
+
+    <nav class="toc" aria-label="Nesta página">
+      <ol>
+        <li><a href="#posicao">Posição curatorial</a></li>
+        <li><a href="#metodo">Critérios e verificação</a></li>
+        <li><a href="#estados">Estados de verificação</a></li>
+        <li><a href="#linguagem">Linguagem e cuidado</a></li>
+        <li><a href="#pendentes">Pendentes e fora do catálogo</a></li>
+        <li><a href="#limitacoes">Limitações</a></li>
+        <li><a href="#referencias">Referências</a></li>
+      </ol>
+    </nav>
+
+    <section id="posicao" aria-labelledby="h-posicao">
+      <h2 id="h-posicao">Posição curatorial</h2>
+      <p>
+        O ponto de partida é o <cite>Guia dos Arquivos que não Existem: acervos digitais
+        contra-hegemônicos</cite>, organizado por Giselle Beiguelman (FAU-USP, 2026). Na
+        introdução, o Guia propõe entender o arquivo menos como depósito e mais como aquilo que
+        pode ser descrito e interrogado, e resume essa ética em três verbos:
+        <strong>fazer aparecer, fazer ler e fazer relacionar</strong> (Beiguelman, 2026, p. 6–9).
+      </p>
+      <dl class="fields">
+        <dt>Fazer aparecer</dt>
+        <dd>
+          Registrar iniciativas que existem e publicam conteúdo, inclusive fora de sites
+          próprios (Instagram, Google Drive), sem inventar registros para preencher lacunas. As
+          lacunas ficam visíveis: em cada registro, em "O que ainda não sabemos", e nesta página,
+          em "Pendentes".
+        </dd>
+        <dt>Fazer ler</dt>
+        <dd>
+          Cada registro aponta para uma amostra específica, um item que se pode abrir, e diz
+          o que foi visto nela. A descrição da iniciativa fica separada da nossa, e os termos
+          originais são preservados ao lado do vocabulário de busca.
+        </dd>
+        <dt>Fazer relacionar</dt>
+        <dd>
+          Filtros combináveis, comparação lado a lado e relações entre registros com o motivo do
+          vínculo explícito (mesmo país, tema ou tipo de acervo), sem sugerir influência ou
+          causalidade.
+        </dd>
+      </dl>
+      <p>
+        O Guia é usado aqui como lente crítica, não como fonte de categorias universais. Esta
+        plataforma não é centro de autoridade: aponta para a iniciativa de origem e mantém
+        contexto, autoria, procedência e condições de acesso junto ao link.
+      </p>
+    </section>
+
+    <section id="metodo" aria-labelledby="h-metodo">
+      <h2 id="h-metodo">Critérios e verificação</h2>
+      <h3>Entra no catálogo publicado quando</h3>
+      <ul>
+        <li>há conteúdo digital substantivo e navegável, ligado ao Brasil ou à América Latina (inclusive diásporas e iniciativas transnacionais);</li>
+        <li>existe uma <strong>amostra específica</strong>, um item, zine, cartaz, documento ou ficha, que foi aberta e descrita;</li>
+        <li>o registro diz quem mantém o acervo, qual é a relação documentada com comunidades (ou que ela é desconhecida) e quais são as condições de acesso e de direitos.</li>
+      </ul>
+      <h3>Não entra (ou fica como pendente) quando</h3>
+      <ul>
+        <li>só há notícia, página "Sobre", vitrine sem itens, projeto futuro ou perfil social sem conteúdo substantivo;</li>
+        <li>o conteúdo está atrás de cadastro e ninguém da curadoria o consultou ainda;</li>
+        <li>não foi possível abrir uma amostra.</li>
+      </ul>
+      <p>
+        Não é preciso ser independente ou comunitário para entrar. É preciso relevância digital
+        e uma descrição honesta da relação com comunidades e instituições.
+      </p>
+      <h3>Como uma verificação é feita</h3>
+      <p>
+        A página da amostra é aberta em um navegador e o que carregou é anotado: imagem
+        (com dimensões), PDF, player ou só metadados. Registramos data, método e fonte de cada
+        afirmação importante e diferenciamos o que a iniciativa <em>declara</em>, o que a
+        curadoria <em>observou</em> e o que é <em>interpretação</em> nossa. Não baixamos nem
+        copiamos obras.
+      </p>
+      <p class="callout">
+        <strong>Nesta versão</strong>, a primeira rodada de verificações (21 de novembro de
+        2026) foi feita por um agente de IA sob orientação da curadoria. Por isso todos os
+        registros estão marcados para <strong>revisão humana</strong>, que é obrigatória antes
+        de considerar uma verificação concluída.
+      </p>
+    </section>
+
+    <section id="estados" aria-labelledby="h-estados">
+      <h2 id="h-estados">Estados de verificação</h2>
+      <dl class="fields">
+        {statuses.map((s) => (
+          <>
+            <dt><Status status={s} /></dt>
+            <dd>{V.contentStatusHelp[s]}</dd>
+          </>
+        ))}
+      </dl>
+      <p>
+        Uma falha temporária não torna um acervo "inativo". Registros não são apagados: mudam de
+        estado e guardam o histórico, com data e motivo.
+      </p>
+    </section>
+
+    <section id="linguagem" aria-labelledby="h-linguagem">
+      <h2 id="h-linguagem">Linguagem e cuidado</h2>
+      <ul>
+        <li>"Comunitário", "independente", "dissidente", "contra-hegemônico" e "decolonial" não são sinônimos. Só usamos um desses termos quando há evidência para ele.</li>
+        <li>Quem mantém o acervo e a comunidade representada nele são campos separados. Uma instituição não vira "comunitária" porque guarda conteúdo de uma comunidade.</li>
+        <li>Não atribuímos etiquetas de conhecimento tradicional (como TK Labels) em nome de povos. Quando a fonte publica um protocolo, ele é citado.</li>
+        <li>Material sensível, sagrado, pessoal ou restrito não é reproduzido aqui, mesmo quando tem URL pública. Nesses casos, escolhemos amostras que não exponham pessoas ou objetos rituais.</li>
+        <li>Digitalização, acesso público, permissão de reuso e preservação de longo prazo são dimensões diferentes, e nenhuma é presumida.</li>
+        <li>Quando alguém da curadoria tem vínculo com uma iniciativa, isso aparece no registro, e o registro não é destacado na página inicial.</li>
+      </ul>
+    </section>
+
+    <section id="pendentes" aria-labelledby="h-pendentes">
+      <h2 id="h-pendentes">Pendentes e fora do catálogo</h2>
+      <h3>Em revisão (não publicados)</h3>
+      <ul class="plain">
+        {pendentes.map((r) => (
+          <li>
+            <strong>{r.name}</strong> — <Status status={r.content_status} />
+            <br /><span class="meta">{r.review_reason}</span>
+            <br /><ExtLink href={r.initiative_url}>{r.initiative_url}</ExtLink>
+          </li>
+        ))}
+      </ul>
+      <h3>Verificados e deixados de fora</h3>
+      <ul class="plain">
+        {fora.map((f) => (
+          <li>
+            <strong>{f.name}</strong> <span class="meta">(verificado em {formatDate(f.checked_at)})</span>
+            <br />{f.reason}
+            {f.revisit && <><br /><span class="meta muted">{f.revisit}</span></>}
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <section id="limitacoes" aria-labelledby="h-limitacoes">
+      <h2 id="h-limitacoes">Limitações</h2>
+      <ul>
+        <li>O catálogo é pequeno e parcial: reflete as fontes e o tempo desta primeira rodada, não o campo inteiro.</li>
+        <li>Verificar uma amostra não garante que o resto do acervo esteja acessível.</li>
+        <li>Links e mídias mudam. A data de cada verificação vale apenas para aquele dia.</li>
+        <li>Este site preserva seus próprios dados (arquivos versionados e exportáveis), mas não preserva os acervos de origem e não garante a continuidade deles.</li>
+        <li>A interface está em português. A estrutura de dados aceita textos em espanhol e inglês, ainda não preenchidos.</li>
+      </ul>
+    </section>
+
+    <section id="referencias" aria-labelledby="h-referencias">
+      <h2 id="h-referencias">Referências</h2>
+      <p>
+        BEIGUELMAN, Giselle (org.). <cite>Guia dos Arquivos que não Existem: acervos digitais
+        contra-hegemônicos</cite>. São Paulo: FAU-USP, 2026. 131 p. e-ISBN 978-85-8089-187-4.
+        DOI: <ExtLink href="https://doi.org/10.11606/9788580891874">10.11606/9788580891874</ExtLink>.
+        Obra de acesso aberto (Creative Commons).
+      </p>
+      <p>
+        Página do projeto Acervos Digitais e Pesquisa (FAU-USP):
+        <ExtLink href="https://www.acervosdigitais.fau.usp.br/">acervosdigitais.fau.usp.br</ExtLink>.
+      </p>
+    </section>
+  </div>
+</Base>
+
+<style>
+  .prose-wrap {
+    max-width: 54rem;
+  }
+  .lede {
+    font-size: var(--step-1);
+    line-height: 1.4;
+  }
+  section {
+    border-top: 2px solid var(--rule);
+    padding-top: 1rem;
+    margin-top: 2.5rem;
+  }
+  .toc ol {
+    columns: 2 14rem;
+    padding-left: 1.2rem;
+    font-family: var(--f-mono);
+    font-size: var(--step--1);
+  }
+  ul.plain {
+    list-style: none;
+    padding: 0;
+  }
+  ul.plain li {
+    padding: 0.6rem 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  li {
+    margin-bottom: 0.4rem;
+    max-width: var(--measure);
+  }
+</style>
