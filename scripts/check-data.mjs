@@ -2,8 +2,9 @@
 // Verificações de consistência que o schema (src/content.config.ts) não cobre.
 // Não acessa a rede: valida apenas a sintaxe das URLs.
 // Uso: pnpm check:data   (o schema completo é validado por `pnpm build`)
-import { readdirSync, readFileSync } from 'node:fs';
-import { join, basename } from 'node:path';
+import { readdirSync, readFileSync, existsSync } from 'node:fs';
+import { join, basename, resolve, dirname } from 'node:path';
+import { createHash } from 'node:crypto';
 import { YAML } from './_yaml.mjs';
 
 const DIR = 'src/content/acervos';
@@ -14,6 +15,17 @@ const err = (f, m) => errors.push(`${f}: ${m}`);
 const warn = (f, m) => warnings.push(`${f}: ${m}`);
 
 const files = readdirSync(DIR).filter((f) => f.endsWith('.yaml'));
+
+// Checksums das imagens guardadas localmente (integridade dos arquivos próprios).
+const SUMS = 'src/assets/acervos/SHA256SUMS';
+const sums = new Map(
+  existsSync(SUMS)
+    ? readFileSync(SUMS, 'utf8').trim().split('\n').filter(Boolean).map((l) => {
+        const [hash, name] = l.trim().split(/\s+/);
+        return [name, hash];
+      })
+    : [],
+);
 const ids = new Map();
 const oldIds = new Map();
 
@@ -39,6 +51,19 @@ for (const f of files) {
   if (ids.has(r.id)) err(file, `id duplicado (também em ${ids.get(r.id)})`);
   ids.set(r.id, file);
   for (const o of r.previous_ids ?? []) oldIds.set(o, file);
+
+  for (const [i, m] of (r.media ?? []).entries()) {
+    const asset = resolve(dirname(file), m.local_asset ?? '');
+    if (!m.local_asset || !existsSync(asset)) {
+      err(file, `media[${i}].local_asset não encontrado: ${m.local_asset}`);
+      continue;
+    }
+    const expected = sums.get(basename(asset));
+    const actual = createHash('sha256').update(readFileSync(asset)).digest('hex');
+    if (!expected) err(file, `media[${i}]: ${basename(asset)} sem checksum em ${SUMS}`);
+    else if (expected !== actual) err(file, `media[${i}]: checksum de ${basename(asset)} não confere (arquivo alterado?)`);
+    if (!m.license_or_permission) err(file, `media[${i}]: falta license_or_permission`);
+  }
 
   for (const [p, u] of urls(r)) {
     if (u.startsWith('mailto:')) continue;
