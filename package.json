@@ -9,7 +9,11 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
+    "check": "node scripts/check-data.mjs && astro sync",
     "check:data": "node scripts/check-data.mjs",
+    "review": "node scripts/review.mjs",
+    "export": "node scripts/export.mjs",
+    "og": "node scripts/make-og.mjs",
     "astro": "astro"
   },
   "dependencies": {
