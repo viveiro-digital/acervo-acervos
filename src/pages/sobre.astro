@@ -6,34 +6,55 @@ import { siteConfig } from '../site.config';
 ---
 <Base
   title="Sobre"
-  description="O que Acervo Acervos seleciona, como verifica, o que não é, suas limitações e como corrigir um registro. Um projeto do Viveiro Digital."
+  description="Conheça o Acervo Acervos, um catálogo de coleções digitais com foco em arquivos comunitários do Brasil e da América Latina."
   current="sobre"
 >
-  <div class="wrap narrow">
-    <h1>Sobre</h1>
-    <p class="lede">
-      Uma seleção de arquivos e iniciativas do Brasil e da América Latina. Explore zines,
-      cartazes, fotografias e outros materiais nas coleções de origem.
-    </p>
-    <p>
-      Um projeto do <ExtLink href={siteConfig.viveiro.url}>{siteConfig.viveiro.name}</ExtLink>.
-      <a href={sitePath('/metodologia/')}>Conheça a metodologia</a>.
-    </p>
-    <h2 id="corrigir">Corrigir um registro</h2>
-    <p>
-      Iniciativas podem contestar ou corrigir como são descritas, e pedidos de remoção têm
-      prioridade.{' '}
-      {siteConfig.contactUrl ? (
-        <ExtLink href={siteConfig.contactUrl}>Abra uma issue no repositório</ExtLink>
-      ) : (
-        'O canal público ainda não foi publicado.'
-      )}{' '}
-      ou veja <a href={sitePath('/contribuir/')}>como contribuir</a>.
-    </p>
+  <div class="wrap about">
+    <header class="about-intro">
+      <h1>Sobre</h1>
+      <p class="lede">
+        Acervo Acervos ajuda você a encontrar arquivos comunitários do Brasil e da América Latina
+        com coleções disponíveis online.
+      </p>
+    </header>
+
+    <section aria-labelledby="comunitarios">
+      <h2 id="comunitarios">Arquivos comunitários</h2>
+      <p>
+        São iniciativas em que a comunidade participa das decisões sobre o que guardar, como
+        descrever os materiais e como compartilhá-los. Uma coleção pode reunir fotografias de
+        um bairro, jornais de um movimento ou publicações feitas por um coletivo.
+      </p>
+    </section>
+
+    <section aria-labelledby="selecao">
+      <h2 id="selecao">O que entra no catálogo</h2>
+      <p>
+        Priorizamos acervos conduzidos pelas próprias comunidades. O catálogo também reúne
+        coleções mantidas por instituições. Cada ficha indica quem cuida do acervo e leva
+        à coleção de origem.
+      </p>
+      <p>
+        Para entrar no catálogo, a iniciativa precisa ter material que se possa abrir online.
+        Pode ser uma coleção em site próprio, rede social ou outra plataforma.
+        <a href={sitePath('/metodologia/')}>Veja como fazemos a seleção</a>.
+      </p>
+    </section>
+
+    <section aria-labelledby="corrigir">
+      <h2 id="corrigir">Contribua com o catálogo</h2>
+      <p>
+        Conhece uma coleção que deveria estar aqui? Você pode
+        <a href={sitePath('/contribuir/')}>sugerir um acervo, corrigir uma descrição ou pedir a remoção de uma ficha</a>.
+      </p>
+    </section>
+
+    <p class="meta muted">Um projeto do <ExtLink href={siteConfig.viveiro.url}>{siteConfig.viveiro.name}</ExtLink>.</p>
   </div>
 </Base>
 <style>
-  .narrow { max-width: 78rem; }
+  .about-intro, section { max-width: 48rem; }
   .lede { font-size: var(--step-1); line-height: 1.4; }
-  h2 { margin-top: 2rem; }
+  section { border-top: 1px solid var(--rule); padding-top: 1rem; margin: 1.6rem 0; }
+  section h2 { font-size: var(--step-1); }
 </style>
